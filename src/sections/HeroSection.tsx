@@ -19,7 +19,7 @@ export default function HeroSection() {
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <a href="#enquiry" className="magnetic-btn rounded-full border border-white/20 px-6 py-3 text-sm tracking-[0.08em]">Send Enquiry</a>
-            <a href="https://wa.me/919819156358" className="rounded-full border border-white/20 px-6 py-3 text-sm tracking-[0.08em]">WhatsApp</a>
+            <a href="https://wa.me/919819156358?text=Hello%20D.P.%20Jewels%2C%20I%20am%20interested%20in%20a%20diamond%20enquiry." className="rounded-full border border-white/20 px-6 py-3 text-sm tracking-[0.08em]">WhatsApp</a>
             <a href="#about" className="rounded-full border border-white/20 px-6 py-3 text-sm tracking-[0.08em]">Explore</a>
           </div>
         </motion.div>
@@ -30,4 +30,5 @@ export default function HeroSection() {
     </section>
   );
 }
+
 
