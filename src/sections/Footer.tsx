@@ -1,4 +1,8 @@
-﻿export default function Footer() {
+﻿import { Camera, MessageCircle } from "lucide-react";
+
+const WHATSAPP_LINK = "https://wa.me/919819156358?text=Hello%20D.P.%20Jewels%2C%20I%20am%20interested%20in%20a%20diamond%20enquiry.";
+
+export default function Footer() {
   return (
     <footer className="relative border-t border-slate-600/40 bg-[linear-gradient(160deg,#07111F,#0F172A_55%,#111827)] px-5 py-12 text-[#F8F4EC]">
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(203,213,225,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(203,213,225,0.08)_1px,transparent_1px)] bg-[size:72px_72px] opacity-30" />
@@ -26,10 +30,13 @@
         </div>
         <div>
           <p className="text-xs tracking-[0.12em] text-slate-300">Social</p>
-          <div className="mt-3 space-y-2 text-sm text-slate-200">
-            <p>LinkedIn (Placeholder)</p>
-            <p>Instagram (Placeholder)</p>
-            <p>YouTube (Placeholder)</p>
+          <div className="mt-3 space-y-3 text-sm text-slate-200">
+            <a href="https://instagram.com" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2">
+              <Camera size={16} /> Instagram
+            </a>
+            <a href={WHATSAPP_LINK} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2">
+              <MessageCircle size={16} /> WhatsApp
+            </a>
           </div>
         </div>
       </div>

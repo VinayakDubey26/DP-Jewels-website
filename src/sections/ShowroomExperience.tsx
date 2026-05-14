@@ -158,8 +158,8 @@ export default function ShowroomExperience() {
       <section className="bg-[var(--bg-section)] py-14">
         <div className="mx-auto w-[min(1220px,94%)]">
           <h2 className="font-serif text-4xl text-[var(--text-main)] md:text-5xl">Trusted by Buyers</h2>
-          <div className="mt-7 rounded-3xl border border-slate-500/40 bg-[#111827] p-8">
-            <p className="text-[#CBD5E1]">Certifications and affiliations can be added here once provided.</p>
+          <div className="mt-7 rounded-3xl border border-[var(--panel-border)] bg-[var(--panel-bg)] p-8 shadow-[0_8px_28px_rgba(148,163,184,0.16)]">
+            <p className="text-[var(--text-muted)]">Certifications and affiliations can be added here once provided.</p>
           </div>
         </div>
       </section>
@@ -253,3 +253,4 @@ export default function ShowroomExperience() {
     </div>
   );
 }
+
