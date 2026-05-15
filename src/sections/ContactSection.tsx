@@ -24,12 +24,13 @@ export default function ContactSection() {
           <div className="flex flex-col gap-3">
             <a href="tel:02235963936" className="flex items-center justify-center gap-2 rounded-full border border-white/20 px-4 py-3 text-sm"><Phone size={16} /> Call Office</a>
             <a href="mailto:ppsonecha@gmail.com" className="flex items-center justify-center gap-2 rounded-full border border-white/20 px-4 py-3 text-sm"><Mail size={16} /> Email Enquiry</a>
-            <a href="https://wa.me/919819156358?text=Hello%20D.P.%20Jewels%2C%20I%20am%20interested%20in%20a%20diamond%20enquiry." className="flex items-center justify-center gap-2 rounded-full border border-white/20 px-4 py-3 text-sm"><MessageCircle size={16} /> WhatsApp Enquiry</a>
+            <a href="https://wa.me/918356810826?text=Hello%20D.P.%20Jewels%2C%20I%20am%20interested%20in%20a%20diamond%20enquiry." className="flex items-center justify-center gap-2 rounded-full border border-white/20 px-4 py-3 text-sm"><MessageCircle size={16} /> WhatsApp Enquiry</a>
           </div>
         </article>
       </div>
     </section>
   );
 }
+
 
 

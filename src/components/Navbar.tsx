@@ -1,27 +1,24 @@
-﻿import { Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
-import MagneticButton from "./MagneticButton";
 
 const links = [
-  { label: "OUR STORY", id: "our-story" },
+  { label: "HOME", id: "home" },
+  { label: "ABOUT", id: "about" },
+  { label: "DIAMONDS", id: "diamonds" },
   { label: "OPERATIONS", id: "operations" },
-  { label: "SUSTAINABILITY", id: "sustainability" },
-  { label: "MEDIA", id: "media" },
   { label: "CONTACT US", id: "contact" },
 ];
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [active, setActive] = useState("our-story");
+  const [active, setActive] = useState("home");
 
   useEffect(() => {
     const onScroll = () => {
-      setScrolled(window.scrollY > 24);
       const checkpoints = links
         .map((link) => document.getElementById(link.id))
         .filter((node): node is HTMLElement => Boolean(node));
-      let current = "our-story";
+      let current = "home";
       checkpoints.forEach((node) => {
         if (window.scrollY >= node.offsetTop - 180) current = node.id;
       });
@@ -34,35 +31,43 @@ export default function Navbar() {
   }, []);
 
   return (
-    <header className={`fixed inset-x-0 top-0 z-50 transition-all ${scrolled ? "py-3" : "py-5"}`}>
-      <nav
-        className={`mx-auto flex w-[min(1220px,94%)] items-center justify-between rounded-full border px-5 py-3 transition-all md:px-7 ${
-          scrolled ? "border-[var(--panel-border)] bg-[var(--surface-nav)] backdrop-blur-xl" : "border-[var(--panel-border)]/70 bg-transparent"
-        }`}
-      >
-        <a href="#home" className="font-serif text-base tracking-[0.2em] md:text-lg">D.P. JEWELS</a>
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-[#D7DEE8] bg-[#FAF7F2]/95 backdrop-blur">
+      <nav className="mx-auto flex w-[min(1220px,94%)] items-center justify-between px-2 py-2 md:px-0 md:py-2.5">
+        <a href="#home" className="inline-flex items-center">
+          <img src="/logo-black-tight.png" alt="D.P. Jewels" className="h-[52px] w-auto object-contain md:h-[64px]" />
+        </a>
+
         <div className="hidden items-center gap-6 lg:flex">
           {links.map((item) => (
-            <a key={item.id} href={`#${item.id}`} className="group text-xs tracking-[0.12em] text-[var(--text-muted)]">
+            <a key={item.id} href={`#${item.id}`} className="group text-xs tracking-[0.12em] text-[#111827]">
               {item.label}
-              <span className={`mt-1 block h-px origin-left bg-[var(--accent-soft)] transition-transform ${active === item.id ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"}`} />
+              <span className={`mt-1 block h-px origin-left bg-[#334155] transition-transform ${active === item.id ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"}`} />
             </a>
           ))}
         </div>
-        <div className="hidden items-center gap-3 lg:flex">
-          <MagneticButton href="#enquiry" className="px-5 py-2 text-xs tracking-[0.12em]">ENQUIRE NOW</MagneticButton>
+
+        <div className="hidden lg:flex">
+          <a href="#contact" className="inline-flex rounded-full border border-[#D7DEE8] bg-white px-5 py-2 text-xs tracking-[0.12em] text-[#111827] transition-colors hover:bg-[#F8F4EC]">
+            ENQUIRE NOW
+          </a>
         </div>
-        <button className="lg:hidden" onClick={() => setOpen((v) => !v)} aria-label="menu">
+
+        <button className="text-[#111827] lg:hidden" onClick={() => setOpen((v) => !v)} aria-label="menu">
           {open ? <X /> : <Menu />}
         </button>
       </nav>
+
       {open && (
-        <div className="mx-auto mt-2 w-[min(1220px,94%)] rounded-3xl border border-[var(--panel-border)] bg-[var(--surface-nav)] p-5 backdrop-blur-xl lg:hidden">
+        <div className="mx-auto mb-3 w-[min(1220px,94%)] rounded-2xl border border-[#D7DEE8] bg-white p-5 shadow-[0_8px_20px_rgba(15,23,42,0.08)] lg:hidden">
           <div className="flex flex-col gap-4">
             {links.map((item) => (
-              <a key={item.id} href={`#${item.id}`} onClick={() => setOpen(false)} className="text-sm tracking-[0.1em] text-[var(--text-muted)]">{item.label}</a>
+              <a key={item.id} href={`#${item.id}`} onClick={() => setOpen(false)} className="text-sm tracking-[0.1em] text-[#111827]">
+                {item.label}
+              </a>
             ))}
-            <a href="#enquiry" onClick={() => setOpen(false)} className="mt-2 inline-flex rounded-full border border-[var(--panel-border)] px-4 py-2 text-sm">ENQUIRE NOW</a>
+            <a href="#contact" onClick={() => setOpen(false)} className="mt-2 inline-flex w-fit rounded-full border border-[#D7DEE8] bg-[#F8F4EC] px-4 py-2 text-sm text-[#111827]">
+              ENQUIRE NOW
+            </a>
           </div>
         </div>
       )}
