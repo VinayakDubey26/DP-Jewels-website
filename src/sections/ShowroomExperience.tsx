@@ -1,6 +1,9 @@
 import { MessageCircle, Phone } from "lucide-react";
 import { motion, useInView } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
+import bgImage from "../assets/bg.jpg";
+import singleDiamond from "../assets/single-diamonds.jpg";
+import randomDiamonds from "../assets/random-diamonds.jpg";
 
 const WHATSAPP_LINK = "https://wa.me/918356810826?text=Hello%20D.P.%20Jewels%2C%20I%20am%20interested%20in%20a%20diamond%20enquiry.";
 
@@ -56,26 +59,17 @@ function Counter({ value, suffix = "", label }: { value: number; suffix?: string
 export default function ShowroomExperience() {
   return (
     <div className="text-[#111827]">
-      <section id="home" className="relative overflow-hidden pt-28 md:pt-32">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_82%_12%,rgba(226,232,240,0.65),transparent_38%),linear-gradient(160deg,#FAF7F2,#F8F4EC)]" />
-        <div className="relative mx-auto grid w-[min(1220px,94%)] items-center gap-10 py-16 lg:grid-cols-[1fr_1.05fr]">
-          <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.75 }}>
-            <p className="text-xs tracking-[0.2em] text-[#475569]">SINCE 1999</p>
-            <h1 className="mt-4 font-serif text-4xl leading-tight md:text-6xl">Diamond Traders, Importers & Exporters</h1>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-[#334155]">
+      <section id="home" className="relative flex min-h-screen items-end overflow-hidden">
+        <img src={bgImage} alt="Premium jewellery background" className="absolute inset-0 h-full w-full object-cover" />
+        <div className="absolute inset-0 bg-black/35" />
+        <div className="relative mx-auto w-[min(1220px,94%)] pb-14 pt-32 md:pb-20 md:pt-36">
+          <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.75 }} className="max-w-[620px] text-white">
+            <h1 className="font-serif text-4xl leading-tight md:text-6xl">Diamond Traders, Importers & Exporters</h1>
+            <p className="mt-5 max-w-xl text-base leading-relaxed text-[#E2E8F0] md:text-lg">
               Trusted sourcing from Bharat Diamond Bourse with 25+ years of precision, transparency, and global export focus.
             </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <a href="#diamonds" className="rounded-full border border-[#D7DEE8] bg-white px-6 py-3 text-sm tracking-[0.1em] text-[#111827]">EXPLORE DIAMONDS</a>
-              <a href={WHATSAPP_LINK} className="rounded-full border border-[#111827] bg-[#111827] px-6 py-3 text-sm tracking-[0.1em] text-white">WHATSAPP ENQUIRY</a>
-            </div>
-          </motion.div>
-
-          <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.1 }} className="rounded-[2rem] border border-[#D7DEE8] bg-white p-5">
-            <div className="aspect-[16/10] rounded-[1.4rem] border border-dashed border-[#D7DEE8] bg-[linear-gradient(145deg,rgba(255,255,255,0.9),rgba(226,232,240,0.55))] p-5">
-              <div className="flex h-full items-center justify-center rounded-[1rem] border border-[#D7DEE8] bg-[#FAF7F2] text-center">
-                <p className="max-w-xs text-sm tracking-[0.08em] text-[#475569]">Premium Diamond Hero Composition Placeholder</p>
-              </div>
+            <div className="mt-8">
+              <a href="#diamonds" className="inline-flex rounded-sm border border-white/70 bg-white/10 px-6 py-3 text-sm tracking-[0.1em] text-white backdrop-blur-sm transition-colors hover:bg-white hover:text-[#111827]">EXPLORE DIAMONDS</a>
             </div>
           </motion.div>
         </div>
@@ -103,8 +97,14 @@ export default function ShowroomExperience() {
           <h2 className="mt-3 font-serif text-4xl md:text-5xl">Diamond Shapes & Selections</h2>
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
             {diamondShapes.map((shape) => (
-              <article key={shape} className="rounded-2xl border border-[#D7DEE8] bg-white p-4">
-                <div className="mb-4 aspect-square rounded-xl border border-dashed border-[#D7DEE8] bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.9),rgba(226,232,240,0.65))]" />
+              <article key={shape} className="group overflow-hidden rounded-2xl border border-[#D7DEE8] bg-white p-4 shadow-[0_8px_20px_rgba(15,23,42,0.06)] transition-shadow hover:shadow-[0_12px_24px_rgba(15,23,42,0.1)]">
+                <div className="mb-4 aspect-square overflow-hidden rounded-xl">
+                  <img
+                    src={singleDiamond}
+                    alt={`${shape} diamond`}
+                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.05]"
+                  />
+                </div>
                 <h3 className="font-serif text-2xl">{shape}</h3>
                 <a href={WHATSAPP_LINK} className="mt-4 inline-flex rounded-full border border-[#111827] px-4 py-2 text-xs tracking-[0.1em] text-[#111827]">ENQUIRE</a>
               </article>
@@ -114,13 +114,15 @@ export default function ShowroomExperience() {
           <div className="mt-10">
             <h3 className="font-serif text-3xl">Gallery Preview</h3>
             <div className="mt-4 grid gap-4 md:grid-cols-3">
-              {[1, 2, 3].map((i) => (
-                <div key={i} className="aspect-[4/3] rounded-2xl border border-dashed border-[#D7DEE8] bg-[linear-gradient(145deg,#FFFFFF,#F3F4F6)] p-4">
-                  <div className="flex h-full items-center justify-center rounded-xl border border-[#E2E8F0] bg-[#FAF7F2] text-sm text-[#475569]">
-                    Diamond Gallery Placeholder {i}
-                  </div>
-                </div>
-              ))}
+              <div className="group aspect-[4/3] overflow-hidden rounded-2xl border border-[#D7DEE8] bg-white shadow-[0_8px_20px_rgba(15,23,42,0.06)]">
+                <img src={randomDiamonds} alt="Diamond gallery image one" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" />
+              </div>
+              <div className="group aspect-[4/3] overflow-hidden rounded-2xl border border-[#D7DEE8] bg-white shadow-[0_8px_20px_rgba(15,23,42,0.06)]">
+                <img src={randomDiamonds} alt="Diamond gallery image two" className="h-full w-full object-cover object-[60%_50%] transition-transform duration-700 group-hover:scale-[1.04]" />
+              </div>
+              <div className="group aspect-[4/3] overflow-hidden rounded-2xl border border-[#D7DEE8] bg-white shadow-[0_8px_20px_rgba(15,23,42,0.06)]">
+                <img src={randomDiamonds} alt="Diamond gallery image three" className="h-full w-full object-cover object-[35%_50%] transition-transform duration-700 group-hover:scale-[1.04]" />
+              </div>
             </div>
           </div>
         </div>
@@ -156,6 +158,18 @@ export default function ShowroomExperience() {
             <p className="mt-4 text-[#334155]">
               Every enquiry is handled with professionalism, confidentiality, and transparent communication from requirement to confirmation.
             </p>
+          </article>
+        </div>
+        <div className="mx-auto mt-6 grid w-[min(1220px,94%)] gap-6 lg:grid-cols-[1.1fr_0.9fr]">
+          <article className="overflow-hidden rounded-3xl border border-[#D7DEE8] bg-white shadow-[0_8px_20px_rgba(15,23,42,0.06)]">
+            <div className="group aspect-[16/9] overflow-hidden">
+              <img src={randomDiamonds} alt="Premium diamond tray composition" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]" />
+            </div>
+          </article>
+          <article className="overflow-hidden rounded-3xl border border-[#D7DEE8] bg-white shadow-[0_8px_20px_rgba(15,23,42,0.06)]">
+            <div className="group aspect-[4/3] overflow-hidden">
+              <img src={singleDiamond} alt="Single diamond with precision tools" className="h-full w-full object-cover object-[62%_48%] transition-transform duration-700 group-hover:scale-[1.03]" />
+            </div>
           </article>
         </div>
       </section>

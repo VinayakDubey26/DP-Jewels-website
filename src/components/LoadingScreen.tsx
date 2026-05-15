@@ -9,7 +9,7 @@ export default function LoadingScreen({ done }: { done: boolean }) {
       className={`fixed inset-0 z-[100] flex items-center justify-center bg-white ${done ? "pointer-events-none" : ""}`}
     >
       <motion.img
-        src="/logo-black-tight.png"
+        src="/logo-black.png"
         alt="D.P. Jewels"
         className="h-auto w-[min(600px,86vw)] object-contain"
         initial={{ opacity: 0, scale: 0.96 }}
