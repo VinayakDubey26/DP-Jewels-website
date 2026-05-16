@@ -33,7 +33,7 @@ export default function Navbar() {
   }, []);
 
   return (
-    <header className={`fixed inset-x-0 top-0 z-50 border-b transition-all ${scrolled ? "border-white/10 bg-[#050505]/95 backdrop-blur" : "border-transparent bg-transparent"}`}>
+    <header className={`fixed inset-x-0 top-0 z-50 border-b transition-all duration-500 ease-out ${scrolled ? "border-white/10 bg-[#050505]/92 backdrop-blur-md" : "border-transparent bg-transparent"}`}>
       <nav className="mx-auto flex w-[min(1220px,94%)] items-center justify-between px-2 py-2 md:px-0 md:py-2.5">
         <a href="#home" className="inline-flex items-center">
           <img src="/logo-white.png" alt="D.P. Jewels" className="h-[52px] w-auto object-contain md:h-[64px]" />

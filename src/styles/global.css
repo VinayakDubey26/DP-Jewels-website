@@ -14,7 +14,10 @@
   --surface-nav: rgba(250, 247, 242, 0.88);
 }
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 88px;
+}
 
 body {
   margin: 0;
@@ -148,7 +151,10 @@ body {
 }
 
 @media (max-width: 768px) {
-  html { scroll-behavior: auto; }
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+  }
   .hero-facet-overlay { width: 20rem; height: 20rem; right: -30%; bottom: -6%; opacity: 0.6; }
   .floating-wa { width: 48px; height: 48px; right: 14px; bottom: calc(14px + env(safe-area-inset-bottom)); }
 }
