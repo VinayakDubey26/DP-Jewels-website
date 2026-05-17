@@ -1,5 +1,5 @@
 import { MessageCircle, Phone } from "lucide-react";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import bgImage from "../assets/bg.jpg";
 import diamondRound from "../assets/shaped/diamond_round.png";
@@ -15,6 +15,26 @@ import diamondHeart from "../assets/shaped/diamond_heart.png";
 import indiaMap from "../assets/india.png";
 
 const WHATSAPP_LINK = "https://wa.me/918356810826?text=Hello%20D.P.%20Jewels%2C%20I%20am%20interested%20in%20a%20diamond%20enquiry.";
+const CINEMATIC_EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
+const sectionReveal = {
+  initial: { opacity: 0, y: 30 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, amount: 0.2 },
+  transition: { duration: 1.12, ease: CINEMATIC_EASE },
+};
+const staggerContainer = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.12,
+      delayChildren: 0.06,
+    },
+  },
+};
+const staggerItem = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0, transition: { duration: 1, ease: CINEMATIC_EASE } },
+};
 
 const diamondShapes = [
   "Round",
@@ -105,12 +125,12 @@ const nodes = {
 
 const routes = {
   desktop: {
-    indiaTop: "M360 286 C362 212 430 142 417 41",
-    indiaSouth: "M360 286 Q394 366 430 461",
-    indiaNorthEast: "M360 286 Q500 238 696 176",
-    indiaNorthEastShort: "M360 286 Q452 244 508 191",
-    indiaNorthEastInner: "M360 286 L444 142",
-    indiaSouthEastInner: "M360 286 Q446 300 499 353",
+    indiaTop: "M360 286 C364 216 428 150 417 41",
+    indiaSouth: "M360 286 Q392 368 430 461",
+    indiaNorthEast: "M360 286 Q498 236 696 176",
+    indiaNorthEastShort: "M360 286 Q448 242 508 191",
+    indiaNorthEastInner: "M360 286 Q406 218 444 142",
+    indiaSouthEastInner: "M360 286 Q438 304 499 353",
     dubai: "M360 286 Q270 194 150 136",
     london: "M360 286 Q224 122 96 24",
     canada: "M360 286 Q192 172 54 102",
@@ -118,12 +138,12 @@ const routes = {
     hongKong: "M360 286 Q620 320 912 248",
   },
   mobile: {
-    indiaTop: "M354 286 C356 216 422 148 411 51",
-    indiaSouth: "M354 286 Q386 362 422 451",
-    indiaNorthEast: "M354 286 Q486 240 680 182",
-    indiaNorthEastShort: "M354 286 Q442 246 496 189",
-    indiaNorthEastInner: "M354 286 L447 142",
-    indiaSouthEastInner: "M354 286 Q430 304 471 344",
+    indiaTop: "M354 286 C358 220 420 154 411 51",
+    indiaSouth: "M354 286 Q384 362 422 451",
+    indiaNorthEast: "M354 286 Q484 238 680 182",
+    indiaNorthEastShort: "M354 286 Q438 244 496 189",
+    indiaNorthEastInner: "M354 286 Q398 220 447 142",
+    indiaSouthEastInner: "M354 286 Q424 304 471 344",
     dubai: "M354 286 Q266 200 166 150",
     london: "M354 286 Q234 138 128 56",
     canada: "M354 286 Q208 182 90 120",
@@ -131,6 +151,13 @@ const routes = {
     hongKong: "M354 286 Q570 316 826 248",
   },
 };
+
+function getCircularOffset(index: number, activeIndex: number, total: number) {
+  let diff = index - activeIndex;
+  if (diff > total / 2) diff -= total;
+  if (diff < -total / 2) diff += total;
+  return diff;
+}
 
 function Counter({ value, suffix = "", label }: { value: number; suffix?: string; label: string }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -152,7 +179,7 @@ function Counter({ value, suffix = "", label }: { value: number; suffix?: string
   }, [inView, value]);
 
   return (
-    <div ref={ref} className="rounded-2xl border border-[#D7DEE8] bg-white p-5">
+    <div ref={ref} className="rounded-2xl bg-white/90 p-6 shadow-[0_10px_24px_rgba(15,23,42,0.08)]">
       <p className="font-serif text-4xl text-[#111827]">{count.toLocaleString()}{suffix}</p>
       <p className="mt-2 text-sm tracking-[0.08em] text-[#475569]">{label}</p>
     </div>
@@ -160,45 +187,77 @@ function Counter({ value, suffix = "", label }: { value: number; suffix?: string
 }
 
 export default function ShowroomExperience() {
-  const [activeDiamond, setActiveDiamond] = useState<string | null>(null);
-  const [hoveredDiamond, setHoveredDiamond] = useState<string | null>(null);
+  const [activeDiamondIndex, setActiveDiamondIndex] = useState(0);
+  const heroRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
+  const heroY = useTransform(scrollYProgress, [0, 1], [0, -26]);
+  const heroScale = useTransform(scrollYProgress, [0, 1], [1.02, 1.06]);
+  const heroOverlayOpacity = useTransform(scrollYProgress, [0, 1], [0.92, 1]);
+  const heroContentStagger = {
+    hidden: {},
+    show: {
+      transition: {
+        staggerChildren: 0.16,
+        delayChildren: 0.14,
+      },
+    },
+  };
+  const heroItem = {
+    hidden: { opacity: 0, y: 24 },
+    show: { opacity: 1, y: 0, transition: { duration: 1.05, ease: CINEMATIC_EASE } },
+  };
+  const activeDiamond = diamondShapes[activeDiamondIndex];
+  const goPrevDiamond = () => setActiveDiamondIndex((prev) => (prev - 1 + diamondShapes.length) % diamondShapes.length);
+  const goNextDiamond = () => setActiveDiamondIndex((prev) => (prev + 1) % diamondShapes.length);
 
   return (
     <div className="text-[#111827]">
-      <section id="home" className="relative flex min-h-screen items-end overflow-hidden">
-        <img src={bgImage} alt="Premium jewellery background" className="absolute inset-0 h-full w-full object-cover" />
-        <div className="absolute inset-0 bg-black/35" />
-        <div className="relative mx-auto w-[min(1220px,94%)] pb-14 pt-32 md:pb-20 md:pt-36">
-          <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.75 }} className="max-w-[620px] text-white">
-            <h1 className="font-serif text-4xl leading-tight md:text-6xl">Diamond Traders, Importers & Exporters</h1>
-            <p className="mt-5 max-w-xl text-base leading-relaxed text-[#E2E8F0] md:text-lg">
+      <section ref={heroRef} id="home" className="relative flex min-h-screen items-end overflow-hidden bg-[#040816]">
+        <motion.img src={bgImage} alt="Premium jewellery background" className="absolute inset-0 h-full w-full object-cover saturate-[0.86] contrast-[1.08] brightness-[0.68]" style={{ y: heroY, scale: heroScale }} />
+        <motion.div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(4,8,22,0.48)_0%,rgba(4,8,22,0.66)_38%,rgba(4,8,22,0.84)_100%)]" style={{ opacity: heroOverlayOpacity }} animate={{ opacity: [0.9, 1, 0.92] }} transition={{ duration: 12, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }} />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_52%_46%,rgba(112,132,168,0.12)_0%,rgba(4,8,22,0)_46%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,rgba(0,0,0,0)_34%,rgba(0,0,0,0.36)_100%)]" />
+        <div className="pointer-events-none absolute inset-0 opacity-[0.08] [background-image:radial-gradient(rgba(255,255,255,0.34)_0.5px,transparent_0.5px)] [background-size:3px_3px]" />
+        <motion.div
+          className="pointer-events-none absolute -right-[20%] top-[8%] h-[36rem] w-[36rem] rounded-full bg-[radial-gradient(circle,rgba(162,182,214,0.1)_0%,rgba(162,182,214,0)_72%)] blur-3xl"
+          animate={{ x: [0, -18, 0], y: [0, 12, 0] }}
+          transition={{ duration: 18, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+        />
+        <div className="relative mx-auto w-[min(1220px,94%)] pb-20 pt-36 md:pb-28 md:pt-44">
+          <motion.div variants={heroContentStagger} initial="hidden" animate="show" className="max-w-[700px] text-white">
+            <motion.h1 variants={heroItem} className="font-serif text-[2.6rem] leading-[1.02] md:text-[4.75rem]">Diamond Traders, Importers & Exporters</motion.h1>
+            <motion.p variants={heroItem} className="mt-7 max-w-[34rem] text-base leading-relaxed text-[#e2e8f0]/88 md:text-lg">
               Trusted sourcing from Bharat Diamond Bourse with 25+ years of precision, transparency, and global export focus.
-            </p>
-            <div className="mt-8">
-              <a href="#diamonds" className="inline-flex rounded-sm border border-white/70 bg-white/10 px-6 py-3 text-sm tracking-[0.1em] text-white backdrop-blur-sm transition-colors hover:bg-white hover:text-[#111827]">EXPLORE DIAMONDS</a>
-            </div>
+            </motion.p>
+            <motion.div variants={heroItem} className="mt-10">
+              <a href="#diamonds" className="inline-flex rounded-sm border border-white/45 bg-white/10 px-6 py-3 text-sm tracking-[0.1em] text-white backdrop-blur-sm transition-all duration-700 hover:-translate-y-[2px] hover:border-white/70 hover:bg-white/95 hover:text-[#111827] hover:shadow-[0_14px_30px_rgba(0,0,0,0.24)]">EXPLORE DIAMONDS</a>
+            </motion.div>
           </motion.div>
         </div>
       </section>
 
-      <motion.section id="about" className="bg-[#FAF7F2] py-14" initial={{ opacity: 0, y: 22 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.65 }}>
-        <div className="mx-auto w-[min(1220px,94%)]">
-          <p className="text-xs tracking-[0.2em] text-[#475569]">ABOUT D.P. JEWELS</p>
-          <h2 className="mt-3 font-serif text-4xl md:text-5xl">Built on Trust, Since 1999</h2>
-          <p className="mt-5 max-w-4xl leading-relaxed text-[#334155]">
-            With 25+ years of experience, D.P. Jewels operates from Bharat Diamond Bourse, Mumbai, serving India and international buyers through transparent dealings, refined sourcing, and consistent export execution.
-          </p>
-          <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+      <motion.section id="about" className="bg-[#FAF7F2] py-[5.75rem] md:py-[7.25rem]" {...sectionReveal}>
+        <motion.div className="mx-auto grid w-[min(1220px,94%)] gap-12 lg:grid-cols-[1.12fr_0.88fr] lg:items-end" variants={staggerContainer} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}>
+          <motion.article variants={staggerItem}>
+            <motion.p className="text-xs tracking-[0.22em] text-[#475569]" variants={staggerItem}>ABOUT D.P. JEWELS</motion.p>
+            <motion.h2 className="mt-5 max-w-[14ch] font-serif text-4xl leading-[1.04] md:text-[3.45rem]" variants={staggerItem}>Built on Trust, Since 1999</motion.h2>
+            <motion.p className="mt-8 max-w-[62ch] text-[1.02rem] leading-[1.95] text-[#334155]" variants={staggerItem}>
+              With 25+ years of experience, D.P. Jewels operates from Bharat Diamond Bourse, Mumbai, serving India and international buyers through transparent dealings, refined sourcing, and consistent export execution.
+            </motion.p>
+          </motion.article>
+          <motion.div className="grid gap-8 sm:grid-cols-2 lg:translate-y-4" variants={staggerContainer}>
             <Counter value={25} suffix="+" label="Years of Experience" />
             <Counter value={200000} suffix="+" label="Carats Sold" />
             <Counter value={10} suffix="+" label="Markets Across India" />
             <Counter value={100} suffix="%" label="Global Export Focus" />
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </motion.section>
 
-      <motion.section id="diamonds" className="relative min-h-[88vh] overflow-hidden bg-[linear-gradient(180deg,#121418_0%,#0d1014_100%)] py-16 md:py-24" initial={{ opacity: 0, y: 22 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.65 }}>
-        <div className="mx-auto w-[min(1240px,94%)]">
+      <motion.section id="diamonds" className="relative min-h-screen overflow-hidden bg-[linear-gradient(180deg,#061024_0%,#040816_48%,#030611_100%)] py-[5.5rem] md:py-[7rem]" {...sectionReveal}>
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_56%,rgba(224,233,245,0.09)_0%,rgba(224,233,245,0)_44%)]" />
+        <div className="pointer-events-none absolute inset-0 opacity-[0.1] [background-image:radial-gradient(rgba(255,255,255,0.26)_0.35px,transparent_0.35px)] [background-size:3px_3px]" />
+        <div className="mx-auto w-[min(1320px,94%)]">
           <p className="text-xs tracking-[0.22em] text-[#aeb7c5]">DIAMONDS</p>
           <h2 className="mt-5 font-serif text-4xl text-[#f7f2e8] md:text-6xl">Diamond Shapes & Selections</h2>
           <p className="mt-5 max-w-2xl text-sm leading-relaxed tracking-[0.03em] text-[#c8d0dc] md:text-base">
@@ -207,85 +266,126 @@ export default function ShowroomExperience() {
             Precision sourced from Bharat Diamond Bourse
           </p>
 
-          <div className="mt-14 hidden md:grid md:grid-cols-5 md:gap-x-8 md:gap-y-14">
-            {diamondShapes.map((shape) => {
-              const isHovered = hoveredDiamond === shape;
-              const fadeOthers = hoveredDiamond && hoveredDiamond !== shape;
+          <div className="relative mt-[4.5rem] hidden h-[560px] overflow-hidden md:block">
+            <button
+              type="button"
+              aria-label="Previous diamond"
+              onClick={goPrevDiamond}
+              className="absolute left-2 top-1/2 z-20 -translate-y-1/2 rounded-full border border-white/24 bg-white/[0.06] px-3 py-2 text-[#dbe4f2] transition-all duration-500 hover:bg-white/[0.14]"
+            >
+              {"<"}
+            </button>
+            <button
+              type="button"
+              aria-label="Next diamond"
+              onClick={goNextDiamond}
+              className="absolute right-2 top-1/2 z-20 -translate-y-1/2 rounded-full border border-white/24 bg-white/[0.06] px-3 py-2 text-[#dbe4f2] transition-all duration-500 hover:bg-white/[0.14]"
+            >
+              {">"}
+            </button>
+            {diamondShapes.map((shape, idx) => {
+              const offset = getCircularOffset(idx, activeDiamondIndex, diamondShapes.length);
+              const isActive = offset === 0;
+              const absOffset = Math.abs(offset);
+              if (absOffset > 1) return null;
+              const baseOpacity = absOffset === 0 ? 1 : absOffset === 1 ? 0.42 : absOffset === 2 ? 0.14 : 0;
+              const baseScale = absOffset === 0 ? 1 : absOffset === 1 ? 0.8 : 0.64;
+              const baseY = absOffset === 0 ? -6 : absOffset === 1 ? 22 : 34;
+              const shiftX = absOffset === 0 ? 0 : offset < 0 ? -290 : 290;
               return (
                 <motion.article
                   key={shape}
-                  className="group relative flex flex-col items-center"
-                  onMouseEnter={() => setHoveredDiamond(shape)}
-                  onMouseLeave={() => setHoveredDiamond(null)}
-                  onClick={() => setActiveDiamond((prev) => (prev === shape ? null : shape))}
+                  className="group absolute left-1/2 top-1/2 flex w-[420px] -translate-x-1/2 -translate-y-1/2 cursor-pointer flex-col items-center"
+                  onClick={() => setActiveDiamondIndex(idx)}
                   animate={{
-                    opacity: fadeOthers ? 0.38 : 1,
-                    y: isHovered ? -8 : 0,
-                    scale: isHovered ? 1.02 : 1,
+                    x: shiftX,
+                    y: baseY,
+                    scale: isActive ? 1.02 : baseScale,
+                    opacity: baseOpacity,
+                    filter: isActive ? "brightness(1.05)" : "brightness(0.94)",
                   }}
-                  transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                  transition={{ duration: 1.05, ease: CINEMATIC_EASE }}
                 >
                   <motion.div
-                    className="relative mb-6 flex h-[176px] w-full max-w-[186px] items-center justify-center"
-                    animate={{ filter: isHovered ? "brightness(1.1)" : "brightness(1)" }}
-                    transition={{ duration: 0.45 }}
+                    className="relative mb-7 flex h-[278px] w-full items-center justify-center"
+                    animate={{ y: isActive ? [-1, -7, -1] : 0 }}
+                    transition={{ duration: 8.5, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
                   >
+                    {isActive && <div className="pointer-events-none absolute inset-x-[22%] top-[25%] h-[56%] rounded-full bg-[radial-gradient(circle,rgba(223,231,243,0.18)_0%,rgba(223,231,243,0)_74%)]" />}
                     <img
                       src={diamondShapeImageMap[shape]}
                       alt={`${shape} diamond`}
-                      className={`relative h-[92%] w-[92%] object-contain object-center drop-shadow-[0_7px_12px_rgba(0,0,0,0.28)] transition-transform duration-500 group-hover:scale-[1.04] ${diamondOpticalClassMap[shape]}`}
+                      className={`relative h-[95%] w-[95%] object-contain object-center drop-shadow-[0_12px_26px_rgba(0,0,0,0.36)] transition-all duration-[900ms] ${isActive ? "scale-[1.03]" : "scale-[0.96]"} ${diamondOpticalClassMap[shape]}`}
                     />
                   </motion.div>
-                  <h3 className={`font-serif text-2xl tracking-[0.02em] transition-colors duration-500 ${isHovered ? "text-[#ffffff]" : "text-[#e6e0d4]"}`}>{shape}</h3>
-                  <div className={`mt-3 flex flex-col items-center gap-2 transition-all duration-500 ${isHovered || activeDiamond === shape ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"}`}>
-                    <p className="text-[0.62rem] tracking-[0.26em] text-[#d8e0ee]">{shape.toUpperCase()} CUT</p>
-                    <a
-                      href={WHATSAPP_LINK}
-                      onClick={(event) => event.stopPropagation()}
-                      className="rounded-full border border-[#cfd8e4]/60 px-4 py-1.5 text-[0.66rem] tracking-[0.2em] text-[#f3eee5] transition-colors duration-300 hover:bg-[#f3eee5] hover:text-[#121418]"
-                    >
-                      ENQUIRE
-                    </a>
-                  </div>
                 </motion.article>
               );
             })}
           </div>
 
-          <div className="mt-10 flex snap-x snap-mandatory gap-0 overflow-x-auto pb-3 md:hidden">
-            {diamondShapes.map((shape) => {
-              const active = activeDiamond === shape;
+          <div className="mt-12 flex min-h-[350px] items-center justify-center md:hidden">
+            <motion.div
+              drag="x"
+              dragConstraints={{ left: 0, right: 0 }}
+              dragElastic={0.18}
+              onDragEnd={(_, info) => {
+                if (info.offset.x < -50) goNextDiamond();
+                if (info.offset.x > 50) goPrevDiamond();
+              }}
+              className="w-full touch-pan-y"
+            >
+            {diamondShapes.map((shape, idx) => {
+              const offset = getCircularOffset(idx, activeDiamondIndex, diamondShapes.length);
+              const isActive = offset === 0;
+              if (!isActive) return null;
               return (
                 <article
                   key={shape}
-                  className="group relative flex w-full shrink-0 snap-center flex-col items-center justify-center px-3"
-                  onClick={() => setActiveDiamond((prev) => (prev === shape ? null : shape))}
+                  className="group relative mx-auto flex w-[84%] max-w-[360px] snap-center flex-col items-center justify-center"
                 >
-                  <div className="relative flex h-[214px] items-center justify-center">
+                  <div className="relative flex h-[276px] w-full items-center justify-center">
+                    <div className="pointer-events-none absolute inset-x-[21%] top-[24%] h-[54%] rounded-full bg-[radial-gradient(circle,rgba(223,231,243,0.16)_0%,rgba(223,231,243,0)_74%)]" />
                     <img
                       src={diamondShapeImageMap[shape]}
                       alt={`${shape} diamond`}
-                      className={`h-[90%] w-[90%] object-contain object-center drop-shadow-[0_7px_12px_rgba(0,0,0,0.26)] transition-all duration-500 ${active ? "scale-[1.03] brightness-105" : "scale-[0.96] brightness-90"} ${diamondOpticalClassMap[shape]}`}
+                      className={`h-[94%] w-[94%] object-contain object-center drop-shadow-[0_11px_22px_rgba(0,0,0,0.3)] transition-all duration-700 scale-[1.02] brightness-[1.05] ${diamondOpticalClassMap[shape]}`}
                     />
-                  </div>
-                  <h3 className={`w-full text-center font-serif text-3xl transition-colors duration-500 ${active ? "text-[#ffffff]" : "text-[#e5dfd4]"}`}>{shape}</h3>
-                  <div className={`mt-3 flex w-full justify-center transition-all duration-500 ${active ? "opacity-100" : "opacity-0"}`}>
-                    <a
-                      href={WHATSAPP_LINK}
-                      onClick={(event) => event.stopPropagation()}
-                      className="rounded-full border border-[#dce5f4]/70 px-4 py-1.5 text-[0.66rem] tracking-[0.2em] text-[#f8f4ec]"
-                    >
-                      ENQUIRE
-                    </a>
                   </div>
                 </article>
               );
             })}
+            </motion.div>
+          </div>
+
+          <div className="mt-2 flex flex-col items-center">
+            <div className="mb-4 flex justify-center gap-3">
+              {diamondShapes.map((shape, idx) => (
+                <button
+                  key={`${shape}-nav`}
+                  type="button"
+                  aria-label={`View ${shape}`}
+                  onClick={() => setActiveDiamondIndex(idx)}
+                  className={`h-1.5 rounded-full transition-all duration-500 ${idx === activeDiamondIndex ? "w-7 bg-[#e6edf8]" : "w-1.5 bg-[#90a1ba]/45 hover:bg-[#b8c6dc]"}`}
+                />
+              ))}
+            </div>
+            <p className="text-[0.68rem] tracking-[0.18em] text-[#aab8cd]">Swipe to view all diamond shapes</p>
+            <div className="mt-3">
+              <h3 className="text-center font-serif text-[1.92rem] tracking-[0.08em] text-[#f6f1e8] md:text-[2.1rem]">{activeDiamond}</h3>
+              <div className="mt-4 flex justify-center">
+                <a
+                  href={WHATSAPP_LINK}
+                  className="rounded-full border border-[#cfd8e4]/65 px-5 py-1.5 text-[0.64rem] tracking-[0.24em] text-[#f3eee5] transition-all duration-500 hover:-translate-y-[1px] hover:bg-[#f3eee5] hover:text-[#111827]"
+                >
+                  ENQUIRE
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </motion.section>
 
-      <motion.section className="relative -mt-2 bg-[linear-gradient(180deg,#ffffff_0%,#faf7f2_100%)] py-16" initial={{ opacity: 0, y: 22 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.7 }}>
+      <motion.section className="relative -mt-2 bg-[linear-gradient(180deg,#ffffff_0%,#faf7f2_100%)] py-[5.75rem] md:py-[7.25rem]" {...sectionReveal}>
         <div className="mx-auto w-[min(1220px,94%)]">
           <p className="text-[0.62rem] tracking-[0.28em] text-[#334155] sm:text-[0.64rem]">SUPPLYING ACROSS INDIA & GLOBAL MARKETS</p>
           <h2 className="mt-3 font-serif text-4xl md:text-5xl">Global Presence, Rooted in Mumbai</h2>
@@ -309,8 +409,8 @@ export default function ShowroomExperience() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.9 }}
               />
-              <div className="pointer-events-none absolute left-1/2 top-1/2 h-[58%] w-[58%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(255,252,246,0.18)_0%,rgba(255,252,246,0)_72%)]" />
-              <div className="pointer-events-none absolute bottom-[17%] right-[26%] h-[13%] w-[12%] rounded-full bg-[radial-gradient(circle,#f7f3eb_0%,rgba(247,243,235,0.86)_45%,rgba(247,243,235,0)_88%)]" />
+              <div className="pointer-events-none absolute left-1/2 top-1/2 h-[62%] w-[62%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(255,252,246,0.2)_0%,rgba(255,252,246,0)_74%)]" />
+              <div className="pointer-events-none absolute bottom-[17%] right-[26%] h-[13%] w-[12%] rounded-full bg-[radial-gradient(circle,#f7f3eb_0%,rgba(247,243,235,0.74)_45%,rgba(247,243,235,0)_90%)]" />
               <motion.svg
                 viewBox="0 0 1000 560"
                 className="absolute inset-0 h-full w-full md:hidden"
@@ -323,7 +423,7 @@ export default function ShowroomExperience() {
               >
                 <defs>
                   <filter id="dotGlowMobile" x="-50%" y="-50%" width="200%" height="200%">
-                    <feGaussianBlur stdDeviation="2.4" result="blur" />
+                    <feGaussianBlur stdDeviation="1.9" result="blur" />
                     <feMerge>
                       <feMergeNode in="blur" />
                       <feMergeNode in="SourceGraphic" />
@@ -341,12 +441,12 @@ export default function ShowroomExperience() {
                   </linearGradient>
                 </defs>
 
-                <motion.path d={routes.mobile.indiaTop} stroke="url(#routeFlowMobile)" strokeWidth="1.5" fill="none" initial={{ pathLength: 0, opacity: 0.24 }} whileInView={{ pathLength: 1, opacity: 0.82 }} transition={{ duration: 0.82, delay: 0.08 }} />
-                <motion.path d={routes.mobile.indiaSouth} stroke="url(#routeFlowMobile)" strokeWidth="1.5" fill="none" initial={{ pathLength: 0, opacity: 0.24 }} whileInView={{ pathLength: 1, opacity: 0.8 }} transition={{ duration: 0.82, delay: 0.2 }} />
-                <motion.path d={routes.mobile.indiaNorthEast} stroke="url(#routeFlowMobile)" strokeWidth="1.45" fill="none" initial={{ pathLength: 0, opacity: 0.24 }} whileInView={{ pathLength: 1, opacity: 0.78 }} transition={{ duration: 0.86, delay: 0.24 }} />
-                <motion.path d={routes.mobile.indiaNorthEastShort} stroke="url(#routeFlowMobile)" strokeWidth="1.45" fill="none" initial={{ pathLength: 0, opacity: 0.24 }} whileInView={{ pathLength: 1, opacity: 0.78 }} transition={{ duration: 0.84, delay: 0.26 }} />
-                <motion.path d={routes.mobile.indiaNorthEastInner} stroke="url(#routeFlowMobile)" strokeWidth="1.45" fill="none" initial={{ pathLength: 0, opacity: 0.24 }} whileInView={{ pathLength: 1, opacity: 0.78 }} transition={{ duration: 0.84, delay: 0.28 }} />
-                <motion.path d={routes.mobile.indiaSouthEastInner} stroke="url(#routeFlowMobile)" strokeWidth="1.45" fill="none" initial={{ pathLength: 0, opacity: 0.24 }} whileInView={{ pathLength: 1, opacity: 0.78 }} transition={{ duration: 0.86, delay: 0.3 }} />
+                <motion.path d={routes.mobile.indiaTop} stroke="url(#routeFlowMobile)" strokeWidth="1.4" fill="none" initial={{ pathLength: 0, opacity: 0.22 }} whileInView={{ pathLength: 1, opacity: 0.8 }} transition={{ duration: 0.9, delay: 0.08 }} />
+                <motion.path d={routes.mobile.indiaSouth} stroke="url(#routeFlowMobile)" strokeWidth="1.4" fill="none" initial={{ pathLength: 0, opacity: 0.22 }} whileInView={{ pathLength: 1, opacity: 0.78 }} transition={{ duration: 0.9, delay: 0.2 }} />
+                <motion.path d={routes.mobile.indiaNorthEast} stroke="url(#routeFlowMobile)" strokeWidth="1.36" fill="none" initial={{ pathLength: 0, opacity: 0.22 }} whileInView={{ pathLength: 1, opacity: 0.76 }} transition={{ duration: 0.94, delay: 0.24 }} />
+                <motion.path d={routes.mobile.indiaNorthEastShort} stroke="url(#routeFlowMobile)" strokeWidth="1.36" fill="none" initial={{ pathLength: 0, opacity: 0.22 }} whileInView={{ pathLength: 1, opacity: 0.76 }} transition={{ duration: 0.92, delay: 0.26 }} />
+                <motion.path d={routes.mobile.indiaNorthEastInner} stroke="url(#routeFlowMobile)" strokeWidth="1.36" fill="none" initial={{ pathLength: 0, opacity: 0.22 }} whileInView={{ pathLength: 1, opacity: 0.76 }} transition={{ duration: 0.92, delay: 0.28 }} />
+                <motion.path d={routes.mobile.indiaSouthEastInner} stroke="url(#routeFlowMobile)" strokeWidth="1.36" fill="none" initial={{ pathLength: 0, opacity: 0.22 }} whileInView={{ pathLength: 1, opacity: 0.76 }} transition={{ duration: 0.94, delay: 0.3 }} />
 
                 <motion.path d={routes.mobile.dubai} stroke="url(#routeFlowIntlMobile)" strokeWidth="1.28" fill="none" initial={{ pathLength: 0, opacity: 0.16 }} whileInView={{ pathLength: 1, opacity: 0.72 }} transition={{ duration: 1.0, delay: 0.28 }} />
                 <motion.path d={routes.mobile.london} stroke="url(#routeFlowIntlMobile)" strokeWidth="1.28" fill="none" initial={{ pathLength: 0, opacity: 0.16 }} whileInView={{ pathLength: 1, opacity: 0.72 }} transition={{ duration: 1.05, delay: 0.32 }} />
@@ -354,20 +454,25 @@ export default function ShowroomExperience() {
                 <motion.path d={routes.mobile.america} stroke="url(#routeFlowIntlMobile)" strokeWidth="1.28" fill="none" initial={{ pathLength: 0, opacity: 0.16 }} whileInView={{ pathLength: 1, opacity: 0.72 }} transition={{ duration: 1.1, delay: 0.36 }} />
                 <motion.path d={routes.mobile.hongKong} stroke="url(#routeFlowIntlMobile)" strokeWidth="1.28" fill="none" initial={{ pathLength: 0, opacity: 0.16 }} whileInView={{ pathLength: 1, opacity: 0.72 }} transition={{ duration: 1.12, delay: 0.4 }} />
 
-                <circle r="2.2" fill="#0f172a" opacity="0.58" filter="url(#dotGlowMobile)">
-                  <animateMotion dur="12.8s" repeatCount="indefinite" path={routes.mobile.dubai} />
+                <circle r="1.65" fill="#0f172a" opacity="0.44" filter="url(#dotGlowMobile)">
+                  <animate attributeName="opacity" values="0.42;0.36;0.08;0" keyTimes="0;0.65;0.92;1" dur="13.8s" repeatCount="indefinite" />
+                  <animateMotion dur="13.8s" repeatCount="indefinite" path={routes.mobile.dubai} />
                 </circle>
-                <circle r="2.2" fill="#0f172a" opacity="0.58" filter="url(#dotGlowMobile)">
-                  <animateMotion dur="13.5s" repeatCount="indefinite" path={routes.mobile.london} />
+                <circle r="1.65" fill="#0f172a" opacity="0.44" filter="url(#dotGlowMobile)">
+                  <animate attributeName="opacity" values="0.42;0.36;0.08;0" keyTimes="0;0.65;0.92;1" dur="14.2s" repeatCount="indefinite" />
+                  <animateMotion dur="14.2s" repeatCount="indefinite" path={routes.mobile.london} />
                 </circle>
-                <circle r="2.2" fill="#0f172a" opacity="0.58" filter="url(#dotGlowMobile)">
-                  <animateMotion dur="13.9s" repeatCount="indefinite" path={routes.mobile.canada} />
+                <circle r="1.65" fill="#0f172a" opacity="0.44" filter="url(#dotGlowMobile)">
+                  <animate attributeName="opacity" values="0.42;0.36;0.08;0" keyTimes="0;0.65;0.92;1" dur="14.6s" repeatCount="indefinite" />
+                  <animateMotion dur="14.6s" repeatCount="indefinite" path={routes.mobile.canada} />
                 </circle>
-                <circle r="2.2" fill="#0f172a" opacity="0.58" filter="url(#dotGlowMobile)">
-                  <animateMotion dur="13.1s" repeatCount="indefinite" path={routes.mobile.america} />
+                <circle r="1.65" fill="#0f172a" opacity="0.44" filter="url(#dotGlowMobile)">
+                  <animate attributeName="opacity" values="0.42;0.36;0.08;0" keyTimes="0;0.65;0.92;1" dur="13.9s" repeatCount="indefinite" />
+                  <animateMotion dur="13.9s" repeatCount="indefinite" path={routes.mobile.america} />
                 </circle>
-                <circle r="2.2" fill="#0f172a" opacity="0.58" filter="url(#dotGlowMobile)">
-                  <animateMotion dur="14.2s" repeatCount="indefinite" path={routes.mobile.hongKong} />
+                <circle r="1.65" fill="#0f172a" opacity="0.44" filter="url(#dotGlowMobile)">
+                  <animate attributeName="opacity" values="0.42;0.36;0.08;0" keyTimes="0;0.65;0.92;1" dur="14.9s" repeatCount="indefinite" />
+                  <animateMotion dur="14.9s" repeatCount="indefinite" path={routes.mobile.hongKong} />
                 </circle>
                 <circle r="2" fill="#1e293b" opacity="0.48" filter="url(#dotGlowMobile)">
                   <animateMotion dur="14.6s" repeatCount="indefinite" path={routes.mobile.indiaTop} />
@@ -388,21 +493,21 @@ export default function ShowroomExperience() {
                   <animateMotion dur="16.4s" repeatCount="indefinite" path={routes.mobile.indiaSouthEastInner} />
                 </circle>
 
-                <motion.circle cx={nodes.mobile.mumbai.x} cy={nodes.mobile.mumbai.y} r="3.7" fill="#172235" filter="url(#dotGlowMobile)" initial={{ scale: 0.84, opacity: 0 }} whileInView={{ scale: 1, opacity: 1 }} transition={{ duration: 0.5, delay: 0.45 }} />
-                <motion.circle cx={nodes.mobile.mumbai.x} cy={nodes.mobile.mumbai.y} r="5.8" fill="none" stroke="rgba(23,34,53,0.18)" strokeWidth="0.6" initial={{ scale: 0.8, opacity: 0 }} whileInView={{ scale: [0.92, 1.18, 1.45], opacity: [0.22, 0.1, 0] }} transition={{ duration: 3.2, repeat: Number.POSITIVE_INFINITY, ease: "easeOut" }} />
+                <motion.circle cx={nodes.mobile.mumbai.x} cy={nodes.mobile.mumbai.y} r="3.2" fill="#172235" filter="url(#dotGlowMobile)" initial={{ scale: 0.88, opacity: 0 }} whileInView={{ scale: 1, opacity: 1 }} transition={{ duration: 0.55, delay: 0.45 }} />
+                <motion.circle cx={nodes.mobile.mumbai.x} cy={nodes.mobile.mumbai.y} r="5.2" fill="none" stroke="rgba(23,34,53,0.14)" strokeWidth="0.56" initial={{ scale: 0.84, opacity: 0 }} whileInView={{ scale: [0.94, 1.16, 1.36], opacity: [0.16, 0.07, 0] }} transition={{ duration: 3.6, repeat: Number.POSITIVE_INFINITY, ease: "easeOut" }} />
 
-                <circle cx={nodes.mobile.india.top.x} cy={nodes.mobile.india.top.y} r="3.1" fill="#1e293b" filter="url(#dotGlowMobile)" />
-                <circle cx={nodes.mobile.india.south.x} cy={nodes.mobile.india.south.y} r="3.1" fill="#1e293b" filter="url(#dotGlowMobile)" />
-                <circle cx={nodes.mobile.india.northEast.x} cy={nodes.mobile.india.northEast.y} r="3.1" fill="#1e293b" filter="url(#dotGlowMobile)" />
-                <circle cx={nodes.mobile.india.northEastShort.x} cy={nodes.mobile.india.northEastShort.y} r="3.1" fill="#1e293b" filter="url(#dotGlowMobile)" />
-                <circle cx={nodes.mobile.india.northEastInner.x} cy={nodes.mobile.india.northEastInner.y} r="3.1" fill="#1e293b" filter="url(#dotGlowMobile)" />
-                <circle cx={nodes.mobile.india.southEastInner.x} cy={nodes.mobile.india.southEastInner.y} r="3.1" fill="#1e293b" filter="url(#dotGlowMobile)" />
+                <circle cx={nodes.mobile.india.top.x} cy={nodes.mobile.india.top.y} r="2.9" fill="#1e293b" filter="url(#dotGlowMobile)" />
+                <circle cx={nodes.mobile.india.south.x} cy={nodes.mobile.india.south.y} r="2.9" fill="#1e293b" filter="url(#dotGlowMobile)" />
+                <circle cx={nodes.mobile.india.northEast.x} cy={nodes.mobile.india.northEast.y} r="2.9" fill="#1e293b" filter="url(#dotGlowMobile)" />
+                <circle cx={nodes.mobile.india.northEastShort.x} cy={nodes.mobile.india.northEastShort.y} r="2.9" fill="#1e293b" filter="url(#dotGlowMobile)" />
+                <circle cx={nodes.mobile.india.northEastInner.x} cy={nodes.mobile.india.northEastInner.y} r="2.9" fill="#1e293b" filter="url(#dotGlowMobile)" />
+                <circle cx={nodes.mobile.india.southEastInner.x} cy={nodes.mobile.india.southEastInner.y} r="2.9" fill="#1e293b" filter="url(#dotGlowMobile)" />
 
-                <circle cx={nodes.mobile.export.dubai.x} cy={nodes.mobile.export.dubai.y} r="4.2" fill="#1e293b" filter="url(#dotGlowMobile)" />
-                <circle cx={nodes.mobile.export.london.x} cy={nodes.mobile.export.london.y} r="4.2" fill="#1e293b" filter="url(#dotGlowMobile)" />
-                <circle cx={nodes.mobile.export.canada.x} cy={nodes.mobile.export.canada.y} r="4.2" fill="#1e293b" filter="url(#dotGlowMobile)" />
-                <circle cx={nodes.mobile.export.america.x} cy={nodes.mobile.export.america.y} r="4.2" fill="#1e293b" filter="url(#dotGlowMobile)" />
-                <circle cx={nodes.mobile.export.hongKong.x} cy={nodes.mobile.export.hongKong.y} r="4.2" fill="#1e293b" filter="url(#dotGlowMobile)" />
+                <circle cx={nodes.mobile.export.dubai.x} cy={nodes.mobile.export.dubai.y} r="3.7" fill="#1e293b" filter="url(#dotGlowMobile)" />
+                <circle cx={nodes.mobile.export.london.x} cy={nodes.mobile.export.london.y} r="3.7" fill="#1e293b" filter="url(#dotGlowMobile)" />
+                <circle cx={nodes.mobile.export.canada.x} cy={nodes.mobile.export.canada.y} r="3.7" fill="#1e293b" filter="url(#dotGlowMobile)" />
+                <circle cx={nodes.mobile.export.america.x} cy={nodes.mobile.export.america.y} r="3.7" fill="#1e293b" filter="url(#dotGlowMobile)" />
+                <circle cx={nodes.mobile.export.hongKong.x} cy={nodes.mobile.export.hongKong.y} r="3.7" fill="#1e293b" filter="url(#dotGlowMobile)" />
 
                 <text x={nodes.mobile.mumbai.labelX} y={nodes.mobile.mumbai.labelY} fontSize="13.2" fill="#0f172a">Mumbai</text>
                 <text x={nodes.mobile.export.dubai.labelX} y={nodes.mobile.export.dubai.labelY} fontSize="12.5" fill="#334155">Dubai</text>
@@ -424,7 +529,7 @@ export default function ShowroomExperience() {
               >
               <defs>
                 <filter id="dotGlow" x="-50%" y="-50%" width="200%" height="200%">
-                  <feGaussianBlur stdDeviation="2.8" result="blur" />
+                  <feGaussianBlur stdDeviation="2.2" result="blur" />
                   <feMerge>
                     <feMergeNode in="blur" />
                     <feMergeNode in="SourceGraphic" />
@@ -442,32 +547,37 @@ export default function ShowroomExperience() {
                 </linearGradient>
               </defs>
               <rect x="0" y="0" width="1000" height="560" fill="transparent" />
-              <motion.path id="routeIndiaTop" d={routes.desktop.indiaTop} stroke="url(#routeFlow)" strokeWidth="1.3" fill="none" initial={{ pathLength: 0, opacity: 0.22 }} whileInView={{ pathLength: 1, opacity: 0.66 }} viewport={{ once: true }} transition={{ duration: 0.98, delay: 0.12 }} />
-              <motion.path id="routeIndiaSouth" d={routes.desktop.indiaSouth} stroke="url(#routeFlow)" strokeWidth="1.3" fill="none" initial={{ pathLength: 0, opacity: 0.22 }} whileInView={{ pathLength: 1, opacity: 0.64 }} viewport={{ once: true }} transition={{ duration: 1.0, delay: 0.25 }} />
-              <motion.path id="routeIndiaNorthEast" d={routes.desktop.indiaNorthEast} stroke="url(#routeFlow)" strokeWidth="1.28" fill="none" initial={{ pathLength: 0, opacity: 0.22 }} whileInView={{ pathLength: 1, opacity: 0.64 }} viewport={{ once: true }} transition={{ duration: 1.04, delay: 0.3 }} />
-              <motion.path id="routeIndiaNorthEastShort" d={routes.desktop.indiaNorthEastShort} stroke="url(#routeFlow)" strokeWidth="1.28" fill="none" initial={{ pathLength: 0, opacity: 0.22 }} whileInView={{ pathLength: 1, opacity: 0.64 }} viewport={{ once: true }} transition={{ duration: 1.0, delay: 0.32 }} />
-              <motion.path id="routeIndiaNorthEastInner" d={routes.desktop.indiaNorthEastInner} stroke="url(#routeFlow)" strokeWidth="1.28" fill="none" initial={{ pathLength: 0, opacity: 0.22 }} whileInView={{ pathLength: 1, opacity: 0.64 }} viewport={{ once: true }} transition={{ duration: 1.0, delay: 0.34 }} />
-              <motion.path id="routeIndiaSouthEastInner" d={routes.desktop.indiaSouthEastInner} stroke="url(#routeFlow)" strokeWidth="1.28" fill="none" initial={{ pathLength: 0, opacity: 0.22 }} whileInView={{ pathLength: 1, opacity: 0.64 }} viewport={{ once: true }} transition={{ duration: 1.02, delay: 0.36 }} />
+              <motion.path id="routeIndiaTop" d={routes.desktop.indiaTop} stroke="url(#routeFlow)" strokeWidth="1.24" fill="none" initial={{ pathLength: 0, opacity: 0.2 }} whileInView={{ pathLength: 1, opacity: 0.62 }} viewport={{ once: true }} transition={{ duration: 1.04, delay: 0.12 }} />
+              <motion.path id="routeIndiaSouth" d={routes.desktop.indiaSouth} stroke="url(#routeFlow)" strokeWidth="1.24" fill="none" initial={{ pathLength: 0, opacity: 0.2 }} whileInView={{ pathLength: 1, opacity: 0.6 }} viewport={{ once: true }} transition={{ duration: 1.04, delay: 0.25 }} />
+              <motion.path id="routeIndiaNorthEast" d={routes.desktop.indiaNorthEast} stroke="url(#routeFlow)" strokeWidth="1.2" fill="none" initial={{ pathLength: 0, opacity: 0.2 }} whileInView={{ pathLength: 1, opacity: 0.6 }} viewport={{ once: true }} transition={{ duration: 1.08, delay: 0.3 }} />
+              <motion.path id="routeIndiaNorthEastShort" d={routes.desktop.indiaNorthEastShort} stroke="url(#routeFlow)" strokeWidth="1.2" fill="none" initial={{ pathLength: 0, opacity: 0.2 }} whileInView={{ pathLength: 1, opacity: 0.6 }} viewport={{ once: true }} transition={{ duration: 1.04, delay: 0.32 }} />
+              <motion.path id="routeIndiaNorthEastInner" d={routes.desktop.indiaNorthEastInner} stroke="url(#routeFlow)" strokeWidth="1.2" fill="none" initial={{ pathLength: 0, opacity: 0.2 }} whileInView={{ pathLength: 1, opacity: 0.6 }} viewport={{ once: true }} transition={{ duration: 1.04, delay: 0.34 }} />
+              <motion.path id="routeIndiaSouthEastInner" d={routes.desktop.indiaSouthEastInner} stroke="url(#routeFlow)" strokeWidth="1.2" fill="none" initial={{ pathLength: 0, opacity: 0.2 }} whileInView={{ pathLength: 1, opacity: 0.6 }} viewport={{ once: true }} transition={{ duration: 1.06, delay: 0.36 }} />
               <motion.path id="routeDubai" d={routes.desktop.dubai} stroke="url(#routeFlowIntl)" strokeWidth="1.42" fill="none" initial={{ pathLength: 0, opacity: 0.18 }} whileInView={{ pathLength: 1, opacity: 0.8 }} viewport={{ once: true }} transition={{ duration: 1.22, delay: 0.4 }} />
               <motion.path id="routeLondon" d={routes.desktop.london} stroke="url(#routeFlowIntl)" strokeWidth="1.42" fill="none" initial={{ pathLength: 0, opacity: 0.18 }} whileInView={{ pathLength: 1, opacity: 0.8 }} viewport={{ once: true }} transition={{ duration: 1.28, delay: 0.46 }} />
               <motion.path id="routeCanada" d={routes.desktop.canada} stroke="url(#routeFlowIntl)" strokeWidth="1.42" fill="none" initial={{ pathLength: 0, opacity: 0.18 }} whileInView={{ pathLength: 1, opacity: 0.8 }} viewport={{ once: true }} transition={{ duration: 1.31, delay: 0.49 }} />
               <motion.path id="routeAmerica" d={routes.desktop.america} stroke="url(#routeFlowIntl)" strokeWidth="1.42" fill="none" initial={{ pathLength: 0, opacity: 0.18 }} whileInView={{ pathLength: 1, opacity: 0.8 }} viewport={{ once: true }} transition={{ duration: 1.34, delay: 0.52 }} />
               <motion.path id="routeHongKong" d={routes.desktop.hongKong} stroke="url(#routeFlowIntl)" strokeWidth="1.42" fill="none" initial={{ pathLength: 0, opacity: 0.18 }} whileInView={{ pathLength: 1, opacity: 0.8 }} viewport={{ once: true }} transition={{ duration: 1.34, delay: 0.56 }} />
 
-              <circle r="2.4" fill="#0f172a" opacity="0.58" filter="url(#dotGlow)">
-                <animateMotion dur="11.6s" repeatCount="indefinite" path={routes.desktop.dubai} />
+              <circle r="1.8" fill="#0f172a" opacity="0.46" filter="url(#dotGlow)">
+                <animate attributeName="opacity" values="0.44;0.38;0.1;0" keyTimes="0;0.64;0.9;1" dur="12.8s" repeatCount="indefinite" />
+                <animateMotion dur="12.8s" repeatCount="indefinite" path={routes.desktop.dubai} />
               </circle>
-              <circle r="2.4" fill="#0f172a" opacity="0.58" filter="url(#dotGlow)">
-                <animateMotion dur="12.8s" repeatCount="indefinite" path={routes.desktop.london} />
+              <circle r="1.8" fill="#0f172a" opacity="0.46" filter="url(#dotGlow)">
+                <animate attributeName="opacity" values="0.44;0.38;0.1;0" keyTimes="0;0.64;0.9;1" dur="13.4s" repeatCount="indefinite" />
+                <animateMotion dur="13.4s" repeatCount="indefinite" path={routes.desktop.london} />
               </circle>
-              <circle r="2.4" fill="#0f172a" opacity="0.58" filter="url(#dotGlow)">
-                <animateMotion dur="13.2s" repeatCount="indefinite" path={routes.desktop.canada} />
+              <circle r="1.8" fill="#0f172a" opacity="0.46" filter="url(#dotGlow)">
+                <animate attributeName="opacity" values="0.44;0.38;0.1;0" keyTimes="0;0.64;0.9;1" dur="13.9s" repeatCount="indefinite" />
+                <animateMotion dur="13.9s" repeatCount="indefinite" path={routes.desktop.canada} />
               </circle>
-              <circle r="2.4" fill="#0f172a" opacity="0.58" filter="url(#dotGlow)">
-                <animateMotion dur="12.1s" repeatCount="indefinite" path={routes.desktop.america} />
+              <circle r="1.8" fill="#0f172a" opacity="0.46" filter="url(#dotGlow)">
+                <animate attributeName="opacity" values="0.44;0.38;0.1;0" keyTimes="0;0.64;0.9;1" dur="13.1s" repeatCount="indefinite" />
+                <animateMotion dur="13.1s" repeatCount="indefinite" path={routes.desktop.america} />
               </circle>
-              <circle r="2.4" fill="#0f172a" opacity="0.58" filter="url(#dotGlow)">
-                <animateMotion dur="13.6s" repeatCount="indefinite" path={routes.desktop.hongKong} />
+              <circle r="1.8" fill="#0f172a" opacity="0.46" filter="url(#dotGlow)">
+                <animate attributeName="opacity" values="0.44;0.38;0.1;0" keyTimes="0;0.64;0.9;1" dur="14.1s" repeatCount="indefinite" />
+                <animateMotion dur="14.1s" repeatCount="indefinite" path={routes.desktop.hongKong} />
               </circle>
               <circle r="2.1" fill="#1e293b" opacity="0.46" filter="url(#dotGlow)">
                 <animateMotion dur="14.8s" repeatCount="indefinite" path={routes.desktop.indiaTop} />
@@ -488,21 +598,21 @@ export default function ShowroomExperience() {
                 <animateMotion dur="16.8s" repeatCount="indefinite" path={routes.desktop.indiaSouthEastInner} />
               </circle>
 
-              <motion.circle cx={nodes.desktop.mumbai.x} cy={nodes.desktop.mumbai.y} r="3.9" fill="#172235" filter="url(#dotGlow)" initial={{ scale: 0.86, opacity: 0 }} whileInView={{ scale: 1, opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.55, delay: 0.7 }} />
-              <motion.circle cx={nodes.desktop.mumbai.x} cy={nodes.desktop.mumbai.y} r="6.3" fill="none" stroke="rgba(23,34,53,0.16)" strokeWidth="0.6" initial={{ scale: 0.75, opacity: 0 }} whileInView={{ scale: [0.92, 1.16, 1.42], opacity: [0.2, 0.08, 0] }} viewport={{ once: false }} transition={{ duration: 3.3, repeat: Number.POSITIVE_INFINITY, ease: "easeOut" }} />
+              <motion.circle cx={nodes.desktop.mumbai.x} cy={nodes.desktop.mumbai.y} r="3.4" fill="#172235" filter="url(#dotGlow)" initial={{ scale: 0.88, opacity: 0 }} whileInView={{ scale: 1, opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.7 }} />
+              <motion.circle cx={nodes.desktop.mumbai.x} cy={nodes.desktop.mumbai.y} r="5.6" fill="none" stroke="rgba(23,34,53,0.14)" strokeWidth="0.56" initial={{ scale: 0.8, opacity: 0 }} whileInView={{ scale: [0.94, 1.16, 1.38], opacity: [0.16, 0.07, 0] }} viewport={{ once: false }} transition={{ duration: 3.8, repeat: Number.POSITIVE_INFINITY, ease: "easeOut" }} />
 
-              <circle cx={nodes.desktop.india.top.x} cy={nodes.desktop.india.top.y} r="3.5" fill="#1e293b" filter="url(#dotGlow)" />
-              <circle cx={nodes.desktop.india.south.x} cy={nodes.desktop.india.south.y} r="3.5" fill="#1e293b" filter="url(#dotGlow)" />
-              <circle cx={nodes.desktop.india.northEast.x} cy={nodes.desktop.india.northEast.y} r="3.5" fill="#1e293b" filter="url(#dotGlow)" />
-              <circle cx={nodes.desktop.india.northEastShort.x} cy={nodes.desktop.india.northEastShort.y} r="3.5" fill="#1e293b" filter="url(#dotGlow)" />
-              <circle cx={nodes.desktop.india.northEastInner.x} cy={nodes.desktop.india.northEastInner.y} r="3.5" fill="#1e293b" filter="url(#dotGlow)" />
-              <circle cx={nodes.desktop.india.southEastInner.x} cy={nodes.desktop.india.southEastInner.y} r="3.5" fill="#1e293b" filter="url(#dotGlow)" />
+              <circle cx={nodes.desktop.india.top.x} cy={nodes.desktop.india.top.y} r="3.2" fill="#1e293b" filter="url(#dotGlow)" />
+              <circle cx={nodes.desktop.india.south.x} cy={nodes.desktop.india.south.y} r="3.2" fill="#1e293b" filter="url(#dotGlow)" />
+              <circle cx={nodes.desktop.india.northEast.x} cy={nodes.desktop.india.northEast.y} r="3.2" fill="#1e293b" filter="url(#dotGlow)" />
+              <circle cx={nodes.desktop.india.northEastShort.x} cy={nodes.desktop.india.northEastShort.y} r="3.2" fill="#1e293b" filter="url(#dotGlow)" />
+              <circle cx={nodes.desktop.india.northEastInner.x} cy={nodes.desktop.india.northEastInner.y} r="3.2" fill="#1e293b" filter="url(#dotGlow)" />
+              <circle cx={nodes.desktop.india.southEastInner.x} cy={nodes.desktop.india.southEastInner.y} r="3.2" fill="#1e293b" filter="url(#dotGlow)" />
 
-              <circle cx={nodes.desktop.export.dubai.x} cy={nodes.desktop.export.dubai.y} r="4.8" fill="#1e293b" filter="url(#dotGlow)" className="transition-[filter] duration-300 hover:drop-shadow-[0_0_6px_rgba(148,163,184,0.55)]" />
-              <circle cx={nodes.desktop.export.london.x} cy={nodes.desktop.export.london.y} r="4.8" fill="#1e293b" filter="url(#dotGlow)" className="transition-[filter] duration-300 hover:drop-shadow-[0_0_6px_rgba(148,163,184,0.55)]" />
-              <circle cx={nodes.desktop.export.canada.x} cy={nodes.desktop.export.canada.y} r="4.8" fill="#1e293b" filter="url(#dotGlow)" className="transition-[filter] duration-300 hover:drop-shadow-[0_0_6px_rgba(148,163,184,0.55)]" />
-              <circle cx={nodes.desktop.export.america.x} cy={nodes.desktop.export.america.y} r="4.8" fill="#1e293b" filter="url(#dotGlow)" className="transition-[filter] duration-300 hover:drop-shadow-[0_0_6px_rgba(148,163,184,0.55)]" />
-              <circle cx={nodes.desktop.export.hongKong.x} cy={nodes.desktop.export.hongKong.y} r="4.8" fill="#1e293b" filter="url(#dotGlow)" className="transition-[filter] duration-300 hover:drop-shadow-[0_0_6px_rgba(148,163,184,0.55)]" />
+              <circle cx={nodes.desktop.export.dubai.x} cy={nodes.desktop.export.dubai.y} r="4.1" fill="#1e293b" filter="url(#dotGlow)" className="transition-[filter] duration-300 hover:drop-shadow-[0_0_6px_rgba(148,163,184,0.45)]" />
+              <circle cx={nodes.desktop.export.london.x} cy={nodes.desktop.export.london.y} r="4.1" fill="#1e293b" filter="url(#dotGlow)" className="transition-[filter] duration-300 hover:drop-shadow-[0_0_6px_rgba(148,163,184,0.45)]" />
+              <circle cx={nodes.desktop.export.canada.x} cy={nodes.desktop.export.canada.y} r="4.1" fill="#1e293b" filter="url(#dotGlow)" className="transition-[filter] duration-300 hover:drop-shadow-[0_0_6px_rgba(148,163,184,0.45)]" />
+              <circle cx={nodes.desktop.export.america.x} cy={nodes.desktop.export.america.y} r="4.1" fill="#1e293b" filter="url(#dotGlow)" className="transition-[filter] duration-300 hover:drop-shadow-[0_0_6px_rgba(148,163,184,0.45)]" />
+              <circle cx={nodes.desktop.export.hongKong.x} cy={nodes.desktop.export.hongKong.y} r="4.1" fill="#1e293b" filter="url(#dotGlow)" className="transition-[filter] duration-300 hover:drop-shadow-[0_0_6px_rgba(148,163,184,0.45)]" />
 
               <text x={nodes.desktop.mumbai.labelX} y={nodes.desktop.mumbai.labelY} fontSize="14.1" fill="#0f172a">Mumbai</text>
               <text x={nodes.desktop.export.dubai.labelX} y={nodes.desktop.export.dubai.labelY} fontSize="13.5" fill="#334155">Dubai</text>
@@ -516,23 +626,23 @@ export default function ShowroomExperience() {
         </div>
       </motion.section>
 
-      <motion.section className="bg-[#faf7f2] py-14" initial={{ opacity: 0, y: 22 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.65 }}>
-        <div className="mx-auto grid w-[min(1220px,94%)] gap-7 lg:grid-cols-[1.1fr_0.9fr]">
-          <article>
+      <motion.section className="bg-[#faf7f2] py-[5.75rem] md:py-[7.25rem]" {...sectionReveal}>
+        <motion.div className="mx-auto grid w-[min(1220px,94%)] gap-10 lg:grid-cols-[1.08fr_0.92fr] lg:items-stretch" variants={staggerContainer} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}>
+          <motion.article className="lg:pr-8" variants={staggerItem}>
             <p className="text-xs tracking-[0.2em] text-[#475569]">TRUST & LOCATION</p>
-            <h2 className="mt-3 font-serif text-4xl md:text-5xl">Based at Bharat Diamond Bourse</h2>
-            <p className="mt-5 max-w-3xl leading-relaxed text-[#334155]">
+            <h2 className="mt-5 max-w-[14ch] font-serif text-4xl leading-[1.06] md:text-5xl">Based at Bharat Diamond Bourse</h2>
+            <p className="mt-7 max-w-[58ch] leading-[1.95] text-[#334155]">
               Operating from Bharat Diamond Bourse, Bandra Kurla Complex, D.P. Jewels is positioned at the heart of India’s diamond trade, serving buyers with trust, precision, and long-standing industry experience.
             </p>
-            <p className="mt-6 leading-relaxed text-[#1f2937]">
+            <p className="mt-10 border-l border-[#cdd6e4] pl-5 leading-[1.9] text-[#1f2937]">
               EC-4080 B, Bharat Diamond Bourse,<br />
               Bandra Kurla Complex,<br />
               Bandra(E), Mumbai-51
             </p>
-          </article>
-          <motion.article className="relative overflow-hidden rounded-3xl border border-[#d7dee8] bg-white/80 p-6 shadow-[0_10px_24px_rgba(15,23,42,0.08)]" initial={{ scale: 0.96, opacity: 0.6 }} whileInView={{ scale: 1, opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.7 }}>
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_20%,rgba(203,213,225,0.45),transparent_45%)]" />
-            <div className="relative flex h-full min-h-[280px] items-center justify-center">
+          </motion.article>
+          <motion.article className="relative overflow-hidden rounded-[2.25rem] bg-[linear-gradient(160deg,rgba(255,255,255,0.8)_0%,rgba(248,244,236,0.84)_100%)] p-8 shadow-[0_20px_46px_rgba(15,23,42,0.09)]" variants={staggerItem}>
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_74%_18%,rgba(203,213,225,0.3),transparent_48%)]" />
+            <div className="relative flex h-full min-h-[300px] items-center justify-center">
               <svg viewBox="0 0 340 260" className="h-full w-full max-w-[320px]" role="img" aria-label="Diamond architecture illustration">
                 <path d="M55 105 L95 58 L245 58 L285 105 L170 206 Z" fill="rgba(255,255,255,0.8)" stroke="#334155" strokeWidth="1.5" />
                 <path d="M95 58 L170 105 L245 58" fill="none" stroke="#334155" strokeWidth="1.2" />
@@ -544,46 +654,55 @@ export default function ShowroomExperience() {
               </svg>
             </div>
           </motion.article>
-        </div>
+        </motion.div>
       </motion.section>
 
-      <motion.section id="operations" className="bg-[#FAF7F2] py-14" initial={{ opacity: 0, y: 22 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.65 }}>
-        <div className="mx-auto w-[min(1220px,94%)]">
-          <p className="text-xs tracking-[0.2em] text-[#475569]">OPERATIONS</p>
-          <h2 className="mt-3 font-serif text-4xl md:text-5xl">Sourcing & Delivery Workflow</h2>
-          <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+      <motion.section id="operations" className="bg-[linear-gradient(180deg,#091327_0%,#061024_100%)] py-[5.75rem] md:py-[7.25rem] text-[#f2ece2]" {...sectionReveal}>
+        <motion.div className="mx-auto w-[min(1220px,94%)]" variants={staggerContainer} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}>
+          <p className="text-xs tracking-[0.2em] text-[#b8c3d6]">OPERATIONS</p>
+          <h2 className="mt-5 max-w-[15ch] font-serif text-4xl leading-[1.06] md:text-5xl">Sourcing & Delivery Workflow</h2>
+          <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
             {operations.map((step, idx) => (
-              <article key={step} className="rounded-2xl border border-[#D7DEE8] bg-white p-5">
-                <p className="text-xs tracking-[0.14em] text-[#475569]">0{idx + 1}</p>
-                <h3 className="mt-2 font-serif text-2xl">{step}</h3>
-              </article>
+              <motion.article
+                key={step}
+                className={`group border-t border-white/16 pt-6 transition-all duration-700 ${idx % 2 === 0 ? "xl:translate-y-0" : "xl:translate-y-8"}`}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.9, delay: idx * 0.08, ease: CINEMATIC_EASE }}
+              >
+                <p className="text-xs tracking-[0.18em] text-[#c4cfde] transition-colors duration-500 group-hover:text-[#e6edf8]">0{idx + 1}</p>
+                <h3 className="mt-3 max-w-[18ch] font-serif text-[1.9rem] leading-[1.2] transition-colors duration-500 group-hover:text-[#ffffff]">{step}</h3>
+                <div className="mt-6 h-px w-16 bg-white/22 transition-all duration-500 group-hover:w-24 group-hover:bg-white/45" />
+              </motion.article>
             ))}
           </div>
-        </div>
+        </motion.div>
       </motion.section>
 
-      <motion.section id="contact" className="bg-[#FAF7F2] py-14" initial={{ opacity: 0, y: 22 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.65 }}>
-        <div className="mx-auto grid w-[min(1220px,94%)] gap-5 md:grid-cols-[1.15fr_0.85fr]">
-          <article className="rounded-2xl border border-[#D7DEE8] bg-white p-6">
-            <h3 className="font-serif text-3xl">Contact Us</h3>
-            <p className="mt-4 leading-relaxed text-[#334155]">
+      <motion.section id="contact" className="bg-[#f7f2e9] py-[5.75rem] md:py-[7.25rem]" {...sectionReveal}>
+        <motion.div className="mx-auto grid w-[min(1220px,94%)] gap-10 md:grid-cols-[1.25fr_0.75fr] md:items-start" variants={staggerContainer} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}>
+          <motion.article className="md:pr-10" variants={staggerItem}>
+            <h3 className="font-serif text-3xl md:text-4xl">Contact Us</h3>
+            <p className="mt-6 max-w-[54ch] leading-[1.95] text-[#334155]">
               EC-4080 B, Bharat Diamond Bourse,<br />
               Bandra Kurla Complex,<br />
               Bandra(E), Mumbai-51
             </p>
-            <div className="mt-4 space-y-1 text-[#334155]">
+            <div className="mt-8 grid gap-2 text-[#334155] sm:grid-cols-2">
               <p>Tel: 022 3596 3936</p>
               <p>QBC: 022 3392 3961</p>
-              <p>Email: ppsonecha@gmail.com / vipuldiamons55@gmail.com</p>
+              <p className="break-words sm:col-span-2">Email: ppsonecha@gmail.com / vipuldiamons55@gmail.com</p>
             </div>
-          </article>
-          <article className="rounded-2xl border border-[#D7DEE8] bg-white p-6">
-            <div className="flex flex-col gap-3">
-              <a href="tel:02235963936" className="inline-flex items-center justify-center gap-2 rounded-full border border-[#D7DEE8] px-4 py-3 text-sm text-[#111827]"><Phone size={16} /> Call Office</a>
-              <a href={WHATSAPP_LINK} className="inline-flex items-center justify-center gap-2 rounded-full border border-[#111827] bg-[#111827] px-4 py-3 text-sm text-white"><MessageCircle size={16} /> WhatsApp Enquiry</a>
+          </motion.article>
+          <motion.article className="relative rounded-[2rem] bg-[linear-gradient(160deg,rgba(255,255,255,0.86)_0%,rgba(248,244,236,0.92)_100%)] p-7 shadow-[0_16px_34px_rgba(15,23,42,0.08)]" variants={staggerItem}>
+            <div className="pointer-events-none absolute inset-0 rounded-[2rem] bg-[radial-gradient(circle_at_78%_16%,rgba(203,213,225,0.26),transparent_52%)]" />
+            <div className="relative flex flex-col gap-3">
+              <a href="tel:02235963936" className="inline-flex items-center justify-center gap-2 rounded-full border border-[#cfd8e4] px-4 py-3 text-sm text-[#111827] transition-all duration-500 hover:-translate-y-[2px] hover:shadow-[0_10px_20px_rgba(15,23,42,0.1)]"><Phone size={16} /> Call Office</a>
+              <a href={WHATSAPP_LINK} className="inline-flex items-center justify-center gap-2 rounded-full border border-[#111827] bg-[#111827] px-4 py-3 text-sm text-white transition-all duration-500 hover:-translate-y-[2px] hover:bg-[#0f172a] hover:shadow-[0_12px_22px_rgba(15,23,42,0.2)]"><MessageCircle size={16} /> WhatsApp Enquiry</a>
             </div>
-          </article>
-        </div>
+          </motion.article>
+        </motion.div>
       </motion.section>
 
       <a href={WHATSAPP_LINK} target="_blank" rel="noreferrer" aria-label="WhatsApp Enquiry" className="floating-wa">
@@ -592,3 +711,4 @@ export default function ShowroomExperience() {
     </div>
   );
 }
+

@@ -12,6 +12,7 @@
   --accent-soft: #1e293b;
   --accent-line: #cbd5e1;
   --surface-nav: rgba(250, 247, 242, 0.88);
+  --ease-cinematic: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 html {
@@ -28,6 +29,7 @@ body {
     radial-gradient(circle at 14% 88%, rgba(203, 213, 225, 0.35), transparent 44%),
     linear-gradient(180deg, var(--bg-main), var(--bg-section));
   overflow-x: hidden;
+  line-height: 1.6;
 }
 
 * { box-sizing: border-box; }
@@ -99,8 +101,8 @@ body {
   padding: 1.25rem;
 }
 
-.magnetic-btn { transition: transform 240ms ease, box-shadow 240ms ease; }
-.magnetic-btn:hover { box-shadow: 0 8px 20px rgba(148, 163, 184, 0.25); }
+.magnetic-btn { transition: transform 360ms var(--ease-cinematic), box-shadow 360ms var(--ease-cinematic); }
+.magnetic-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 22px rgba(148, 163, 184, 0.24); }
 
 .cta-btn {
   border-radius: 999px;
@@ -142,12 +144,16 @@ body {
   background: linear-gradient(145deg, #1e293b, #0f172a);
   border: 1px solid rgba(203, 213, 225, 0.5);
   box-shadow: 0 10px 26px rgba(15, 23, 42, 0.28);
-  transition: transform 220ms ease, box-shadow 220ms ease;
+  transition: transform 380ms var(--ease-cinematic), box-shadow 380ms var(--ease-cinematic);
 }
 
 .floating-wa:hover {
   transform: translateY(-3px);
   box-shadow: 0 14px 30px rgba(15, 23, 42, 0.34);
+}
+
+a {
+  transition: color 480ms var(--ease-cinematic), opacity 480ms var(--ease-cinematic), background-color 480ms var(--ease-cinematic), border-color 480ms var(--ease-cinematic), transform 480ms var(--ease-cinematic), box-shadow 480ms var(--ease-cinematic);
 }
 
 @media (max-width: 768px) {
