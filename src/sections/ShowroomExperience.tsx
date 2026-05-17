@@ -252,13 +252,13 @@ export default function ShowroomExperience() {
             })}
           </div>
 
-          <div className="mt-10 flex snap-x snap-mandatory gap-5 overflow-x-auto px-1 pb-3 md:hidden">
+          <div className="mt-10 flex snap-x snap-mandatory gap-0 overflow-x-auto pb-3 md:hidden">
             {diamondShapes.map((shape) => {
               const active = activeDiamond === shape;
               return (
                 <article
                   key={shape}
-                  className="group relative w-[76%] shrink-0 snap-center"
+                  className="group relative flex w-full shrink-0 snap-center flex-col items-center justify-center px-3"
                   onClick={() => setActiveDiamond((prev) => (prev === shape ? null : shape))}
                 >
                   <div className="relative flex h-[214px] items-center justify-center">
@@ -268,8 +268,8 @@ export default function ShowroomExperience() {
                       className={`h-[90%] w-[90%] object-contain object-center drop-shadow-[0_7px_12px_rgba(0,0,0,0.26)] transition-all duration-500 ${active ? "scale-[1.03] brightness-105" : "scale-[0.96] brightness-90"} ${diamondOpticalClassMap[shape]}`}
                     />
                   </div>
-                  <h3 className={`text-center font-serif text-3xl transition-colors duration-500 ${active ? "text-[#ffffff]" : "text-[#e5dfd4]"}`}>{shape}</h3>
-                  <div className={`mt-3 flex justify-center transition-all duration-500 ${active ? "opacity-100" : "opacity-0"}`}>
+                  <h3 className={`w-full text-center font-serif text-3xl transition-colors duration-500 ${active ? "text-[#ffffff]" : "text-[#e5dfd4]"}`}>{shape}</h3>
+                  <div className={`mt-3 flex w-full justify-center transition-all duration-500 ${active ? "opacity-100" : "opacity-0"}`}>
                     <a
                       href={WHATSAPP_LINK}
                       onClick={(event) => event.stopPropagation()}
@@ -341,12 +341,12 @@ export default function ShowroomExperience() {
                   </linearGradient>
                 </defs>
 
-                <motion.path d={routes.mobile.indiaTop} stroke="url(#routeFlowMobile)" strokeWidth="1.15" fill="none" initial={{ pathLength: 0, opacity: 0.2 }} whileInView={{ pathLength: 1, opacity: 0.54 }} transition={{ duration: 0.82, delay: 0.08 }} />
-                <motion.path d={routes.mobile.indiaSouth} stroke="url(#routeFlowMobile)" strokeWidth="1.15" fill="none" initial={{ pathLength: 0, opacity: 0.2 }} whileInView={{ pathLength: 1, opacity: 0.52 }} transition={{ duration: 0.82, delay: 0.2 }} />
-                <motion.path d={routes.mobile.indiaNorthEast} stroke="url(#routeFlowMobile)" strokeWidth="1.12" fill="none" initial={{ pathLength: 0, opacity: 0.2 }} whileInView={{ pathLength: 1, opacity: 0.5 }} transition={{ duration: 0.86, delay: 0.24 }} />
-                <motion.path d={routes.mobile.indiaNorthEastShort} stroke="url(#routeFlowMobile)" strokeWidth="1.12" fill="none" initial={{ pathLength: 0, opacity: 0.2 }} whileInView={{ pathLength: 1, opacity: 0.5 }} transition={{ duration: 0.84, delay: 0.26 }} />
-                <motion.path d={routes.mobile.indiaNorthEastInner} stroke="url(#routeFlowMobile)" strokeWidth="1.12" fill="none" initial={{ pathLength: 0, opacity: 0.2 }} whileInView={{ pathLength: 1, opacity: 0.5 }} transition={{ duration: 0.84, delay: 0.28 }} />
-                <motion.path d={routes.mobile.indiaSouthEastInner} stroke="url(#routeFlowMobile)" strokeWidth="1.12" fill="none" initial={{ pathLength: 0, opacity: 0.2 }} whileInView={{ pathLength: 1, opacity: 0.5 }} transition={{ duration: 0.86, delay: 0.3 }} />
+                <motion.path d={routes.mobile.indiaTop} stroke="url(#routeFlowMobile)" strokeWidth="1.5" fill="none" initial={{ pathLength: 0, opacity: 0.24 }} whileInView={{ pathLength: 1, opacity: 0.82 }} transition={{ duration: 0.82, delay: 0.08 }} />
+                <motion.path d={routes.mobile.indiaSouth} stroke="url(#routeFlowMobile)" strokeWidth="1.5" fill="none" initial={{ pathLength: 0, opacity: 0.24 }} whileInView={{ pathLength: 1, opacity: 0.8 }} transition={{ duration: 0.82, delay: 0.2 }} />
+                <motion.path d={routes.mobile.indiaNorthEast} stroke="url(#routeFlowMobile)" strokeWidth="1.45" fill="none" initial={{ pathLength: 0, opacity: 0.24 }} whileInView={{ pathLength: 1, opacity: 0.78 }} transition={{ duration: 0.86, delay: 0.24 }} />
+                <motion.path d={routes.mobile.indiaNorthEastShort} stroke="url(#routeFlowMobile)" strokeWidth="1.45" fill="none" initial={{ pathLength: 0, opacity: 0.24 }} whileInView={{ pathLength: 1, opacity: 0.78 }} transition={{ duration: 0.84, delay: 0.26 }} />
+                <motion.path d={routes.mobile.indiaNorthEastInner} stroke="url(#routeFlowMobile)" strokeWidth="1.45" fill="none" initial={{ pathLength: 0, opacity: 0.24 }} whileInView={{ pathLength: 1, opacity: 0.78 }} transition={{ duration: 0.84, delay: 0.28 }} />
+                <motion.path d={routes.mobile.indiaSouthEastInner} stroke="url(#routeFlowMobile)" strokeWidth="1.45" fill="none" initial={{ pathLength: 0, opacity: 0.24 }} whileInView={{ pathLength: 1, opacity: 0.78 }} transition={{ duration: 0.86, delay: 0.3 }} />
 
                 <motion.path d={routes.mobile.dubai} stroke="url(#routeFlowIntlMobile)" strokeWidth="1.28" fill="none" initial={{ pathLength: 0, opacity: 0.16 }} whileInView={{ pathLength: 1, opacity: 0.72 }} transition={{ duration: 1.0, delay: 0.28 }} />
                 <motion.path d={routes.mobile.london} stroke="url(#routeFlowIntlMobile)" strokeWidth="1.28" fill="none" initial={{ pathLength: 0, opacity: 0.16 }} whileInView={{ pathLength: 1, opacity: 0.72 }} transition={{ duration: 1.05, delay: 0.32 }} />
@@ -368,6 +368,24 @@ export default function ShowroomExperience() {
                 </circle>
                 <circle r="2.2" fill="#0f172a" opacity="0.58" filter="url(#dotGlowMobile)">
                   <animateMotion dur="14.2s" repeatCount="indefinite" path={routes.mobile.hongKong} />
+                </circle>
+                <circle r="2" fill="#1e293b" opacity="0.48" filter="url(#dotGlowMobile)">
+                  <animateMotion dur="14.6s" repeatCount="indefinite" path={routes.mobile.indiaTop} />
+                </circle>
+                <circle r="2" fill="#1e293b" opacity="0.46" filter="url(#dotGlowMobile)">
+                  <animateMotion dur="15.1s" repeatCount="indefinite" path={routes.mobile.indiaSouth} />
+                </circle>
+                <circle r="2" fill="#1e293b" opacity="0.46" filter="url(#dotGlowMobile)">
+                  <animateMotion dur="15.4s" repeatCount="indefinite" path={routes.mobile.indiaNorthEast} />
+                </circle>
+                <circle r="2" fill="#1e293b" opacity="0.44" filter="url(#dotGlowMobile)">
+                  <animateMotion dur="15.8s" repeatCount="indefinite" path={routes.mobile.indiaNorthEastShort} />
+                </circle>
+                <circle r="2" fill="#1e293b" opacity="0.44" filter="url(#dotGlowMobile)">
+                  <animateMotion dur="16.2s" repeatCount="indefinite" path={routes.mobile.indiaNorthEastInner} />
+                </circle>
+                <circle r="2" fill="#1e293b" opacity="0.44" filter="url(#dotGlowMobile)">
+                  <animateMotion dur="16.4s" repeatCount="indefinite" path={routes.mobile.indiaSouthEastInner} />
                 </circle>
 
                 <motion.circle cx={nodes.mobile.mumbai.x} cy={nodes.mobile.mumbai.y} r="3.7" fill="#172235" filter="url(#dotGlowMobile)" initial={{ scale: 0.84, opacity: 0 }} whileInView={{ scale: 1, opacity: 1 }} transition={{ duration: 0.5, delay: 0.45 }} />
@@ -450,6 +468,24 @@ export default function ShowroomExperience() {
               </circle>
               <circle r="2.4" fill="#0f172a" opacity="0.58" filter="url(#dotGlow)">
                 <animateMotion dur="13.6s" repeatCount="indefinite" path={routes.desktop.hongKong} />
+              </circle>
+              <circle r="2.1" fill="#1e293b" opacity="0.46" filter="url(#dotGlow)">
+                <animateMotion dur="14.8s" repeatCount="indefinite" path={routes.desktop.indiaTop} />
+              </circle>
+              <circle r="2.1" fill="#1e293b" opacity="0.44" filter="url(#dotGlow)">
+                <animateMotion dur="15.2s" repeatCount="indefinite" path={routes.desktop.indiaSouth} />
+              </circle>
+              <circle r="2.1" fill="#1e293b" opacity="0.44" filter="url(#dotGlow)">
+                <animateMotion dur="15.6s" repeatCount="indefinite" path={routes.desktop.indiaNorthEast} />
+              </circle>
+              <circle r="2.1" fill="#1e293b" opacity="0.42" filter="url(#dotGlow)">
+                <animateMotion dur="16s" repeatCount="indefinite" path={routes.desktop.indiaNorthEastShort} />
+              </circle>
+              <circle r="2.1" fill="#1e293b" opacity="0.42" filter="url(#dotGlow)">
+                <animateMotion dur="16.4s" repeatCount="indefinite" path={routes.desktop.indiaNorthEastInner} />
+              </circle>
+              <circle r="2.1" fill="#1e293b" opacity="0.42" filter="url(#dotGlow)">
+                <animateMotion dur="16.8s" repeatCount="indefinite" path={routes.desktop.indiaSouthEastInner} />
               </circle>
 
               <motion.circle cx={nodes.desktop.mumbai.x} cy={nodes.desktop.mumbai.y} r="3.9" fill="#172235" filter="url(#dotGlow)" initial={{ scale: 0.86, opacity: 0 }} whileInView={{ scale: 1, opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.55, delay: 0.7 }} />
