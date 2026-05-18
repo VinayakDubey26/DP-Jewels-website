@@ -35,16 +35,15 @@ export default function Footer() {
           <div className="text-center md:text-left">
             <p className="text-[0.68rem] tracking-[0.2em] text-slate-300">SOCIAL</p>
             <div className="mt-4 flex flex-col items-center gap-4 text-sm text-slate-200 md:items-start">
-              <a href="https://instagram.com" target="_blank" rel="noreferrer" className="group inline-flex items-center gap-2 text-slate-200/90 transition-colors duration-500 hover:text-white">
+              <a href="https://instagram.com" target="_blank" rel="noreferrer" className="group editorial-link inline-flex items-center gap-2 text-slate-200/90 transition-colors duration-500 hover:text-white">
                 <Camera size={15} />
                 <span>Instagram</span>
-                <span className="mt-0.5 block h-px w-0 bg-white/70 transition-all duration-500 group-hover:w-8" />
               </a>
               <a
                 href={WHATSAPP_LINK}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/28 bg-white/[0.04] px-5 py-2.5 text-[0.72rem] tracking-[0.14em] text-[#f8f4ec] transition-all duration-500 hover:-translate-y-[1px] hover:border-white/46 hover:bg-white/[0.09] hover:shadow-[0_10px_24px_rgba(5,10,26,0.35)]"
+                className="lux-hover-lift inline-flex items-center justify-center gap-2 border border-white/28 bg-white/[0.04] px-5 py-2.5 text-[0.72rem] tracking-[0.14em] text-[#f8f4ec] transition-all duration-500 hover:border-white/46 hover:bg-white/[0.09] hover:shadow-[0_10px_24px_rgba(5,10,26,0.35)]"
               >
                 <MessageCircle size={15} />
                 WHATSAPP ENQUIRY

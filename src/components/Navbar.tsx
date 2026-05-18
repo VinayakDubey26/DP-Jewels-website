@@ -56,15 +56,14 @@ export default function Navbar() {
 
         <div className="hidden items-center gap-6 lg:flex">
           {links.map((item) => (
-            <a key={item.id} href={`#${item.id}`} className="group text-xs tracking-[0.12em] text-[#F8F4EC]/88 transition-all duration-500 hover:text-[#f8f4ec]">
+            <a key={item.id} href={`#${item.id}`} className="group editorial-link text-xs tracking-[0.12em] text-[#F8F4EC]/88 transition-all duration-500 hover:text-[#f8f4ec]">
               {item.label}
-              <span className={`mt-1.5 block h-px origin-left bg-[#dbe4f2] transition-transform duration-500 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] ${active === item.id ? "scale-x-100 opacity-100" : "scale-x-0 opacity-65 group-hover:scale-x-100"}`} />
             </a>
           ))}
         </div>
 
         <div className="hidden lg:flex">
-          <a href="#contact" className="inline-flex h-9 items-center rounded-full border border-[#E2E8F0] bg-[#F8F4EC] px-5 text-xs tracking-[0.12em] text-[#111827] transition-all duration-500 hover:-translate-y-[1px] hover:bg-white hover:shadow-[0_10px_22px_rgba(15,23,42,0.16)]">
+          <a href="#contact" className="lux-hover-lift inline-flex h-9 items-center border border-[#E2E8F0] bg-[#F8F4EC] px-5 text-xs tracking-[0.12em] text-[#111827] transition-all duration-500 hover:bg-white hover:shadow-[0_10px_22px_rgba(15,23,42,0.16)]">
             ENQUIRE NOW
           </a>
         </div>
@@ -75,14 +74,14 @@ export default function Navbar() {
       </nav>
 
       {open && (
-        <div className="mx-auto mb-3 w-[min(1220px,94%)] rounded-2xl border border-white/12 bg-[#040816]/92 p-5 shadow-[0_10px_24px_rgba(0,0,0,0.28)] backdrop-blur-md lg:hidden">
+        <div className="mx-auto mb-3 w-[min(1220px,94%)] border border-white/12 bg-[#040816]/92 p-5 shadow-[0_10px_24px_rgba(0,0,0,0.28)] backdrop-blur-md lg:hidden">
           <div className="flex flex-col gap-4">
             {links.map((item) => (
               <a key={item.id} href={`#${item.id}`} onClick={() => setOpen(false)} className="text-sm tracking-[0.1em] text-[#F8F4EC]">
                 {item.label}
               </a>
             ))}
-            <a href="#contact" onClick={() => setOpen(false)} className="mt-2 inline-flex w-fit rounded-full border border-[#E2E8F0] bg-[#F8F4EC] px-4 py-2 text-sm text-[#111827]">
+            <a href="#contact" onClick={() => setOpen(false)} className="mt-2 inline-flex w-fit border border-[#E2E8F0] bg-[#F8F4EC] px-4 py-2 text-sm text-[#111827]">
               ENQUIRE NOW
             </a>
           </div>

@@ -13,6 +13,10 @@
   --accent-line: #cbd5e1;
   --surface-nav: rgba(250, 247, 242, 0.88);
   --ease-cinematic: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-luxury: cubic-bezier(0.23, 1, 0.32, 1);
+  --motion-fast: 420ms;
+  --motion-base: 620ms;
+  --motion-slow: 900ms;
 }
 
 html {
@@ -29,10 +33,15 @@ body {
     radial-gradient(circle at 14% 88%, rgba(203, 213, 225, 0.35), transparent 44%),
     linear-gradient(180deg, var(--bg-main), var(--bg-section));
   overflow-x: hidden;
-  line-height: 1.6;
+  line-height: 1.7;
 }
 
 * { box-sizing: border-box; }
+
+#root {
+  width: 100%;
+  overflow-x: clip;
+}
 
 .font-serif { font-family: "Cormorant Garamond", serif; }
 
@@ -152,8 +161,61 @@ body {
   box-shadow: 0 14px 30px rgba(15, 23, 42, 0.34);
 }
 
-a {
-  transition: color 480ms var(--ease-cinematic), opacity 480ms var(--ease-cinematic), background-color 480ms var(--ease-cinematic), border-color 480ms var(--ease-cinematic), transform 480ms var(--ease-cinematic), box-shadow 480ms var(--ease-cinematic);
+a, button {
+  transition:
+    color var(--motion-base) var(--ease-luxury),
+    opacity var(--motion-base) var(--ease-luxury),
+    background-color var(--motion-base) var(--ease-luxury),
+    border-color var(--motion-base) var(--ease-luxury),
+    transform var(--motion-base) var(--ease-luxury),
+    box-shadow var(--motion-base) var(--ease-luxury),
+    filter var(--motion-base) var(--ease-luxury);
+}
+
+.editorial-rule {
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(90deg, transparent, rgba(148, 163, 184, 0.4), transparent);
+  transform: scaleX(0.88);
+  transform-origin: center;
+  opacity: 0;
+  animation: dividerReveal 1.2s var(--ease-luxury) 180ms forwards;
+}
+
+.editorial-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.editorial-link::after {
+  content: "";
+  width: 0;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.7;
+  transition: width var(--motion-base) var(--ease-luxury), opacity var(--motion-base) var(--ease-luxury);
+}
+
+.editorial-link:hover::after { width: 2.2rem; }
+
+.lux-hover-lift:hover { transform: translateY(-2px); }
+
+.lux-arrow {
+  display: inline-block;
+  transition: transform var(--motion-base) var(--ease-luxury), opacity var(--motion-base) var(--ease-luxury), filter var(--motion-base) var(--ease-luxury);
+}
+
+.group:hover .lux-arrow {
+  transform: translateX(5px);
+  opacity: 1;
+}
+
+@keyframes dividerReveal {
+  from { transform: scaleX(0.88); opacity: 0; }
+  to { transform: scaleX(1); opacity: 1; }
 }
 
 @media (max-width: 768px) {
