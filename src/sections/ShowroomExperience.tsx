@@ -1,5 +1,5 @@
 ﻿import { MessageCircle, Phone } from "lucide-react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useState } from "react";
 import bgImage from "../assets/bg.jpg";
 import diamondRound from "../assets/shaped/diamond_round.png";
@@ -17,6 +17,7 @@ import bdbImage from "../assets/images/bdb.png";
 
 const WHATSAPP_LINK = "https://wa.me/918356810826?text=Hello%20D.P.%20Jewels%2C%20I%20am%20interested%20in%20a%20diamond%20enquiry.";
 const CINEMATIC_EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
+const SOFT_EASE: [number, number, number, number] = [0.25, 0.92, 0.34, 1];
 const sectionReveal = {
   initial: { opacity: 0, y: 30 },
   whileInView: { opacity: 1, y: 0 },
@@ -80,35 +81,35 @@ const operationsJourney = [
   {
     num: "01",
     title: "Requirement Understanding",
-    desc: "Buyer specifications, assortment intent, and timeline constraints are aligned through discreet, detail-led consultation.",
+    desc: "A discreet brief aligns intent, quality language, and timeline precision.",
     cue: "PRIVATE BRIEF",
     image: bgImage,
   },
   {
     num: "02",
     title: "Diamond Selection",
-    desc: "Curated options are shortlisted from trusted channels with precision across shape, spread, and quality preferences.",
+    desc: "Curated stones are shortlisted through trusted channels and refined judgement.",
     cue: "CURATED SOURCING",
     image: diamondRound,
   },
   {
     num: "03",
     title: "Quality Review",
-    desc: "Each recommendation undergoes careful technical screening, consistency checks, and certification alignment before presentation.",
+    desc: "Each recommendation is screened for consistency, grading, and certification alignment.",
     cue: "INSPECTION PROTOCOL",
     image: diamondEmerald,
   },
   {
     num: "04",
     title: "Buyer Confirmation",
-    desc: "Final selections are validated with transparent communication, documented specifications, and confidence-led approvals.",
+    desc: "Final selections are validated with transparent specs and quiet confidence.",
     cue: "CONFIRMATION DESK",
     image: bdbImage,
   },
   {
     num: "05",
     title: "Export / Delivery Coordination",
-    desc: "Secure routing and dispatch readiness are coordinated for domestic and global trade movement with disciplined execution.",
+    desc: "Secure routing and dispatch are coordinated for precise domestic and global handoff.",
     cue: "GLOBAL HANDOFF",
     image: indiaMap,
   },
@@ -136,6 +137,11 @@ const certifications = [
     code: "GJEPC",
     name: "Gem & Jewellery Export Promotion Council",
     description: "Premier Indian trade body reinforcing compliant export practices and trusted global industry alignment.",
+  },
+  {
+    code: "GSI",
+    name: "Gemological Science International",
+    description: "Respected gemological certification body supporting reliable grading and transparent verification standards.",
   },
 ];
 
@@ -244,7 +250,7 @@ function getCircularOffset(index: number, activeIndex: number, total: number) {
 
 export default function ShowroomExperience() {
   const [activeDiamondIndex, setActiveDiamondIndex] = useState(0);
-  const [activeOperationIndex, setActiveOperationIndex] = useState<number | null>(null);
+  const [activeOperationIndex, setActiveOperationIndex] = useState<number>(0);
   const heroRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
   const heroY = useTransform(scrollYProgress, [0, 1], [0, -26]);
@@ -261,7 +267,7 @@ export default function ShowroomExperience() {
   };
   const heroItem = {
     hidden: { opacity: 0, y: 24 },
-    show: { opacity: 1, y: 0, transition: { duration: 1.05, ease: CINEMATIC_EASE } },
+    show: { opacity: 1, y: 0, transition: { duration: 1.05, ease: SOFT_EASE } },
   };
   const activeDiamond = diamondShapes[activeDiamondIndex];
   const goPrevDiamond = () => setActiveDiamondIndex((prev) => (prev - 1 + diamondShapes.length) % diamondShapes.length);
@@ -270,11 +276,28 @@ export default function ShowroomExperience() {
   return (
     <div className="text-[#111827]">
       <section ref={heroRef} id="home" className="relative flex min-h-screen items-end overflow-hidden bg-[#040816]">
-        <motion.img src={bgImage} alt="Premium jewellery background" className="absolute inset-0 h-full w-full object-cover saturate-[0.86] contrast-[1.08] brightness-[0.68]" style={{ y: heroY, scale: heroScale }} />
+        <motion.img src={bgImage} alt="Premium jewellery background" className="absolute inset-0 h-full w-full object-cover object-[58%_44%] saturate-[0.88] contrast-[1.08] brightness-[0.7] md:object-center" style={{ y: heroY, scale: heroScale }} />
         <motion.div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(4,8,22,0.48)_0%,rgba(4,8,22,0.66)_38%,rgba(4,8,22,0.84)_100%)]" style={{ opacity: heroOverlayOpacity }} animate={{ opacity: [0.9, 1, 0.92] }} transition={{ duration: 12, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }} />
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_52%_46%,rgba(112,132,168,0.12)_0%,rgba(4,8,22,0)_46%)]" />
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,rgba(0,0,0,0)_34%,rgba(0,0,0,0.36)_100%)]" />
         <div className="pointer-events-none absolute inset-0 opacity-[0.08] [background-image:radial-gradient(rgba(255,255,255,0.34)_0.5px,transparent_0.5px)] [background-size:3px_3px]" />
+        <motion.div
+          aria-hidden
+          className="pointer-events-none absolute inset-0"
+          animate={{ opacity: [0.18, 0.26, 0.18] }}
+          transition={{ duration: 16, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+        >
+          {[...Array(8)].map((_, i) => (
+            <motion.span
+              key={`hero-particle-${i}`}
+              className="absolute h-[2px] w-[2px] rounded-full bg-[#efe5d0]/70 shadow-[0_0_7px_rgba(238,225,197,0.32)]"
+              style={{ left: `${12 + i * 11}%`, top: `${16 + ((i * 9) % 52)}%` }}
+              animate={{ y: [0, -14 - (i % 3) * 8, 0], x: [0, (i % 2 === 0 ? 4 : -3), 0], opacity: [0.2, 0.62, 0.2] }}
+              transition={{ duration: 11 + i, delay: i * 0.45, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+            />
+          ))}
+        </motion.div>
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_58%_47%,rgba(232,219,188,0.09)_0%,rgba(232,219,188,0)_33%)]" />
         <motion.div
           className="pointer-events-none absolute -right-[20%] top-[8%] h-[36rem] w-[36rem] rounded-full bg-[radial-gradient(circle,rgba(162,182,214,0.1)_0%,rgba(162,182,214,0)_72%)] blur-3xl"
           animate={{ x: [0, -18, 0], y: [0, 12, 0] }}
@@ -283,7 +306,7 @@ export default function ShowroomExperience() {
         <div className="relative mx-auto w-[min(1220px,94%)] pb-20 pt-36 md:pb-28 md:pt-44">
           <motion.div variants={heroContentStagger} initial="hidden" animate="show" className="max-w-[700px] text-white">
             <motion.h1 variants={heroItem} className="font-serif text-[2.6rem] leading-[1.02] md:text-[4.75rem]">Diamond Traders, Importers & Exporters</motion.h1>
-            <motion.p variants={heroItem} className="mt-7 max-w-[34rem] text-base leading-relaxed text-[#e2e8f0]/88 md:text-lg">
+            <motion.p variants={heroItem} className="mt-7 max-w-[34rem] text-[1.08rem] leading-[1.82] text-[#e2e8f0]/88 md:text-[1.18rem]">
               Trusted sourcing from Bharat Diamond Bourse with 25+ years of precision, transparency, and global export focus.
             </motion.p>
             <motion.div variants={heroItem} className="mt-10">
@@ -293,28 +316,30 @@ export default function ShowroomExperience() {
         </div>
       </section>
 
-      <motion.section id="about" className="relative bg-[#FAF7F2] py-[6.1rem] md:py-[8.6rem]" {...sectionReveal}>
+      <motion.section id="about" className="relative bg-[#FAF7F2] py-[5.2rem] md:py-[6.2rem]" {...sectionReveal}>
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_14%,rgba(112,132,168,0.08)_0%,rgba(112,132,168,0)_36%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_82%_88%,rgba(212,190,150,0.07)_0%,rgba(212,190,150,0)_32%)]" />
         <div className="pointer-events-none absolute left-0 top-[22%] hidden h-px w-[16%] bg-[linear-gradient(90deg,rgba(148,163,184,0.4),transparent)] md:block" />
-        <motion.div className="mx-auto grid w-full max-w-[1240px] px-5 md:px-8 gap-16 lg:grid-cols-[1.08fr_0.92fr] lg:items-start lg:pl-4" variants={staggerContainer} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}>
+        <motion.div className="mx-auto grid w-full max-w-[1440px] px-5 md:px-8 gap-11 lg:grid-cols-[1.08fr_0.92fr] lg:items-start lg:pl-4" variants={staggerContainer} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}>
           <motion.article className="lg:pt-3" variants={staggerItem}>
             <motion.p className="text-xs tracking-[0.22em] text-[#475569]" variants={staggerItem}>ABOUT D.P. JEWELS</motion.p>
-            <motion.h2 className="mt-5 max-w-[14ch] font-serif text-4xl leading-[1.04] md:text-[3.45rem]" variants={staggerItem}>Built on Trust, Since 1999</motion.h2>
-            <motion.p className="mt-8 max-w-[62ch] text-[1.02rem] leading-[1.95] text-[#334155]" variants={staggerItem}>
+            <motion.h2 className="mt-4 max-w-[14ch] font-serif text-4xl leading-[1.04] md:text-[3.45rem]" variants={staggerItem}>Built on Trust, Since 1999</motion.h2>
+            <motion.p className="mt-6 max-w-[62ch] text-[1.02rem] leading-[1.9] text-[#334155]" variants={staggerItem}>
               With 25+ years of experience, D.P. Jewels operates from Bharat Diamond Bourse, Mumbai, serving India and international buyers through transparent dealings, refined sourcing, and consistent export execution.
             </motion.p>
           </motion.article>
-          <motion.div className="space-y-10 md:space-y-12 lg:pt-10" variants={staggerContainer}>
+          <motion.div className="space-y-8 md:space-y-9 lg:pt-5" variants={staggerContainer}>
             {aboutMetrics.map((metric, idx) => (
               <motion.article
                 key={metric.label}
-                className={`${metric.offsetClass} border-t border-[#cfd8e4] pt-6`}
+                className={`${metric.offsetClass} border-t border-[#cfd8e4] pt-5 shadow-[0_8px_24px_rgba(148,163,184,0.06)]`}
                 initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.4 }}
-                transition={{ duration: 0.8, delay: idx * 0.08, ease: CINEMATIC_EASE }}
+                transition={{ duration: 0.85, delay: idx * 0.08, ease: SOFT_EASE }}
               >
                 <p className="font-serif text-[2.4rem] leading-[1] text-[#111827] md:text-[3.15rem]">{metric.value}</p>
-                <p className="mt-3 text-[0.72rem] tracking-[0.17em] text-[#475569] md:text-[0.78rem]">{metric.label}</p>
+                <p className="mt-3 text-xs tracking-[0.14em] text-[#475569]">{metric.label}</p>
               </motion.article>
             ))}
           </motion.div>
@@ -323,11 +348,12 @@ export default function ShowroomExperience() {
 
       <motion.section id="diamonds" className="relative min-h-screen overflow-hidden bg-[linear-gradient(180deg,#061024_0%,#040816_48%,#030611_100%)] py-[5.1rem] md:py-[7.2rem]" {...sectionReveal}>
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_56%,rgba(224,233,245,0.09)_0%,rgba(224,233,245,0)_44%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_14%_28%,rgba(206,218,238,0.07)_0%,rgba(206,218,238,0)_30%)]" />
         <div className="pointer-events-none absolute inset-0 hidden opacity-[0.1] [background-image:radial-gradient(rgba(255,255,255,0.26)_0.35px,transparent_0.35px)] [background-size:3px_3px] md:block" />
-        <div className="mx-auto w-full max-w-[1260px] px-5 md:px-8 lg:pl-8">
+        <div className="mx-auto w-full max-w-[1440px] px-5 md:px-8 lg:pl-8">
           <p className="text-xs tracking-[0.22em] text-[#aeb7c5]">DIAMONDS</p>
           <h2 className="mt-5 font-serif text-4xl text-[#f7f2e8] md:text-6xl">Diamond Shapes & Selections</h2>
-          <p className="mt-5 max-w-2xl text-sm leading-relaxed tracking-[0.03em] text-[#c8d0dc] md:text-base">
+          <p className="mt-5 max-w-2xl text-[1.04rem] leading-[1.82] tracking-[0.02em] text-[#c8d0dc] md:text-[1.1rem]">
             Natural & Lab Grown Diamonds
             <br />
             Precision sourced from Bharat Diamond Bourse
@@ -340,7 +366,7 @@ export default function ShowroomExperience() {
               type="button"
               aria-label="Previous diamond"
               onClick={goPrevDiamond}
-              className="absolute left-8 top-[52%] z-20 -translate-y-1/2 border border-white/22 bg-white/[0.04] px-2 py-1 text-[0.78rem] text-[#dbe4f2] transition-all duration-700 hover:bg-white/[0.1]"
+              className="absolute left-8 top-[52%] z-20 -translate-y-1/2 border border-white/22 bg-white/[0.04] px-2 py-1 text-xs text-[#dbe4f2] transition-all duration-700 hover:bg-white/[0.1]"
             >
               {"<"}
             </button>
@@ -348,7 +374,7 @@ export default function ShowroomExperience() {
               type="button"
               aria-label="Next diamond"
               onClick={goNextDiamond}
-              className="absolute right-8 top-[52%] z-20 -translate-y-1/2 border border-white/22 bg-white/[0.04] px-2 py-1 text-[0.78rem] text-[#dbe4f2] transition-all duration-700 hover:bg-white/[0.1]"
+              className="absolute right-8 top-[52%] z-20 -translate-y-1/2 border border-white/22 bg-white/[0.04] px-2 py-1 text-xs text-[#dbe4f2] transition-all duration-700 hover:bg-white/[0.1]"
             >
               {">"}
             </button>
@@ -444,13 +470,13 @@ export default function ShowroomExperience() {
                 />
               ))}
             </div>
-            <p className="text-[0.68rem] tracking-[0.18em] text-[#aab8cd]">Swipe to view all diamond shapes</p>
+            <p className="text-xs tracking-[0.12em] text-[#aab8cd]">Swipe to view all diamond shapes</p>
             <div className="mt-2">
-              <h3 className="text-center font-serif text-[1.92rem] tracking-[0.08em] text-[#f6f1e8] md:text-[2.1rem]">{activeDiamond}</h3>
+                <h3 className="text-center font-serif text-[2.05rem] tracking-[0.08em] text-[#f6f1e8] md:text-[2.35rem]">{activeDiamond}</h3>
               <div className="mt-3 flex justify-center">
                 <a
                   href={WHATSAPP_LINK}
-                  className="lux-hover-lift rounded-full border border-[#cfd8e4]/65 px-5 py-1.5 text-[0.64rem] tracking-[0.24em] text-[#f3eee5] transition-all duration-500 hover:bg-[#f3eee5] hover:text-[#111827]"
+                  className="lux-hover-lift rounded-full border border-[#cfd8e4]/65 px-5 py-1.5 text-xs tracking-[0.12em] text-[#f3eee5] transition-all duration-500 hover:bg-[#f3eee5] hover:text-[#111827]"
                 >
                   ENQUIRE
                 </a>
@@ -462,9 +488,9 @@ export default function ShowroomExperience() {
 
       <motion.section className="relative -mt-5 bg-[linear-gradient(180deg,#ffffff_0%,#faf7f2_100%)] py-[5.9rem] md:py-[7.5rem]" {...sectionReveal}>
         <div className="pointer-events-none absolute right-0 top-[14%] hidden h-px w-[14%] bg-[linear-gradient(270deg,rgba(148,163,184,0.34),transparent)] md:block" />
-        <div className="mx-auto w-full max-w-[1240px] px-5 md:px-8 lg:pr-6">
-          <p className="text-[0.62rem] tracking-[0.28em] text-[#334155] sm:text-[0.64rem]">SUPPLYING ACROSS INDIA & GLOBAL MARKETS</p>
-          <h2 className="mt-3 font-serif text-4xl md:text-5xl">Global Presence, Rooted in Mumbai</h2>
+        <div className="mx-auto w-full max-w-[1440px] px-5 md:px-8 lg:pr-6">
+          <p className="text-xs tracking-[0.14em] text-[#334155]">SUPPLYING ACROSS INDIA & GLOBAL MARKETS</p>
+          <h2 className="mt-3 font-serif text-[2.45rem] md:text-[3.4rem]">Global Presence, Rooted in Mumbai</h2>
           <p className="mt-5 max-w-4xl leading-relaxed text-[#334155]">
             From Bharat Diamond Bourse, Mumbai, D.P. Jewels serves buyers across India and key international markets with trusted diamond sourcing and export-focused relationships.
           </p>
@@ -706,7 +732,7 @@ export default function ShowroomExperience() {
           <div className="pointer-events-none absolute inset-y-0 left-0 hidden w-[44%] backdrop-blur-[1.6px] md:block md:w-[36%]" />
 
           <div className="absolute inset-0 hidden items-center md:flex">
-            <div className="mx-auto w-full max-w-[1240px] px-5 md:px-8">
+            <div className="mx-auto w-full max-w-[1440px] px-5 md:px-8">
               <motion.article
                 className="w-full max-w-[620px] py-6 md:py-8"
                 variants={staggerItem}
@@ -714,12 +740,12 @@ export default function ShowroomExperience() {
                 whileInView="show"
                 viewport={{ once: true, amount: 0.4 }}
               >
-                <p className="text-[0.62rem] tracking-[0.22em] text-[#9a7a36] [text-shadow:0_1px_2px_rgba(248,244,236,0.4)]">TRUST & LOCATION</p>
+                <p className="text-xs tracking-[0.14em] text-[#9a7a36] [text-shadow:0_1px_2px_rgba(248,244,236,0.4)]">TRUST & LOCATION</p>
                 <h2 className="mt-4 max-w-[14ch] font-serif text-[2rem] leading-[1.06] text-[#111827] [text-shadow:0_2px_12px_rgba(248,244,236,0.45)] md:text-5xl">Based at Bharat Diamond Bourse</h2>
-                <p className="mt-6 max-w-[58ch] text-[0.96rem] leading-[1.9] text-[#334155] [text-shadow:0_1px_8px_rgba(248,244,236,0.38)] md:text-base">
+                <p className="mt-6 max-w-[58ch] text-[1.06rem] leading-[1.8] text-[#334155] md:text-[1.12rem] [text-shadow:0_1px_8px_rgba(248,244,236,0.38)] md:text-base">
                   Operating from Bharat Diamond Bourse, Bandra Kurla Complex, D.P. Jewels is positioned at the heart of India&apos;s diamond trade, serving buyers with trust, precision, and long-standing industry experience.
                 </p>
-                <p className="mt-8 border-l border-[#a9b6ca] pl-5 text-[0.96rem] leading-[1.9] text-[#1f2937] [text-shadow:0_1px_8px_rgba(248,244,236,0.35)] md:mt-10 md:text-base">
+                <p className="mt-8 border-l border-[#a9b6ca] pl-5 text-[1.06rem] leading-[1.8] text-[#1f2937] md:text-[1.12rem] [text-shadow:0_1px_8px_rgba(248,244,236,0.35)] md:mt-10 md:text-base">
                   EC-4080 B, Bharat Diamond Bourse,<br />
                   Bandra Kurla Complex,<br />
                   Bandra(E), Mumbai-51
@@ -727,14 +753,14 @@ export default function ShowroomExperience() {
               </motion.article>
             </div>
           </div>
-          <div className="mx-auto w-full max-w-[1240px] px-5 pb-2 pt-3 md:hidden">
+          <div className="mx-auto w-full max-w-[1440px] px-5 pb-2 pt-3 md:hidden">
             <article className="w-full max-w-[620px] py-3">
-              <p className="text-[0.62rem] tracking-[0.22em] text-[#9a7a36]">TRUST & LOCATION</p>
+              <p className="text-xs tracking-[0.14em] text-[#9a7a36]">TRUST & LOCATION</p>
               <h2 className="mt-4 max-w-[14ch] font-serif text-[2rem] leading-[1.06] text-[#111827]">Based at Bharat Diamond Bourse</h2>
-              <p className="mt-6 max-w-[58ch] text-[0.96rem] leading-[1.9] text-[#334155]">
+              <p className="mt-6 max-w-[58ch] text-[1.06rem] leading-[1.8] text-[#334155] md:text-[1.12rem]">
                 Operating from Bharat Diamond Bourse, Bandra Kurla Complex, D.P. Jewels is positioned at the heart of India&apos;s diamond trade, serving buyers with trust, precision, and long-standing industry experience.
               </p>
-              <p className="mt-8 border-l border-[#a9b6ca] pl-5 text-[0.96rem] leading-[1.9] text-[#1f2937]">
+              <p className="mt-8 border-l border-[#a9b6ca] pl-5 text-[1.06rem] leading-[1.8] text-[#1f2937] md:text-[1.12rem]">
                 EC-4080 B, Bharat Diamond Bourse,<br />
                 Bandra Kurla Complex,<br />
                 Bandra(E), Mumbai-51
@@ -752,177 +778,192 @@ export default function ShowroomExperience() {
       </motion.section>
 
       <motion.section
-        className="relative overflow-hidden bg-[linear-gradient(180deg,#060d1c_0%,#050913_100%)] py-[6.1rem] text-[#ece5d8] md:py-[7.8rem]"
-        initial={{ opacity: 0, y: 26 }}
+        className="relative overflow-hidden bg-[linear-gradient(180deg,#f7f3ec_0%,#f5f1ea_52%,#efe9df_100%)] py-[4.9rem] text-[#2c2a27] md:py-[5.6rem]"
+        initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.14 }}
-        transition={{ duration: 1, ease: CINEMATIC_EASE }}
+        viewport={{ once: true, amount: 0.16 }}
+        transition={{ duration: 0.95, ease: SOFT_EASE }}
       >
-        <motion.div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 hidden opacity-[0.08] [background-image:radial-gradient(rgba(255,255,255,0.75)_0.45px,transparent_0.45px)] [background-size:3.2px_3.2px] md:block"
-          animate={{ backgroundPosition: ["0px 0px", "42px 38px"] }}
-          transition={{ duration: 22, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
-        />
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_6%,rgba(207,218,235,0.09)_0%,rgba(5,9,19,0)_44%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_14%_20%,rgba(255,255,255,0.56)_0%,rgba(255,255,255,0)_38%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_78%_76%,rgba(202,176,122,0.16)_0%,rgba(202,176,122,0)_36%)]" />
+        <div className="pointer-events-none absolute inset-0 opacity-[0.2] [background-image:radial-gradient(rgba(74,66,54,0.1)_0.42px,transparent_0.42px)] [background-size:2.8px_2.8px]" />
 
-        <div className="relative mx-auto w-full max-w-[1240px] px-5 md:px-8">
-          <p className="text-[0.64rem] tracking-[0.24em] text-[#b6c1d4]">CERTIFICATIONS & ASSOCIATIONS</p>
-          <h2 className="mt-5 max-w-[12ch] font-serif text-4xl leading-[1.06] text-[#f3ede2] md:text-5xl">Certified Standards. Trusted Globally.</h2>
-          <p className="mt-7 max-w-[72ch] text-[0.97rem] leading-[1.95] text-[#c4cedf] md:text-base">
-            D.P. Jewels operates with internationally recognized grading standards and trusted industry affiliations, ensuring transparency, authenticity, and confidence across every transaction.
+        <div className="relative mx-auto w-full max-w-[1440px] px-5 md:px-8">
+          <p className="text-[13px] tracking-[0.16em] text-[#6a655d]">INSTITUTIONAL CREDIBILITY</p>
+          <p className="mt-4 max-w-[50ch] font-serif text-[2.2rem] leading-[1.08] text-[#3c372f] md:text-[3.35rem]">
+            Recognized Across International
+            <br />
+            Diamond Markets.
           </p>
+          <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2">
+            <span className="text-[13px] tracking-[0.1em] text-[#786f64]">MUMBAI / BHARAT DIAMOND BOURSE</span>
+            <span className="text-[13px] tracking-[0.1em] text-[#8f7a4e]">GLOBAL TRADE ALIGNMENT</span>
+          </div>
 
-          <div className="relative mt-16">
-            <div className="pointer-events-none absolute inset-0 opacity-[0.18] [background-image:linear-gradient(rgba(132,149,175,0.2)_1px,transparent_1px),linear-gradient(90deg,rgba(132,149,175,0.2)_1px,transparent_1px)] [background-size:88px_88px]" />
-            <div className="pointer-events-none absolute left-[8%] top-[12%] hidden h-[76%] w-px bg-[linear-gradient(180deg,rgba(187,153,88,0.36)_0%,rgba(187,153,88,0.12)_100%)] md:block" />
-            <div className="pointer-events-none absolute left-[8%] top-[24%] hidden h-px w-[34%] bg-[linear-gradient(90deg,rgba(187,153,88,0.4)_0%,rgba(187,153,88,0)_100%)] md:block" />
-            <div className="pointer-events-none absolute left-[8%] top-[54%] hidden h-px w-[42%] bg-[linear-gradient(90deg,rgba(187,153,88,0.36)_0%,rgba(187,153,88,0)_100%)] md:block" />
-            <div className="pointer-events-none absolute left-[8%] top-[84%] hidden h-px w-[30%] bg-[linear-gradient(90deg,rgba(187,153,88,0.34)_0%,rgba(187,153,88,0)_100%)] md:block" />
-
-            <div className="grid gap-7 md:gap-10">
+          <div className="relative mt-8 md:mt-9">
+            <div className="grid gap-4 border-y border-[#d9cdb6]/70 py-6 md:grid-cols-4 md:gap-6">
               {certifications.map((item, idx) => (
-                <motion.article
-                  key={item.code}
-                  className={`group relative border border-[#d6deeb]/16 bg-[linear-gradient(150deg,rgba(9,17,34,0.52)_0%,rgba(6,12,24,0.48)_100%)] p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.07)] transition-all duration-700 hover:border-[#dcc48d]/36 hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.14),0_0_22px_rgba(214,199,164,0.12)] md:p-8 ${
-                    idx === 0 ? "md:mr-10" : idx === 1 ? "md:ml-10 md:mr-4" : "md:ml-14"
-                  }`}
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.35 }}
-                  transition={{ duration: 0.9, delay: idx * 0.1, ease: CINEMATIC_EASE }}
-                >
-                  <a href="#contact" className="grid items-start gap-6 md:grid-cols-[88px_minmax(180px,240px)_minmax(220px,1fr)_20px] md:gap-7">
-                    <div className="relative mx-auto h-[86px] w-[86px] md:mx-0">
-                      <div className="absolute inset-0 border border-[#ecf2fd]/34 bg-[linear-gradient(160deg,rgba(255,255,255,0.04)_0%,rgba(255,255,255,0.01)_100%)] shadow-[inset_0_1px_0_rgba(255,255,255,0.11)] transition-all duration-700 group-hover:border-[#f1dfb7]/52" />
-                      <svg viewBox="0 0 90 90" className="absolute inset-[8px] opacity-85 transition-all duration-700 group-hover:opacity-100 group-hover:drop-shadow-[0_0_8px_rgba(214,199,164,0.24)]" aria-hidden>
-                        <circle cx="45" cy="45" r="37" fill="none" stroke="rgba(242,236,223,0.28)" strokeWidth="0.9" />
-                        <circle cx="45" cy="45" r="29" fill="none" stroke="rgba(242,236,223,0.2)" strokeWidth="0.8" strokeDasharray="2.6 3.4" />
-                        <path d="M17 45 H73" stroke="rgba(201,168,102,0.32)" strokeWidth="0.72" />
-                        <path d="M45 17 V73" stroke="rgba(242,236,223,0.12)" strokeWidth="0.62" />
-                      </svg>
-                      <span className="relative flex h-full items-center justify-center text-[0.7rem] tracking-[0.22em] text-[#f2ecdf]">{item.code}</span>
-                    </div>
+              <motion.a
+                key={item.code}
+                href="#contact"
+                className="group block rounded-sm px-1 py-1 transition-all duration-[600ms] hover:bg-white/40"
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.5 }}
+                transition={{ duration: 0.92, delay: idx * 0.08, ease: SOFT_EASE }}
+              >
+                <div className="relative">
+                  <p className="font-serif text-[2.05rem] tracking-[0.08em] text-[#8f7a4e] transition-all duration-[600ms] group-hover:text-[#a18755] group-hover:drop-shadow-[0_2px_10px_rgba(165,142,88,0.2)]">
+                    {item.code}
+                  </p>
+                  <p className="mt-1 max-w-[30ch] text-[1.08rem] leading-[1.55] text-[#625b51] transition-colors duration-[600ms] group-hover:text-[#5f584f]">{item.name}</p>
+                  <p className="mt-[0.35rem] text-[13px] tracking-[0.1em] text-[#8a7f72]">ACCREDITED STANDARD</p>
+                </div>
+              </motion.a>
+            ))}
+            </div>
+            <p className="mt-4 text-[13px] tracking-[0.1em] text-[#756d62]">VERIFIED THROUGH INDEPENDENT GLOBAL INSTITUTIONS</p>
+          </div>
+        </div>
+      </motion.section>
 
-                    <div className="min-w-0">
-                      <p className="text-[0.62rem] tracking-[0.2em] text-[#bca06b]">GLOBAL COMPLIANCE</p>
-                      <h3 className="mt-3 font-serif text-[1.54rem] leading-[1.18] text-[#eee8dc] transition-all duration-700 group-hover:translate-x-[3px] group-hover:text-[#f8f2e8] md:text-[1.78rem]">
-                        {item.name}
-                      </h3>
-                      <span className="mt-3 block h-px w-10 bg-[#d9c08a]/55 transition-all duration-700 group-hover:w-20" />
-                    </div>
-                    <p className="min-w-0 mt-1 max-w-[52ch] text-sm leading-[1.86] text-[#bcc7da] transition-colors duration-700 group-hover:text-[#d7dfec] md:text-[0.96rem]">
-                      {item.description}
-                    </p>
+      <motion.section className="relative overflow-hidden bg-[linear-gradient(180deg,#f7f3ec_0%,#f5f1ea_52%,#efe9df_100%)] py-12 text-[#2f2a24] md:min-h-screen md:py-0" {...sectionReveal}>
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_22%,rgba(255,255,255,0.52)_0%,rgba(255,255,255,0)_36%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_82%_70%,rgba(196,168,110,0.1)_0%,rgba(196,168,110,0)_34%)]" />
 
-                    <span className="lux-arrow mt-1 inline-flex justify-center text-[1.05rem] text-[#c5d1e4] transition-all duration-700 group-hover:text-[#ebf1fc] group-hover:drop-shadow-[0_0_8px_rgba(226,214,186,0.24)]">
-                      -&gt;
-                    </span>
-                  </a>
-                </motion.article>
-              ))}
+        <div className="relative mx-auto w-full max-w-[1440px] px-5 md:px-8 md:min-h-screen">
+          <motion.h2
+            className="mx-auto max-w-[13ch] text-center font-serif text-[2.35rem] leading-[1.02] text-[#3d372f] md:absolute md:left-1/2 md:top-1/2 md:w-full md:-translate-x-1/2 md:-translate-y-1/2 md:text-[4.2rem]"
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ duration: 0.6, ease: SOFT_EASE }}
+          >
+            Why Choose D.P. Jewels?
+          </motion.h2>
+
+          <div className="relative mt-10 min-h-[24rem] md:mt-0 md:min-h-screen">
+            <div className="hidden md:block">
+              <article className="group absolute left-[5%] top-[18%]">
+                <h3 className="font-serif text-[2.05rem] leading-[1.06] text-[#3b352d] transition-all duration-[600ms] group-hover:-translate-y-[2px] group-hover:text-[#9d7e45]">Since 1999</h3>
+              </article>
+              <article className="group absolute left-[22%] top-[68%]">
+                <p className="font-serif text-[2.25rem] leading-none text-[#3b352d] transition-all duration-[600ms] group-hover:-translate-y-[2px] group-hover:text-[#9d7e45]">25+ Years</p>
+              </article>
+              <article className="group absolute left-[44%] top-[16%]">
+                <p className="font-serif text-[2.2rem] leading-none text-[#3b352d] transition-all duration-[600ms] group-hover:-translate-y-[2px] group-hover:text-[#9d7e45]">200,000+ Carats</p>
+              </article>
+              <article className="group absolute right-[12%] top-[24%]">
+                <h3 className="font-serif text-[1.9rem] leading-[1.1] text-[#3b352d] transition-all duration-[600ms] group-hover:-translate-y-[2px] group-hover:text-[#9d7e45]">BDB Presence</h3>
+              </article>
+              <article className="group absolute right-[18%] top-[64%]">
+                <h3 className="font-serif text-[1.9rem] leading-[1.1] text-[#3b352d] transition-all duration-[600ms] group-hover:-translate-y-[2px] group-hover:text-[#9d7e45]">Global Reach</h3>
+              </article>
+              <article className="group absolute left-[56%] top-[74%]">
+                <h3 className="font-serif text-[1.95rem] leading-[1.1] text-[#3b352d] transition-all duration-[600ms] group-hover:-translate-y-[2px] group-hover:text-[#9d7e45]">Certified Standards</h3>
+              </article>
+            </div>
+
+            <div className="mt-10 grid grid-cols-2 gap-4 md:hidden">
+              <article className="col-span-2">
+                <h3 className="font-serif text-[1.6rem] leading-[1.1] text-[#3b352d]">Since 1999</h3>
+              </article>
+              <article>
+                <p className="font-serif text-[1.7rem] leading-none text-[#3b352d]">25+ Years</p>
+              </article>
+              <article>
+                <p className="font-serif text-[1.7rem] leading-none text-[#3b352d]">200,000+ Carats</p>
+              </article>
+              <article>
+                <h3 className="font-serif text-[1.3rem] leading-[1.1] text-[#3b352d]">BDB Presence</h3>
+              </article>
+              <article>
+                <h3 className="font-serif text-[1.3rem] leading-[1.1] text-[#3b352d]">Global Reach</h3>
+              </article>
+              <article className="col-span-2">
+                <h3 className="font-serif text-[1.3rem] leading-[1.1] text-[#3b352d]">Certified Standards</h3>
+              </article>
             </div>
           </div>
         </div>
       </motion.section>
 
-      <motion.section className="relative overflow-hidden bg-[linear-gradient(180deg,#f8f4ec_0%,#f2ece2_100%)] py-[6.4rem] md:py-[8.7rem]" {...sectionReveal}>
-        <div className="pointer-events-none absolute inset-0 hidden opacity-[0.17] [background-image:linear-gradient(rgba(121,138,163,0.13)_1px,transparent_1px),linear-gradient(90deg,rgba(121,138,163,0.13)_1px,transparent_1px)] [background-size:74px_74px] md:block" />
-        <div className="pointer-events-none absolute inset-x-0 top-[18%] h-px bg-[linear-gradient(90deg,transparent,rgba(155,124,54,0.42),transparent)]" />
+      <section id="operations" className="relative -mt-2 overflow-hidden bg-[linear-gradient(180deg,#f7f3ec_0%,#f5f1ea_52%,#efe9df_100%)] py-12 text-[#2f2a24] md:py-16">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_24%,rgba(255,255,255,0.56)_0%,rgba(255,255,255,0)_36%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_82%_76%,rgba(196,168,110,0.1)_0%,rgba(196,168,110,0)_34%)]" />
 
-        <motion.div className="relative mx-auto grid w-full max-w-[1240px] px-5 md:px-8 gap-14 lg:grid-cols-[0.95fr_1.05fr] lg:pr-8" variants={staggerContainer} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}>
-          <motion.article className="relative lg:pt-4" variants={staggerItem}>
-            <span className="pointer-events-none absolute -left-2 top-10 font-serif text-[7.2rem] leading-none text-[#cbbda4]/24 md:text-[9.5rem]">W</span>
-            <p className="relative text-[0.64rem] tracking-[0.24em] text-[#6b7484]">WHY CHOOSE D.P. JEWELS</p>
-            <h2 className="relative mt-5 max-w-[11ch] font-serif text-4xl leading-[1.05] text-[#111827] md:text-[3.5rem]">Built on Trust, Precision &amp; Global Reach</h2>
-            <p className="relative mt-8 max-w-[52ch] text-[0.98rem] leading-[1.96] text-[#334155] md:text-base">
-              With decades of experience in diamond sourcing and export-focused relationships, D.P. Jewels serves buyers with transparency, consistency, and refined selection.
-            </p>
-          </motion.article>
+        <div className="relative mx-auto w-full max-w-[1440px] px-5 md:px-8">
+          <p className="text-[13px] tracking-[0.16em] text-[#70685b]">OPERATIONS</p>
+          <div className="mt-6 grid gap-8 md:grid-cols-[1.2fr_0.8fr] md:items-start md:gap-10">
+            <div className="overflow-hidden rounded-[0.65rem] border border-[#d9cdb6]/56 bg-[linear-gradient(150deg,rgba(255,255,255,0.44),rgba(239,233,223,0.32))] shadow-[0_14px_26px_rgba(96,80,48,0.08)]">
+              <AnimatePresence mode="wait">
+                <motion.img
+                  key={`operations-image-${activeOperationIndex}`}
+                  src={operationsJourney[activeOperationIndex].image}
+                  alt={operationsJourney[activeOperationIndex].title}
+                  className="h-[23rem] w-full object-cover opacity-[0.76] saturate-[0.78] brightness-[0.93] md:h-[30rem]"
+                  initial={{ opacity: 0, x: 18, y: 10, scale: 1.02 }}
+                  animate={{ opacity: 0.76, x: 0, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, x: -18, y: -8, scale: 1.02 }}
+                  transition={{ duration: 0.55, ease: SOFT_EASE }}
+                />
+              </AnimatePresence>
+            </div>
 
-          <div className="relative">
-            <div className="pointer-events-none absolute bottom-2 left-[14%] top-4 w-px bg-[linear-gradient(180deg,rgba(155,124,54,0.26)_0%,rgba(155,124,54,0.09)_100%)] md:left-[18%]" />
-            <div className="space-y-8 md:space-y-12">
-              {whyChoosePoints.map((point, idx) => (
-                <motion.article
-                  key={point.title}
-                  className={`group relative max-w-[580px] border-t border-[#d8cdb4]/58 pt-6 ${
-                    idx % 2 === 0 ? "md:ml-0" : "md:ml-10"
-                  } ${idx === 1 ? "md:mt-7" : ""} ${idx === 3 ? "md:mt-10" : ""}`}
-                  initial={{ opacity: 0, y: 22 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.38 }}
-                  transition={{ duration: 0.86, delay: idx * 0.08, ease: CINEMATIC_EASE }}
-                >
-                  <span className="pointer-events-none absolute left-0 top-1 font-serif text-[2.85rem] leading-none text-[#cbbda4]/24 md:-left-1 md:text-[4rem]">{point.num}</span>
-                  <div className="relative pl-7 md:pl-10">
-                    <p className="text-[0.66rem] tracking-[0.22em] text-[#7e6a3e]">{point.num}</p>
-                    <h3 className="mt-2 font-serif text-[1.65rem] leading-[1.18] text-[#1a2433] transition-all duration-700 group-hover:translate-x-[3px]">{point.title}</h3>
-                    <p className="mt-4 max-w-[48ch] text-[0.93rem] leading-[1.88] text-[#445164] transition-opacity duration-700 group-hover:opacity-95">{point.desc}</p>
-                    <span className="mt-5 inline-flex items-center gap-2 text-[0.7rem] tracking-[0.18em] text-[#9a7a36]/86">
-                      TRUST STANDARD
-                      <span className="lux-arrow text-[0.9rem]">-&gt;</span>
-                    </span>
-                  </div>
-                </motion.article>
-              ))}
+            <div className="relative rounded-[0.65rem] border border-[#d9cdb6]/56 bg-[linear-gradient(150deg,rgba(255,255,255,0.48),rgba(239,233,223,0.34))] px-5 py-6 shadow-[0_14px_26px_rgba(96,80,48,0.08)]">
+              <p className="mb-5 text-right font-serif text-[1.45rem] text-[#7d6640]">
+                {operationsJourney[activeOperationIndex].num} <span className="text-[#9d8b6b]">/ 05</span>
+              </p>
+              <div className="absolute right-4 top-20 h-[68%] w-px bg-[#d7c8ad]/60">
+                <motion.div
+                  className="w-px bg-[linear-gradient(180deg,#b99a62,#d6c09a)]"
+                  animate={{ height: `${((activeOperationIndex + 1) / operationsJourney.length) * 100}%` }}
+                  transition={{ duration: 0.45, ease: SOFT_EASE }}
+                />
+              </div>
+
+              <div className="space-y-4 pr-5">
+                {operationsJourney.map((step, idx) => {
+                  const isActive = activeOperationIndex === idx;
+                  return (
+                    <button
+                      key={step.title}
+                      type="button"
+                      onMouseEnter={() => setActiveOperationIndex(idx)}
+                      onFocus={() => setActiveOperationIndex(idx)}
+                      onClick={() => setActiveOperationIndex(idx)}
+                      className="block w-full text-left"
+                    >
+                      <span className={`text-[13px] tracking-[0.12em] transition-colors duration-500 ${isActive ? "text-[#a2844c]" : "text-[#8c8478] hover:text-[#9d8e70]"}`}>{step.num}</span>
+                      <p className={`mt-1 font-serif text-[1.3rem] leading-[1.18] transition-colors duration-[600ms] ${isActive ? "text-[#2f2a24] font-medium" : "text-[#746b5f]"}`}>{step.title}</p>
+                      <AnimatePresence initial={false}>
+                        {isActive && (
+                          <motion.p
+                            key={`op-desc-${step.num}`}
+                            initial={{ opacity: 0, x: 10, y: 2 }}
+                            animate={{ opacity: 1, x: 0, y: 0 }}
+                            exit={{ opacity: 0, x: -8, y: -2 }}
+                            transition={{ duration: 0.45, ease: SOFT_EASE }}
+                            className="mt-2 max-w-[32ch] text-[1.06rem] leading-[1.72] text-[#5a5247]"
+                          >
+                            {step.desc}
+                          </motion.p>
+                        )}
+                      </AnimatePresence>
+                      <span className={`mt-2 block h-px transition-all duration-500 ${isActive ? "w-16 bg-[linear-gradient(90deg,rgba(188,158,102,0.7),rgba(188,158,102,0))]" : "w-8 bg-[linear-gradient(90deg,rgba(155,139,116,0.35),rgba(155,139,116,0))]"}`} />
+                    </button>
+                  );
+                })}
+              </div>
             </div>
           </div>
-        </motion.div>
-      </motion.section>
-
-      <motion.section id="operations" className="relative -mt-2 overflow-hidden bg-[linear-gradient(180deg,#060d1c_0%,#050913_100%)] py-[6.35rem] text-[#ece5d8] md:py-[8.2rem]" {...sectionReveal}>
-        <motion.div aria-hidden className="pointer-events-none absolute inset-0 hidden opacity-[0.07] [background-image:radial-gradient(rgba(255,255,255,0.64)_0.45px,transparent_0.45px)] [background-size:3.2px_3.2px] md:block" />
-        <div className="pointer-events-none absolute inset-0 hidden opacity-[0.16] [background-image:linear-gradient(rgba(124,145,173,0.22)_1px,transparent_1px),linear-gradient(90deg,rgba(124,145,173,0.22)_1px,transparent_1px)] [background-size:84px_84px] md:block" />
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_4%,rgba(207,218,235,0.08)_0%,rgba(5,9,19,0)_46%)]" />
-
-        <motion.div className="relative mx-auto w-full max-w-[1240px] px-5 md:px-8 lg:pl-6" variants={staggerContainer} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}>
-          <p className="text-[0.64rem] tracking-[0.24em] text-[#b6c1d4]">OPERATIONS</p>
-          <h2 className="mt-5 max-w-[13ch] font-serif text-4xl leading-[1.06] text-[#f3ede2] md:text-5xl">Private Sourcing. Precise Execution.</h2>
-
-          <div className="mt-14 border-y border-[#d6deeb]/20">
-            {operationsJourney.map((step, idx) => (
-              <motion.article
-                key={step.title}
-                className={`group relative py-8 transition-all duration-700 md:py-10 ${idx % 2 === 0 ? "md:pl-0" : "md:pl-7"} ${
-                  idx !== operationsJourney.length - 1 ? "border-b border-[#d6deeb]/18" : ""
-                }`}
-                onClick={() => setActiveOperationIndex(activeOperationIndex === idx ? null : idx)}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.32 }}
-                transition={{ duration: 0.9, delay: idx * 0.08, ease: CINEMATIC_EASE }}
-              >
-                <div className="grid items-start gap-6 md:grid-cols-[74px_1fr_26px] md:gap-8">
-                  <p className="pt-1 text-[0.66rem] tracking-[0.18em] text-[#c4cfde] transition-colors duration-700 group-hover:text-[#e4ebf7]">{step.num}</p>
-                  <div>
-                    <h3 className="font-serif text-[1.52rem] leading-[1.2] text-[#eee8dc] transition-all duration-700 group-hover:translate-x-[4px] group-hover:text-[#f8f2e8] md:text-[1.86rem]">{step.title}</h3>
-                    <div className="mt-4 h-px w-12 bg-[#d8b872]/45 transition-all duration-700 group-hover:w-20 group-hover:bg-[#e2c88f]/72" />
-
-                    <div className={`${activeOperationIndex === idx ? "mt-5 max-h-[260px] opacity-100" : "max-h-0 opacity-0"} overflow-hidden transition-all duration-[900ms] md:mt-0 md:max-h-0 md:opacity-0 md:group-hover:max-h-[220px] md:group-hover:opacity-100`}>
-                      <div className="mt-5 grid gap-4 md:grid-cols-[1fr_230px] md:items-start">
-                        <div>
-                          <p className="text-[0.66rem] tracking-[0.19em] text-[#bda77a]">{step.cue}</p>
-                          <p className="mt-3 max-w-[58ch] text-sm leading-[1.9] text-[#c5cfde] md:text-[0.95rem]">{step.desc}</p>
-                        </div>
-                        <div className="relative overflow-hidden border border-[#d8c8a6]/30 bg-[#0a1327]/56">
-                          <img src={step.image} alt={`${step.title} visual`} className="h-[110px] w-full object-cover opacity-72 transition-all duration-700 group-hover:scale-[1.03] group-hover:opacity-86 md:h-[128px]" />
-                          <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(145deg,rgba(226,200,143,0.16)_0%,rgba(226,200,143,0)_40%,rgba(8,15,28,0.36)_100%)]" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <span className="lux-arrow inline-flex justify-center pt-1 text-[1.05rem] text-[#c5d1e4] transition-all duration-700 group-hover:text-[#ebf1fc]">-&gt;</span>
-                </div>
-              </motion.article>
-            ))}
-          </div>
-        </motion.div>
-      </motion.section>
+        </div>
+      </section>
 
       <motion.section id="contact" className="relative bg-[#f7f2e9] py-[6.6rem] md:py-[8.4rem]" {...sectionReveal}>
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_82%_20%,rgba(112,132,168,0.08)_0%,rgba(112,132,168,0)_30%)]" />
         <div className="pointer-events-none absolute left-0 top-[16%] hidden h-px w-[12%] bg-[linear-gradient(90deg,rgba(148,163,184,0.32),transparent)] md:block" />
-        <motion.div className="mx-auto grid w-full max-w-[1240px] px-5 md:px-8 gap-12 md:grid-cols-[1.35fr_0.65fr] md:items-start lg:pr-4" variants={staggerContainer} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}>
+        <motion.div className="mx-auto grid w-full max-w-[1440px] px-5 md:px-8 gap-12 md:grid-cols-[1.35fr_0.65fr] md:items-start lg:pr-4" variants={staggerContainer} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}>
           <motion.article className="md:pr-14" variants={staggerItem}>
             <h3 className="font-serif text-3xl md:text-4xl">Contact Us</h3>
             <p className="mt-6 max-w-[54ch] leading-[1.95] text-[#334155]">
@@ -951,6 +992,10 @@ export default function ShowroomExperience() {
     </div>
   );
 }
+
+
+
+
 
 
 
