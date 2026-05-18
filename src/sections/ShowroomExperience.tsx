@@ -244,6 +244,7 @@ function getCircularOffset(index: number, activeIndex: number, total: number) {
 
 export default function ShowroomExperience() {
   const [activeDiamondIndex, setActiveDiamondIndex] = useState(0);
+  const [activeOperationIndex, setActiveOperationIndex] = useState<number | null>(null);
   const heroRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
   const heroY = useTransform(scrollYProgress, [0, 1], [0, -26]);
@@ -322,7 +323,7 @@ export default function ShowroomExperience() {
 
       <motion.section id="diamonds" className="relative min-h-screen overflow-hidden bg-[linear-gradient(180deg,#061024_0%,#040816_48%,#030611_100%)] py-[5.1rem] md:py-[7.2rem]" {...sectionReveal}>
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_56%,rgba(224,233,245,0.09)_0%,rgba(224,233,245,0)_44%)]" />
-        <div className="pointer-events-none absolute inset-0 opacity-[0.1] [background-image:radial-gradient(rgba(255,255,255,0.26)_0.35px,transparent_0.35px)] [background-size:3px_3px]" />
+        <div className="pointer-events-none absolute inset-0 hidden opacity-[0.1] [background-image:radial-gradient(rgba(255,255,255,0.26)_0.35px,transparent_0.35px)] [background-size:3px_3px] md:block" />
         <div className="mx-auto w-full max-w-[1260px] px-5 md:px-8 lg:pl-8">
           <p className="text-xs tracking-[0.22em] text-[#aeb7c5]">DIAMONDS</p>
           <h2 className="mt-5 font-serif text-4xl text-[#f7f2e8] md:text-6xl">Diamond Shapes & Selections</h2>
@@ -504,49 +505,39 @@ export default function ShowroomExperience() {
                       <feMergeNode in="SourceGraphic" />
                     </feMerge>
                   </filter>
-                  <linearGradient id="routeFlowMobile" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#334155" stopOpacity="0.24" />
-                    <stop offset="50%" stopColor="#0f172a" stopOpacity="0.64" />
-                    <stop offset="100%" stopColor="#334155" stopOpacity="0.16" />
-                  </linearGradient>
-                  <linearGradient id="routeFlowIntlMobile" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#0f172a" stopOpacity="0.76" />
-                    <stop offset="70%" stopColor="#1e293b" stopOpacity="0.42" />
-                    <stop offset="100%" stopColor="#334155" stopOpacity="0.12" />
-                  </linearGradient>
                 </defs>
 
-                <motion.path d={routes.mobile.indiaTop} stroke="url(#routeFlowMobile)" strokeWidth="1.4" fill="none" initial={{ pathLength: 0, opacity: 0.22 }} whileInView={{ pathLength: 1, opacity: 0.8 }} transition={{ duration: 0.9, delay: 0.08 }} />
-                <motion.path d={routes.mobile.indiaSouth} stroke="url(#routeFlowMobile)" strokeWidth="1.4" fill="none" initial={{ pathLength: 0, opacity: 0.22 }} whileInView={{ pathLength: 1, opacity: 0.78 }} transition={{ duration: 0.9, delay: 0.2 }} />
-                <motion.path d={routes.mobile.indiaNorthEast} stroke="url(#routeFlowMobile)" strokeWidth="1.36" fill="none" initial={{ pathLength: 0, opacity: 0.22 }} whileInView={{ pathLength: 1, opacity: 0.76 }} transition={{ duration: 0.94, delay: 0.24 }} />
-                <motion.path d={routes.mobile.indiaNorthEastShort} stroke="url(#routeFlowMobile)" strokeWidth="1.36" fill="none" initial={{ pathLength: 0, opacity: 0.22 }} whileInView={{ pathLength: 1, opacity: 0.76 }} transition={{ duration: 0.92, delay: 0.26 }} />
-                <motion.path d={routes.mobile.indiaNorthEastInner} stroke="url(#routeFlowMobile)" strokeWidth="1.36" fill="none" initial={{ pathLength: 0, opacity: 0.22 }} whileInView={{ pathLength: 1, opacity: 0.76 }} transition={{ duration: 0.92, delay: 0.28 }} />
-                <motion.path d={routes.mobile.indiaSouthEastInner} stroke="url(#routeFlowMobile)" strokeWidth="1.36" fill="none" initial={{ pathLength: 0, opacity: 0.22 }} whileInView={{ pathLength: 1, opacity: 0.76 }} transition={{ duration: 0.94, delay: 0.3 }} />
+                <motion.path d={routes.mobile.indiaTop} stroke="rgba(10,18,36,0.82)" strokeWidth="1.8" fill="none" initial={{ pathLength: 0, opacity: 0.4 }} whileInView={{ pathLength: 1, opacity: 0.9 }} transition={{ duration: 0.9, delay: 0.08 }} />
+                <motion.path d={routes.mobile.indiaSouth} stroke="rgba(10,18,36,0.82)" strokeWidth="1.8" fill="none" initial={{ pathLength: 0, opacity: 0.4 }} whileInView={{ pathLength: 1, opacity: 0.88 }} transition={{ duration: 0.9, delay: 0.2 }} />
+                <motion.path d={routes.mobile.indiaNorthEast} stroke="rgba(10,18,36,0.8)" strokeWidth="1.72" fill="none" initial={{ pathLength: 0, opacity: 0.4 }} whileInView={{ pathLength: 1, opacity: 0.86 }} transition={{ duration: 0.94, delay: 0.24 }} />
+                <motion.path d={routes.mobile.indiaNorthEastShort} stroke="rgba(10,18,36,0.8)" strokeWidth="1.72" fill="none" initial={{ pathLength: 0, opacity: 0.4 }} whileInView={{ pathLength: 1, opacity: 0.86 }} transition={{ duration: 0.92, delay: 0.26 }} />
+                <motion.path d={routes.mobile.indiaNorthEastInner} stroke="rgba(10,18,36,0.8)" strokeWidth="1.72" fill="none" initial={{ pathLength: 0, opacity: 0.4 }} whileInView={{ pathLength: 1, opacity: 0.86 }} transition={{ duration: 0.92, delay: 0.28 }} />
+                <motion.path d={routes.mobile.indiaSouthEastInner} stroke="rgba(10,18,36,0.8)" strokeWidth="1.72" fill="none" initial={{ pathLength: 0, opacity: 0.4 }} whileInView={{ pathLength: 1, opacity: 0.86 }} transition={{ duration: 0.94, delay: 0.3 }} />
 
-                <motion.path d={routes.mobile.dubai} stroke="url(#routeFlowIntlMobile)" strokeWidth="1.28" fill="none" initial={{ pathLength: 0, opacity: 0.16 }} whileInView={{ pathLength: 1, opacity: 0.72 }} transition={{ duration: 1.0, delay: 0.28 }} />
-                <motion.path d={routes.mobile.london} stroke="url(#routeFlowIntlMobile)" strokeWidth="1.28" fill="none" initial={{ pathLength: 0, opacity: 0.16 }} whileInView={{ pathLength: 1, opacity: 0.72 }} transition={{ duration: 1.05, delay: 0.32 }} />
-                <motion.path d={routes.mobile.canada} stroke="url(#routeFlowIntlMobile)" strokeWidth="1.28" fill="none" initial={{ pathLength: 0, opacity: 0.16 }} whileInView={{ pathLength: 1, opacity: 0.72 }} transition={{ duration: 1.08, delay: 0.34 }} />
-                <motion.path d={routes.mobile.america} stroke="url(#routeFlowIntlMobile)" strokeWidth="1.28" fill="none" initial={{ pathLength: 0, opacity: 0.16 }} whileInView={{ pathLength: 1, opacity: 0.72 }} transition={{ duration: 1.1, delay: 0.36 }} />
-                <motion.path d={routes.mobile.hongKong} stroke="url(#routeFlowIntlMobile)" strokeWidth="1.28" fill="none" initial={{ pathLength: 0, opacity: 0.16 }} whileInView={{ pathLength: 1, opacity: 0.72 }} transition={{ duration: 1.12, delay: 0.4 }} />
+                <motion.path d={routes.mobile.dubai} stroke="rgba(15,28,52,0.78)" strokeWidth="1.6" fill="none" initial={{ pathLength: 0, opacity: 0.3 }} whileInView={{ pathLength: 1, opacity: 0.84 }} transition={{ duration: 1.0, delay: 0.28 }} />
+                <motion.path d={routes.mobile.london} stroke="rgba(15,28,52,0.78)" strokeWidth="1.6" fill="none" initial={{ pathLength: 0, opacity: 0.3 }} whileInView={{ pathLength: 1, opacity: 0.84 }} transition={{ duration: 1.05, delay: 0.32 }} />
+                <motion.path d={routes.mobile.canada} stroke="rgba(15,28,52,0.78)" strokeWidth="1.6" fill="none" initial={{ pathLength: 0, opacity: 0.3 }} whileInView={{ pathLength: 1, opacity: 0.84 }} transition={{ duration: 1.08, delay: 0.34 }} />
+                <motion.path d={routes.mobile.america} stroke="rgba(15,28,52,0.78)" strokeWidth="1.6" fill="none" initial={{ pathLength: 0, opacity: 0.3 }} whileInView={{ pathLength: 1, opacity: 0.84 }} transition={{ duration: 1.1, delay: 0.36 }} />
+                <motion.path d={routes.mobile.hongKong} stroke="rgba(15,28,52,0.78)" strokeWidth="1.6" fill="none" initial={{ pathLength: 0, opacity: 0.3 }} whileInView={{ pathLength: 1, opacity: 0.84 }} transition={{ duration: 1.12, delay: 0.4 }} />
 
-                <circle r="1.65" fill="#0f172a" opacity="0.44" filter="url(#dotGlowMobile)">
-                  <animate attributeName="opacity" values="0.42;0.36;0.08;0" keyTimes="0;0.65;0.92;1" dur="13.8s" repeatCount="indefinite" />
+                <circle r="1.95" fill="rgba(10,18,36,0.88)" opacity="0.72" filter="url(#dotGlowMobile)">
+                  <animate attributeName="opacity" values="0.68;0.6;0.16;0" keyTimes="0;0.65;0.92;1" dur="13.8s" repeatCount="indefinite" />
                   <animateMotion dur="13.8s" repeatCount="indefinite" path={routes.mobile.dubai} />
                 </circle>
-                <circle r="1.65" fill="#0f172a" opacity="0.44" filter="url(#dotGlowMobile)">
-                  <animate attributeName="opacity" values="0.42;0.36;0.08;0" keyTimes="0;0.65;0.92;1" dur="14.2s" repeatCount="indefinite" />
+                <circle r="1.95" fill="rgba(10,18,36,0.88)" opacity="0.72" filter="url(#dotGlowMobile)">
+                  <animate attributeName="opacity" values="0.68;0.6;0.16;0" keyTimes="0;0.65;0.92;1" dur="14.2s" repeatCount="indefinite" />
                   <animateMotion dur="14.2s" repeatCount="indefinite" path={routes.mobile.london} />
                 </circle>
-                <circle r="1.65" fill="#0f172a" opacity="0.44" filter="url(#dotGlowMobile)">
-                  <animate attributeName="opacity" values="0.42;0.36;0.08;0" keyTimes="0;0.65;0.92;1" dur="14.6s" repeatCount="indefinite" />
+                <circle r="1.95" fill="rgba(10,18,36,0.88)" opacity="0.72" filter="url(#dotGlowMobile)">
+                  <animate attributeName="opacity" values="0.68;0.6;0.16;0" keyTimes="0;0.65;0.92;1" dur="14.6s" repeatCount="indefinite" />
                   <animateMotion dur="14.6s" repeatCount="indefinite" path={routes.mobile.canada} />
                 </circle>
-                <circle r="1.65" fill="#0f172a" opacity="0.44" filter="url(#dotGlowMobile)">
-                  <animate attributeName="opacity" values="0.42;0.36;0.08;0" keyTimes="0;0.65;0.92;1" dur="13.9s" repeatCount="indefinite" />
+                <circle r="1.95" fill="rgba(10,18,36,0.88)" opacity="0.72" filter="url(#dotGlowMobile)">
+                  <animate attributeName="opacity" values="0.68;0.6;0.16;0" keyTimes="0;0.65;0.92;1" dur="13.9s" repeatCount="indefinite" />
                   <animateMotion dur="13.9s" repeatCount="indefinite" path={routes.mobile.america} />
                 </circle>
-                <circle r="1.65" fill="#0f172a" opacity="0.44" filter="url(#dotGlowMobile)">
-                  <animate attributeName="opacity" values="0.42;0.36;0.08;0" keyTimes="0;0.65;0.92;1" dur="14.9s" repeatCount="indefinite" />
+                <circle r="1.95" fill="rgba(10,18,36,0.88)" opacity="0.72" filter="url(#dotGlowMobile)">
+                  <animate attributeName="opacity" values="0.68;0.6;0.16;0" keyTimes="0;0.65;0.92;1" dur="14.9s" repeatCount="indefinite" />
                   <animateMotion dur="14.9s" repeatCount="indefinite" path={routes.mobile.hongKong} />
                 </circle>
                 <circle r="2" fill="#1e293b" opacity="0.48" filter="url(#dotGlowMobile)">
@@ -702,27 +693,19 @@ export default function ShowroomExperience() {
       </motion.section>
 
       <motion.section className="relative w-full overflow-hidden py-7 md:py-11" {...sectionReveal}>
-        <div className="relative w-full bg-[#050913]">
+        <div className="relative w-full bg-[#f7f3ec] md:bg-[#050913]">
           <motion.div
             className="absolute inset-0 hidden bg-cover bg-center bg-no-repeat md:block"
             style={{ backgroundImage: `url(${bdbImage})` }}
             aria-hidden
           />
-          <div className="relative mx-auto block w-full max-w-[2200px] md:hidden">
-            <img
-              src={bdbImage}
-              alt="Bharat Diamond Bourse cinematic artwork"
-              className="h-auto w-full object-contain"
-              loading="lazy"
-              decoding="async"
-            />
-          </div>
+          <div className="relative mx-auto block w-full max-w-[2200px] md:hidden" />
           <div className="relative hidden w-full md:block md:pt-[44%] lg:pt-[40%]" />
 
-          <div className="pointer-events-none absolute inset-y-0 left-0 w-[72%] bg-[linear-gradient(96deg,rgba(248,244,236,0.7)_0%,rgba(248,244,236,0.48)_26%,rgba(248,244,236,0.18)_48%,rgba(248,244,236,0)_72%)] md:w-[62%]" />
-          <div className="pointer-events-none absolute inset-y-0 left-0 w-[44%] backdrop-blur-[1.6px] md:w-[36%]" />
+          <div className="pointer-events-none absolute inset-y-0 left-0 hidden w-[72%] bg-[linear-gradient(96deg,rgba(248,244,236,0.7)_0%,rgba(248,244,236,0.48)_26%,rgba(248,244,236,0.18)_48%,rgba(248,244,236,0)_72%)] md:block md:w-[62%]" />
+          <div className="pointer-events-none absolute inset-y-0 left-0 hidden w-[44%] backdrop-blur-[1.6px] md:block md:w-[36%]" />
 
-          <div className="absolute inset-0 flex items-center">
+          <div className="absolute inset-0 hidden items-center md:flex">
             <div className="mx-auto w-full max-w-[1240px] px-5 md:px-8">
               <motion.article
                 className="w-full max-w-[620px] py-6 md:py-8"
@@ -744,6 +727,27 @@ export default function ShowroomExperience() {
               </motion.article>
             </div>
           </div>
+          <div className="mx-auto w-full max-w-[1240px] px-5 pb-2 pt-3 md:hidden">
+            <article className="w-full max-w-[620px] py-3">
+              <p className="text-[0.62rem] tracking-[0.22em] text-[#9a7a36]">TRUST & LOCATION</p>
+              <h2 className="mt-4 max-w-[14ch] font-serif text-[2rem] leading-[1.06] text-[#111827]">Based at Bharat Diamond Bourse</h2>
+              <p className="mt-6 max-w-[58ch] text-[0.96rem] leading-[1.9] text-[#334155]">
+                Operating from Bharat Diamond Bourse, Bandra Kurla Complex, D.P. Jewels is positioned at the heart of India&apos;s diamond trade, serving buyers with trust, precision, and long-standing industry experience.
+              </p>
+              <p className="mt-8 border-l border-[#a9b6ca] pl-5 text-[0.96rem] leading-[1.9] text-[#1f2937]">
+                EC-4080 B, Bharat Diamond Bourse,<br />
+                Bandra Kurla Complex,<br />
+                Bandra(E), Mumbai-51
+              </p>
+            </article>
+            <img
+              src={bdbImage}
+              alt="Bharat Diamond Bourse cinematic artwork"
+              className="mt-10 h-auto w-full object-cover object-center"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
         </div>
       </motion.section>
 
@@ -756,7 +760,7 @@ export default function ShowroomExperience() {
       >
         <motion.div
           aria-hidden
-          className="pointer-events-none absolute inset-0 opacity-[0.08] [background-image:radial-gradient(rgba(255,255,255,0.75)_0.45px,transparent_0.45px)] [background-size:3.2px_3.2px]"
+          className="pointer-events-none absolute inset-0 hidden opacity-[0.08] [background-image:radial-gradient(rgba(255,255,255,0.75)_0.45px,transparent_0.45px)] [background-size:3.2px_3.2px] md:block"
           animate={{ backgroundPosition: ["0px 0px", "42px 38px"] }}
           transition={{ duration: 22, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
         />
@@ -823,7 +827,7 @@ export default function ShowroomExperience() {
       </motion.section>
 
       <motion.section className="relative overflow-hidden bg-[linear-gradient(180deg,#f8f4ec_0%,#f2ece2_100%)] py-[6.4rem] md:py-[8.7rem]" {...sectionReveal}>
-        <div className="pointer-events-none absolute inset-0 opacity-[0.17] [background-image:linear-gradient(rgba(121,138,163,0.13)_1px,transparent_1px),linear-gradient(90deg,rgba(121,138,163,0.13)_1px,transparent_1px)] [background-size:74px_74px]" />
+        <div className="pointer-events-none absolute inset-0 hidden opacity-[0.17] [background-image:linear-gradient(rgba(121,138,163,0.13)_1px,transparent_1px),linear-gradient(90deg,rgba(121,138,163,0.13)_1px,transparent_1px)] [background-size:74px_74px] md:block" />
         <div className="pointer-events-none absolute inset-x-0 top-[18%] h-px bg-[linear-gradient(90deg,transparent,rgba(155,124,54,0.42),transparent)]" />
 
         <motion.div className="relative mx-auto grid w-full max-w-[1240px] px-5 md:px-8 gap-14 lg:grid-cols-[0.95fr_1.05fr] lg:pr-8" variants={staggerContainer} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}>
@@ -850,8 +854,8 @@ export default function ShowroomExperience() {
                   viewport={{ once: true, amount: 0.38 }}
                   transition={{ duration: 0.86, delay: idx * 0.08, ease: CINEMATIC_EASE }}
                 >
-                  <span className="pointer-events-none absolute -left-1 top-1 font-serif text-[3.4rem] leading-none text-[#cbbda4]/24 md:text-[4rem]">{point.num}</span>
-                  <div className="relative pl-8 md:pl-10">
+                  <span className="pointer-events-none absolute left-0 top-1 font-serif text-[2.85rem] leading-none text-[#cbbda4]/24 md:-left-1 md:text-[4rem]">{point.num}</span>
+                  <div className="relative pl-7 md:pl-10">
                     <p className="text-[0.66rem] tracking-[0.22em] text-[#7e6a3e]">{point.num}</p>
                     <h3 className="mt-2 font-serif text-[1.65rem] leading-[1.18] text-[#1a2433] transition-all duration-700 group-hover:translate-x-[3px]">{point.title}</h3>
                     <p className="mt-4 max-w-[48ch] text-[0.93rem] leading-[1.88] text-[#445164] transition-opacity duration-700 group-hover:opacity-95">{point.desc}</p>
@@ -868,8 +872,8 @@ export default function ShowroomExperience() {
       </motion.section>
 
       <motion.section id="operations" className="relative -mt-2 overflow-hidden bg-[linear-gradient(180deg,#060d1c_0%,#050913_100%)] py-[6.35rem] text-[#ece5d8] md:py-[8.2rem]" {...sectionReveal}>
-        <motion.div aria-hidden className="pointer-events-none absolute inset-0 opacity-[0.07] [background-image:radial-gradient(rgba(255,255,255,0.64)_0.45px,transparent_0.45px)] [background-size:3.2px_3.2px]" />
-        <div className="pointer-events-none absolute inset-0 opacity-[0.16] [background-image:linear-gradient(rgba(124,145,173,0.22)_1px,transparent_1px),linear-gradient(90deg,rgba(124,145,173,0.22)_1px,transparent_1px)] [background-size:84px_84px]" />
+        <motion.div aria-hidden className="pointer-events-none absolute inset-0 hidden opacity-[0.07] [background-image:radial-gradient(rgba(255,255,255,0.64)_0.45px,transparent_0.45px)] [background-size:3.2px_3.2px] md:block" />
+        <div className="pointer-events-none absolute inset-0 hidden opacity-[0.16] [background-image:linear-gradient(rgba(124,145,173,0.22)_1px,transparent_1px),linear-gradient(90deg,rgba(124,145,173,0.22)_1px,transparent_1px)] [background-size:84px_84px] md:block" />
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_4%,rgba(207,218,235,0.08)_0%,rgba(5,9,19,0)_46%)]" />
 
         <motion.div className="relative mx-auto w-full max-w-[1240px] px-5 md:px-8 lg:pl-6" variants={staggerContainer} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}>
@@ -883,6 +887,7 @@ export default function ShowroomExperience() {
                 className={`group relative py-8 transition-all duration-700 md:py-10 ${idx % 2 === 0 ? "md:pl-0" : "md:pl-7"} ${
                   idx !== operationsJourney.length - 1 ? "border-b border-[#d6deeb]/18" : ""
                 }`}
+                onClick={() => setActiveOperationIndex(activeOperationIndex === idx ? null : idx)}
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.32 }}
@@ -894,7 +899,7 @@ export default function ShowroomExperience() {
                     <h3 className="font-serif text-[1.52rem] leading-[1.2] text-[#eee8dc] transition-all duration-700 group-hover:translate-x-[4px] group-hover:text-[#f8f2e8] md:text-[1.86rem]">{step.title}</h3>
                     <div className="mt-4 h-px w-12 bg-[#d8b872]/45 transition-all duration-700 group-hover:w-20 group-hover:bg-[#e2c88f]/72" />
 
-                    <div className="max-h-[180px] overflow-hidden opacity-100 transition-all duration-[900ms] md:max-h-0 md:opacity-0 md:group-hover:max-h-[220px] md:group-hover:opacity-100">
+                    <div className={`${activeOperationIndex === idx ? "mt-5 max-h-[260px] opacity-100" : "max-h-0 opacity-0"} overflow-hidden transition-all duration-[900ms] md:mt-0 md:max-h-0 md:opacity-0 md:group-hover:max-h-[220px] md:group-hover:opacity-100`}>
                       <div className="mt-5 grid gap-4 md:grid-cols-[1fr_230px] md:items-start">
                         <div>
                           <p className="text-[0.66rem] tracking-[0.19em] text-[#bda77a]">{step.cue}</p>
