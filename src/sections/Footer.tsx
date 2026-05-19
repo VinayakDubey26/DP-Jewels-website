@@ -12,7 +12,7 @@ export default function Footer() {
 
       <div className="relative mx-auto w-full max-w-6xl">
         <div className="flex flex-col items-center text-center md:items-start md:text-left">
-          <img src="/logo-white.png" alt="D.P. Jewels" className="h-[54px] w-auto object-contain opacity-95 md:h-[62px]" />
+          <img src="/logo-white.png" alt="D.P. Jewels" width={198} height={62} loading="lazy" decoding="async" className="h-[54px] w-auto object-contain opacity-95 md:h-[62px]" />
           <p className="mt-4 text-[0.66rem] tracking-[0.22em] text-slate-300/85 md:text-[0.7rem] md:tracking-[0.25em]">
             DIAMOND TRADERS • IMPORTERS • EXPORTERS
           </p>
@@ -28,16 +28,15 @@ export default function Footer() {
               <p>022 3596 3936</p>
               <p>022 3392 3961</p>
               <p>ppsonecha@gmail.com</p>
-              <p>vipuldiamons55@gmail.com</p>
             </div>
           </div>
 
           <div className="text-center md:text-left">
             <p className="text-[0.68rem] tracking-[0.2em] text-slate-300">SOCIAL</p>
             <div className="mt-4 flex flex-col items-center gap-4 text-sm text-slate-200 md:items-start">
-              <a href="https://instagram.com" target="_blank" rel="noreferrer" className="group editorial-link inline-flex items-center gap-2 text-slate-200/90 transition-colors duration-500 hover:text-white">
+              <a href="https://instagram.com/dpjewelsandco" target="_blank" rel="noreferrer" className="group editorial-link inline-flex items-center gap-2 text-slate-200/90 transition-colors duration-500 hover:text-white">
                 <Camera size={15} />
-                <span>Instagram</span>
+                <span>@dpjewelsandco</span>
               </a>
               <a
                 href={WHATSAPP_LINK}

@@ -16,7 +16,6 @@ export default function ContactSection() {
             <p>Tel: 022 3596 3936</p>
             <p>QBC: 022 3392 3961</p>
             <p>ppsonecha@gmail.com</p>
-            <p>vipuldiamons55@gmail.com</p>
             <p>WhatsApp: +91 98191 56358</p>
           </div>
         </article>
