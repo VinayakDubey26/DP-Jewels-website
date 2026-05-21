@@ -25,7 +25,7 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 88px;
+  scroll-padding-top: 0;
 }
 
 body {
@@ -82,22 +82,22 @@ body::before {
   inset: -8vh -8vw;
   pointer-events: none;
   z-index: 1;
-  opacity: 0.22;
+  opacity: 0.18;
 }
 
 .atmospheric-shell::before {
   background:
-    radial-gradient(circle at 18% 24%, rgba(255, 255, 255, 0.24), transparent 34%),
-    radial-gradient(circle at 80% 70%, rgba(196, 168, 110, 0.1), transparent 32%);
-  animation: ambientDriftA var(--ambient-motion) ease-in-out infinite alternate;
+    radial-gradient(circle at 18% 24%, rgba(255, 255, 255, 0.2), transparent 34%),
+    radial-gradient(circle at 80% 70%, rgba(196, 168, 110, 0.12), transparent 34%);
+  animation: ambientDriftA calc(var(--ambient-motion) + 8s) ease-in-out infinite alternate;
 }
 
 .atmospheric-shell::after {
   background:
-    radial-gradient(circle at 74% 18%, rgba(255, 255, 255, 0.14), transparent 28%),
-    radial-gradient(circle at 26% 84%, rgba(196, 168, 110, 0.08), transparent 30%);
-  opacity: 0.16;
-  animation: ambientDriftB calc(var(--ambient-motion) + 8s) ease-in-out infinite alternate;
+    radial-gradient(circle at 74% 18%, rgba(255, 255, 255, 0.1), transparent 30%),
+    radial-gradient(circle at 26% 84%, rgba(196, 168, 110, 0.1), transparent 32%);
+  opacity: 0.13;
+  animation: ambientDriftB calc(var(--ambient-motion) + 14s) ease-in-out infinite alternate;
 }
 
 .font-serif { font-family: "Cormorant Garamond", serif; }
@@ -304,22 +304,22 @@ button:not(.lux-interactive):hover {
 }
 
 @keyframes ambientDriftA {
-  0% { transform: translate3d(0, 0, 0); opacity: 0.2; }
-  50% { transform: translate3d(0.6vw, -0.8vh, 0); opacity: 0.24; }
-  100% { transform: translate3d(-0.5vw, 0.6vh, 0); opacity: 0.2; }
+  0% { transform: translate3d(0, 0, 0); opacity: 0.16; }
+  50% { transform: translate3d(0.4vw, -0.5vh, 0); opacity: 0.2; }
+  100% { transform: translate3d(-0.35vw, 0.45vh, 0); opacity: 0.16; }
 }
 
 @keyframes ambientDriftB {
-  0% { transform: translate3d(0, 0, 0); opacity: 0.14; }
-  50% { transform: translate3d(-0.7vw, 0.7vh, 0); opacity: 0.18; }
-  100% { transform: translate3d(0.5vw, -0.6vh, 0); opacity: 0.14; }
+  0% { transform: translate3d(0, 0, 0); opacity: 0.11; }
+  50% { transform: translate3d(-0.45vw, 0.45vh, 0); opacity: 0.15; }
+  100% { transform: translate3d(0.35vw, -0.4vh, 0); opacity: 0.11; }
 }
 
 @media (max-width: 768px) {
   body { font-size: 16px; }
   html {
     scroll-behavior: auto;
-    scroll-padding-top: 96px;
+    scroll-padding-top: 0;
   }
   [class*="blur-3xl"] { display: none !important; }
   [class*="backdrop-blur"] { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
