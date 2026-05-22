@@ -1,4 +1,4 @@
-import { MessageCircle, Phone } from "lucide-react";
+import { MessageCircle } from "lucide-react";
 import { AnimatePresence, motion, useMotionTemplate, useMotionValue, useMotionValueEvent, useScroll, useSpring, useTransform } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
@@ -157,32 +157,32 @@ const exportStoryScenes = [
     body: "Operating from one of the world's leading diamond trading hubs.",
   },
   {
+    title: "All-India Distribution",
+    body: "A connected domestic network supports sourcing reliability before each international handoff.",
+  },
+  {
     title: "Dubai",
     body: "A key regional corridor for refined diamond trade across the Middle East.",
-  },
-  {
-    title: "London",
-    body: "Serving established jewellery markets with disciplined sourcing and export reliability.",
-  },
-  {
-    title: "Singapore",
-    body: "Connecting to Southeast Asia through precise coordination and trusted buyer relationships.",
-  },
-  {
-    title: "Hong Kong",
-    body: "Reaching major Asian trading corridors through dependable export execution and market familiarity.",
-  },
-  {
-    title: "Canada",
-    body: "Extending Indian diamond expertise into mature North American markets.",
   },
   {
     title: "USA",
     body: "Supporting international buyers with transparent communication and consistent execution.",
   },
   {
-    title: "Global Markets",
-    body: "Connecting India's diamond industry to global markets.",
+    title: "London",
+    body: "Serving established jewellery markets with disciplined sourcing and export reliability.",
+  },
+  {
+    title: "Hong Kong",
+    body: "Reaching major Asian trading corridors through dependable export execution and market familiarity.",
+  },
+  {
+    title: "Singapore",
+    body: "Connecting to Southeast Asia through precise coordination and trusted buyer relationships.",
+  },
+  {
+    title: "Canada",
+    body: "Extending Indian diamond expertise into mature North American markets.",
   },
 ];
 
@@ -215,12 +215,12 @@ const exportDesktopLayout = {
     { key: "south-border", path: "M356 736 C370 776 382 814 392 850" },
   ],
   routes: [
-    { key: "dubai", scene: 2, type: "primary", path: "M280 605 C208 588 116 552 20 525" },
-    { key: "london", scene: 3, type: "secondary", path: "M280 605 C188 476 42 286 -122 198" },
-    { key: "singapore", scene: 4, type: "primary", path: "M280 605 C444 620 634 666 792 726" },
-    { key: "hongKong", scene: 5, type: "primary", path: "M280 605 C458 588 676 562 888 506" },
-    { key: "canada", scene: 6, type: "secondary", path: "M280 605 C104 462 -56 372 -188 330" },
-    { key: "usa", scene: 7, type: "secondary", path: "M280 605 C96 672 -52 736 -186 760" },
+    { key: "dubai", scene: 3, type: "primary", path: "M280 605 C208 588 116 552 20 525" },
+    { key: "usa", scene: 4, type: "secondary", path: "M280 605 C96 672 -52 736 -186 760" },
+    { key: "london", scene: 5, type: "secondary", path: "M280 605 C188 476 42 286 -122 198" },
+    { key: "hongKong", scene: 6, type: "primary", path: "M280 605 C458 588 676 562 888 506" },
+    { key: "singapore", scene: 7, type: "primary", path: "M280 605 C444 620 634 666 792 726" },
+    { key: "canada", scene: 8, type: "secondary", path: "M280 605 C104 462 -56 372 -188 330" },
   ],
 } as const;
 
@@ -251,12 +251,12 @@ const exportMobileLayout = {
     { key: "south-border", path: "M356 736 C370 776 382 814 392 850" },
   ],
   routes: [
-    { key: "dubai", scene: 2, type: "primary", path: "M282 632 C226 630 146 614 28 594" },
-    { key: "london", scene: 3, type: "secondary", path: "M282 632 C206 504 122 318 -20 204" },
-    { key: "singapore", scene: 4, type: "primary", path: "M282 632 C406 684 558 742 752 760" },
-    { key: "hongKong", scene: 5, type: "primary", path: "M282 632 C450 646 634 644 882 594" },
-    { key: "canada", scene: 6, type: "secondary", path: "M282 632 C154 526 84 434 -12 388" },
-    { key: "usa", scene: 7, type: "secondary", path: "M282 632 C168 756 94 812 -10 830" },
+    { key: "dubai", scene: 3, type: "primary", path: "M282 632 C226 630 146 614 28 594" },
+    { key: "usa", scene: 4, type: "secondary", path: "M282 632 C168 756 94 812 -10 830" },
+    { key: "london", scene: 5, type: "secondary", path: "M282 632 C206 504 122 318 -20 204" },
+    { key: "hongKong", scene: 6, type: "primary", path: "M282 632 C450 646 634 644 882 594" },
+    { key: "singapore", scene: 7, type: "primary", path: "M282 632 C406 684 558 742 752 760" },
+    { key: "canada", scene: 8, type: "secondary", path: "M282 632 C154 526 84 434 -12 388" },
   ],
 } as const;
 
@@ -283,7 +283,6 @@ export default function ShowroomExperience() {
   const whyProofRefs = useRef<Array<HTMLElement | null>>([]);
   const whyMobilePinRef = useRef<HTMLDivElement>(null);
   const whyMobileProofRefs = useRef<Array<HTMLElement | null>>([]);
-  const contactRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
   const heroY = useTransform(scrollYProgress, [0, 1], [0, -26]);
   const heroScale = useTransform(scrollYProgress, [0, 1], [1.02, 1.06]);
@@ -305,12 +304,10 @@ export default function ShowroomExperience() {
   const { scrollYProgress: presenceProgress } = useScroll({ target: presenceRef, offset: ["start start", "end end"] });
   const { scrollYProgress: bdbProgress } = useScroll({ target: bdbRef, offset: ["start end", "end start"] });
   const { scrollYProgress: certProgress } = useScroll({ target: certRef, offset: ["start end", "end start"] });
-  const { scrollYProgress: contactProgress } = useScroll({ target: contactRef, offset: ["start end", "end start"] });
   const aboutDrift = useTransform(aboutProgress, [0, 1], [0, -10]);
   const diamondsDrift = useTransform(diamondsProgress, [0, 1], [12, -12]);
   const bdbDrift = useTransform(bdbProgress, [0, 1], [9, -9]);
   const certDrift = useTransform(certProgress, [0, 1], [8, -8]);
-  const contactDrift = useTransform(contactProgress, [0, 1], [8, -8]);
   const bdbImageParallaxY = useTransform(bdbProgress, [0, 1], [10, -10]);
   const bdbImageParallaxScale = useTransform(bdbProgress, [0, 1], [1.04, 1.02]);
   const exportLayout = isMobileView ? exportMobileLayout : exportDesktopLayout;
@@ -321,28 +318,30 @@ export default function ShowroomExperience() {
     ...route,
     node: exportLayout.nodes[route.key],
   }));
-  const exportMapOpacity = useTransform(presenceProgress, [0, 0.04, 0.95, 1], [0, 1, 1, 0.96]);
+  const exportMapOpacity = useTransform(presenceProgress, isMobileView ? [0, 0.04, 0.95, 1] : [0, 0.01, 0.95, 1], isMobileView ? [0, 1, 1, 0.96] : [1, 1, 1, 0.96]);
   const exportHubOpacity = useTransform(presenceProgress, [0.06, 0.12], [0, 1]);
-  const exportInternalNetworkOpacity = useTransform(presenceProgress, [0.58, 0.68], [0, 1]);
-  const exportInternalLineProgress = useSpring(useTransform(presenceProgress, [0.58, 0.68], [0, 1]), { stiffness: 50, damping: 23, mass: 0.58 });
+  const exportInternalNetworkOpacity = useTransform(presenceProgress, isMobileView ? [0.58, 0.68] : [0.14, 0.22], [0, 1]);
+  const exportInternalLineProgress = useSpring(useTransform(presenceProgress, isMobileView ? [0.58, 0.68] : [0.14, 0.22], [0, 1]), { stiffness: 50, damping: 23, mass: 0.58 });
+  const exportInternalNetworkSafeOpacity = useTransform(exportInternalNetworkOpacity, [0, 1], [0.34, 1]);
+  const exportInternalLineSafeProgress = useTransform(exportInternalLineProgress, [0, 1], [0.34, 1]);
   const exportCameraXRaw = useTransform(presenceProgress, [0, 0.24, 0.46, 0.68, 1], [0, -2, 2.5, -2.25, 0]);
   const exportCameraYRaw = useTransform(presenceProgress, [0, 0.24, 0.46, 0.68, 1], [0, -1.5, 1.2, -0.8, 0]);
   const exportCameraScaleRaw = useTransform(presenceProgress, [0, 0.24, 0.52, 0.78, 1], isMobileView ? [1, 1.006, 1.008, 1.01, 1.008] : [0.94, 0.99, 1.04, 1.08, 1.05]);
   const exportCameraX = useSpring(exportCameraXRaw, { stiffness: 42, damping: 30, mass: 0.82 });
   const exportCameraY = useSpring(exportCameraYRaw, { stiffness: 42, damping: 30, mass: 0.82 });
   const exportCameraScale = useSpring(exportCameraScaleRaw, { stiffness: 40, damping: 32, mass: 0.86 });
-  const routeDubaiProgress = useSpring(useTransform(presenceProgress, [0.2, 0.29], [0, 1]), { stiffness: 54, damping: 24, mass: 0.6 });
-  const routeLondonProgress = useSpring(useTransform(presenceProgress, [0.26, 0.35], [0, 1]), { stiffness: 54, damping: 24, mass: 0.6 });
-  const routeSingaporeProgress = useSpring(useTransform(presenceProgress, [0.32, 0.41], [0, 1]), { stiffness: 54, damping: 24, mass: 0.6 });
-  const routeHongKongProgress = useSpring(useTransform(presenceProgress, [0.38, 0.47], [0, 1]), { stiffness: 54, damping: 24, mass: 0.6 });
-  const routeCanadaProgress = useSpring(useTransform(presenceProgress, [0.44, 0.53], [0, 1]), { stiffness: 54, damping: 24, mass: 0.6 });
-  const routeUsaProgress = useSpring(useTransform(presenceProgress, [0.5, 0.59], [0, 1]), { stiffness: 54, damping: 24, mass: 0.6 });
-  const routeDubaiOpacity = useTransform(presenceProgress, [0.19, 0.24], [0, 0.9]);
-  const routeLondonOpacity = useTransform(presenceProgress, [0.25, 0.3], [0, 0.82]);
-  const routeSingaporeOpacity = useTransform(presenceProgress, [0.31, 0.36], [0, 0.9]);
-  const routeHongKongOpacity = useTransform(presenceProgress, [0.37, 0.42], [0, 0.9]);
-  const routeCanadaOpacity = useTransform(presenceProgress, [0.43, 0.48], [0, 0.8]);
-  const routeUsaOpacity = useTransform(presenceProgress, [0.49, 0.54], [0, 0.8]);
+  const routeDubaiProgress = useSpring(useTransform(presenceProgress, isMobileView ? [0.2, 0.29] : [0.24, 0.32], [0, 1]), { stiffness: 54, damping: 24, mass: 0.6 });
+  const routeUsaProgress = useSpring(useTransform(presenceProgress, isMobileView ? [0.5, 0.59] : [0.34, 0.42], [0, 1]), { stiffness: 54, damping: 24, mass: 0.6 });
+  const routeLondonProgress = useSpring(useTransform(presenceProgress, isMobileView ? [0.26, 0.35] : [0.44, 0.52], [0, 1]), { stiffness: 54, damping: 24, mass: 0.6 });
+  const routeHongKongProgress = useSpring(useTransform(presenceProgress, isMobileView ? [0.38, 0.47] : [0.54, 0.62], [0, 1]), { stiffness: 54, damping: 24, mass: 0.6 });
+  const routeSingaporeProgress = useSpring(useTransform(presenceProgress, isMobileView ? [0.32, 0.41] : [0.64, 0.72], [0, 1]), { stiffness: 54, damping: 24, mass: 0.6 });
+  const routeCanadaProgress = useSpring(useTransform(presenceProgress, isMobileView ? [0.44, 0.53] : [0.74, 0.82], [0, 1]), { stiffness: 54, damping: 24, mass: 0.6 });
+  const routeDubaiOpacity = useTransform(presenceProgress, isMobileView ? [0.19, 0.24] : [0.23, 0.28], [0, 0.9]);
+  const routeUsaOpacity = useTransform(presenceProgress, isMobileView ? [0.49, 0.54] : [0.33, 0.38], [0, 0.8]);
+  const routeLondonOpacity = useTransform(presenceProgress, isMobileView ? [0.25, 0.3] : [0.43, 0.48], [0, 0.82]);
+  const routeHongKongOpacity = useTransform(presenceProgress, isMobileView ? [0.37, 0.42] : [0.53, 0.58], [0, 0.9]);
+  const routeSingaporeOpacity = useTransform(presenceProgress, isMobileView ? [0.31, 0.36] : [0.63, 0.68], [0, 0.9]);
+  const routeCanadaOpacity = useTransform(presenceProgress, isMobileView ? [0.43, 0.48] : [0.73, 0.78], [0, 0.8]);
   const routeMotion = {
     dubai: { progress: routeDubaiProgress, opacity: routeDubaiOpacity },
     london: { progress: routeLondonProgress, opacity: routeLondonOpacity },
@@ -356,14 +355,24 @@ export default function ShowroomExperience() {
 
   useMotionValueEvent(presenceProgress, "change", (latest) => {
     if (isMobileView) return;
-    const acceleratedProgress = Math.min(0.98, latest * 1.72);
-    const nextScene = Math.min(exportStoryScenes.length - 1, Math.max(0, Math.floor(acceleratedProgress * exportStoryScenes.length)));
+    let nextScene = 0;
+    if (latest >= 0.1) nextScene = 1;
+    if (latest >= 0.2) nextScene = 2;
+    if (latest >= 0.3) nextScene = 3;
+    if (latest >= 0.4) nextScene = 4;
+    if (latest >= 0.5) nextScene = 5;
+    if (latest >= 0.6) nextScene = 6;
+    if (latest >= 0.7) nextScene = 7;
+    if (latest >= 0.8) nextScene = 8;
     setActiveExportScene((currentScene) => (currentScene === nextScene ? currentScene : nextScene));
   });
   useEffect(() => {
     if (isMobileView) {
       setActiveExportScene(exportStoryScenes.length - 1);
     }
+  }, [isMobileView]);
+  useEffect(() => {
+    return;
   }, [isMobileView]);
   useEffect(() => {
     const media = window.matchMedia("(max-width: 768px)");
@@ -398,7 +407,7 @@ export default function ShowroomExperience() {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: whyRef.current,
-          start: "top top",
+          start: isMobileView ? "top top" : "top top",
           end: isMobileView ? "+=980" : "+=560",
           scrub: isMobileView ? 0.35 : 0.8,
           pin: pinTarget,
@@ -671,7 +680,7 @@ export default function ShowroomExperience() {
           <div className="pointer-events-none absolute inset-0 opacity-[0.035] [background-image:radial-gradient(rgba(70,58,42,0.38)_0.45px,transparent_0.45px)] [background-size:4px_4px]" />
           <div className="pointer-events-none absolute right-0 top-[18%] hidden h-px w-[14%] bg-[linear-gradient(270deg,rgba(197,164,109,0.38),transparent)] md:block" />
 
-          <div className="relative mx-auto grid w-full max-w-[1680px] items-center gap-3 px-1 md:gap-6 md:px-5 lg:grid-cols-[minmax(0,0.74fr)_minmax(320px,0.26fr)] lg:gap-6">
+          <div className="relative mx-auto grid w-full max-w-[1680px] items-center gap-1 px-1 md:gap-6 md:px-5 lg:grid-cols-[minmax(0,0.74fr)_minmax(320px,0.26fr)] lg:gap-6">
             <motion.div className="relative order-2 mx-auto h-[min(86svh,900px)] w-[96vw] max-w-[96vw] overflow-hidden md:h-[min(96vh,1260px)] md:w-full md:max-w-[1480px] md:overflow-visible lg:order-1 lg:h-[min(98vh,1320px)] lg:max-w-none" style={{ opacity: isMobileView ? 1 : exportMapOpacity }}>
               <img src={indiaExportStory} alt="" aria-hidden className="sr-only" loading="lazy" decoding="async" />
               <div className="pointer-events-none absolute left-1/2 top-1/2 h-[86%] w-[86%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(255,251,243,0.82)_0%,rgba(255,251,243,0.26)_50%,rgba(255,251,243,0)_80%)]" />
@@ -692,7 +701,7 @@ export default function ShowroomExperience() {
                 <motion.g
                   style={
                     isMobileView
-                      ? { x: -34, y: 0, scale: 1, transformOrigin: `${exportNodes.mumbai.x}px ${exportNodes.mumbai.y}px` }
+                      ? { x: -34, y: -28, scale: 1, transformOrigin: `${exportNodes.mumbai.x}px ${exportNodes.mumbai.y}px` }
                       : { x: exportCameraX, y: exportCameraY, scale: exportCameraScale, transformOrigin: `${exportNodes.mumbai.x}px ${exportNodes.mumbai.y}px` }
                   }
                 >
@@ -706,9 +715,9 @@ export default function ShowroomExperience() {
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       vectorEffect="non-scaling-stroke"
-                      opacity={isMobileView ? 0.9 : 0.98}
+                      opacity={isMobileView ? 0.66 : 0.98}
                       initial={{ opacity: 0, pathLength: isMobileView ? 1 : 0.24 }}
-                      animate={{ opacity: isMobileView ? 0.82 : 0.96, pathLength: 1 }}
+                      animate={{ opacity: isMobileView ? 0.66 : 0.96, pathLength: 1 }}
                       transition={{ duration: isMobileView ? 0.5 : 1.35, ease: "easeInOut" }}
                     />
                   ) : null}
@@ -721,21 +730,53 @@ export default function ShowroomExperience() {
                     <text x={exportNodes.mumbai.labelX} y={exportNodes.mumbai.labelY} textAnchor="start" fontSize={isMobileView ? 24 : 27} fontWeight={580} letterSpacing="0.032em" fill="#5e5344">
                       Mumbai
                     </text>
+                    {!isMobileView && (
+                      <>
+                        <motion.text
+                          x={exportNodes.mumbai.labelX}
+                          y={exportNodes.mumbai.labelY + 28}
+                          textAnchor="start"
+                          fontSize={14}
+                          fontWeight={500}
+                          letterSpacing="0.08em"
+                          fill="#7b6a53"
+                          initial={false}
+                          animate={{ opacity: effectiveExportScene === 1 ? 1 : 0 }}
+                          transition={{ duration: 0.5, ease: "easeOut" }}
+                        >
+                          Based in Mumbai
+                        </motion.text>
+                        <motion.text
+                          x={exportNodes.mumbai.labelX}
+                          y={exportNodes.mumbai.labelY + 28}
+                          textAnchor="start"
+                          fontSize={14}
+                          fontWeight={500}
+                          letterSpacing="0.08em"
+                          fill="#7b6a53"
+                          initial={false}
+                          animate={{ opacity: effectiveExportScene >= 2 ? 1 : 0 }}
+                          transition={{ duration: 0.55, ease: "easeOut" }}
+                        >
+                          All-India Distribution
+                        </motion.text>
+                      </>
+                    )}
                   </motion.g>
 
-                  <motion.g style={{ opacity: isMobileView ? 1 : exportInternalNetworkOpacity }}>
+                  <motion.g style={{ opacity: isMobileView ? 1 : exportInternalNetworkSafeOpacity }}>
                     {exportInternalRoutes.map((route) => (
                       <motion.path
                         key={route.key}
                         d={route.path}
                         pathLength="1"
                         fill="none"
-                        stroke={isMobileView ? "rgba(197,164,109,0.9)" : "rgba(197,164,109,0.74)"}
-                        strokeWidth={isMobileView ? 1.8 : 1.44}
+                        stroke={isMobileView ? "rgba(197,164,109,0.66)" : "rgba(197,164,109,0.74)"}
+                        strokeWidth={isMobileView ? 1.25 : 1.44}
                         strokeLinecap="round"
                         strokeLinejoin="round"
                         vectorEffect="non-scaling-stroke"
-                        style={{ pathLength: isMobileView ? 1 : exportInternalLineProgress, opacity: isMobileView ? 0.96 : exportInternalNetworkOpacity }}
+                        style={{ pathLength: isMobileView ? 1 : exportInternalLineSafeProgress, opacity: isMobileView ? 0.82 : exportInternalNetworkSafeOpacity }}
                         animate={isMobileView ? { opacity: [0.82, 1, 0.82] } : undefined}
                         transition={isMobileView ? { duration: 4.2, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" } : undefined}
                       />
@@ -748,12 +789,12 @@ export default function ShowroomExperience() {
                           pathLength="1"
                           fill="none"
                           stroke="rgba(244,231,200,0.36)"
-                          strokeWidth={1.08}
+                          strokeWidth={0.72}
                           strokeLinecap="round"
                           strokeLinejoin="round"
                           vectorEffect="non-scaling-stroke"
                           animate={{ opacity: [0.24, 0.46, 0.24] }}
-                          transition={{ duration: 4.6, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+                          transition={{ duration: 4.2, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
                         />
                       ))}
                     {isMobileView &&
@@ -764,6 +805,7 @@ export default function ShowroomExperience() {
                           fill="rgba(245,231,198,0.95)"
                           animate={{ opacity: [0.34, 0.96, 0.34] }}
                           transition={{ duration: 1.7, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut", delay: (index % 7) * 0.2 }}
+                          style={{ opacity: 1 }}
                         >
                           <animateMotion
                             dur={`${4.6 + (index % 5) * 0.55}s`}
@@ -838,10 +880,10 @@ export default function ShowroomExperience() {
                             : undefined
                         }
                         transition={isMobileView ? { duration: 3.6, delay: index * 0.35, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" } : undefined}
-                        style={{ transformOrigin: `${node.x}px ${node.y}px`, opacity: isMobileView ? undefined : exportInternalNetworkOpacity }}
+                        style={{ transformOrigin: `${node.x}px ${node.y}px`, opacity: isMobileView ? 0.98 : exportInternalNetworkSafeOpacity }}
                       >
-                        <circle cx={node.x} cy={node.y} r={isMobileView ? 4.8 : nodeTier === "major" ? 8.6 : 6.6} fill="#C5A46D" opacity={isMobileView ? 0.96 : 0.92} />
-                        <circle cx={node.x} cy={node.y} r={isMobileView ? 7.6 : nodeTier === "major" ? 12.8 : 9.9} fill="none" stroke={isMobileView ? "rgba(244,231,200,0.48)" : "rgba(241,226,189,0.36)"} strokeWidth={isMobileView ? 0.86 : 0.84} />
+                        <circle cx={node.x} cy={node.y} r={isMobileView ? 4.8 : nodeTier === "major" ? 8.6 : 6.6} fill="#C5A46D" opacity={isMobileView ? 1 : 0.92} />
+                        <circle cx={node.x} cy={node.y} r={isMobileView ? 7.6 : nodeTier === "major" ? 12.8 : 9.9} fill="none" stroke={isMobileView ? "rgba(244,231,200,0.62)" : "rgba(241,226,189,0.36)"} strokeWidth={isMobileView ? 0.94 : 0.84} />
                       </motion.g>
                         );
                       })()
@@ -860,11 +902,11 @@ export default function ShowroomExperience() {
                           pathLength="1"
                           fill="none"
                           stroke="#C5A46D"
-                          strokeWidth={route.type === "primary" ? (isMobileView ? 2.05 : 2.85) : (isMobileView ? 1.65 : 2.2)}
+                          strokeWidth={route.type === "primary" ? (isMobileView ? 1.3 : 2.85) : (isMobileView ? 1.04 : 2.2)}
                           strokeLinecap="round"
                           strokeLinejoin="round"
                           vectorEffect="non-scaling-stroke"
-                          style={{ pathLength: isMobileView ? 1 : motionValues.progress, opacity: isMobileView ? (route.type === "primary" ? 0.9 : 0.74) : motionValues.opacity }}
+                          style={{ pathLength: isMobileView ? 1 : motionValues.progress, opacity: isMobileView ? (route.type === "primary" ? 0.7 : 0.62) : motionValues.opacity }}
                           animate={isMobileView ? { opacity: route.type === "primary" ? [0.76, 0.94, 0.76] : [0.58, 0.8, 0.58] } : undefined}
                           transition={isMobileView ? { duration: route.type === "primary" ? 4.6 : 5.2, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" } : undefined}
                         />
@@ -875,24 +917,12 @@ export default function ShowroomExperience() {
                               fill="rgba(245,230,194,0.95)"
                               animate={{ opacity: [0.45, 0.95, 0.45] }}
                               transition={{ duration: 1.8, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut", delay: route.scene * 0.22 }}
+                              style={{ opacity: 1 }}
                             >
                               <animateMotion
-                                dur={`${route.type === "primary" ? 4.8 : 5.6}s`}
+                                dur={`${route.type === "primary" ? 3.6 : 3.9}s`}
                                 repeatCount="indefinite"
                                 begin={`${route.scene * 0.32}s`}
-                                path={route.path}
-                              />
-                            </motion.circle>
-                            <motion.circle
-                              r={route.type === "primary" ? 1.8 : 1.6}
-                              fill="rgba(197,164,109,0.95)"
-                              animate={{ opacity: [0.3, 0.8, 0.3] }}
-                              transition={{ duration: 1.8, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut", delay: route.scene * 0.3 }}
-                            >
-                              <animateMotion
-                                dur={`${route.type === "primary" ? 4.8 : 5.6}s`}
-                                repeatCount="indefinite"
-                                begin={`${0.9 + route.scene * 0.28}s`}
                                 path={route.path}
                               />
                             </motion.circle>
@@ -912,7 +942,7 @@ export default function ShowroomExperience() {
                             transition={{ duration: 0.95, ease: CINEMATIC_EASE }}
                           />
                         )}
-                        <motion.circle cx={route.node.x} cy={route.node.y} r={isMobileView ? 6.2 : 5.8} fill="#C5A46D" initial={false} animate={isMobileView ? { opacity: [0.76, 0.98, 0.76], scale: [1, 1.08, 1] } : { opacity: isVisible ? (route.type === "primary" ? 0.92 : 0.74) : 0, scale: isVisible ? 1 : 0.84 }} transition={isMobileView ? { duration: 3.4 + route.scene * 0.12, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut", delay: route.scene * 0.18 } : { duration: 0.8, ease: CINEMATIC_EASE }} />
+                        <motion.circle cx={route.node.x} cy={route.node.y} r={isMobileView ? 4 : 5.8} fill="#C5A46D" initial={false} animate={isMobileView ? { opacity: [0.66, 0.84, 0.66], scale: [1, 1.05, 1] } : { opacity: isVisible ? (route.type === "primary" ? 0.92 : 0.74) : 0, scale: isVisible ? 1 : 0.84 }} transition={isMobileView ? { duration: 3.6 + route.scene * 0.12, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut", delay: route.scene * 0.18 } : { duration: 0.8, ease: CINEMATIC_EASE }} />
                         {isMobileView && (
                           <motion.circle
                             cx={route.node.x}
@@ -938,6 +968,7 @@ export default function ShowroomExperience() {
                             paintOrder="stroke"
                             stroke="rgba(255,251,243,0.8)"
                             strokeWidth={1.1}
+                            opacity={0.75}
                           >
                             {route.node.label}
                           </text>
@@ -971,9 +1002,9 @@ export default function ShowroomExperience() {
               <p className="text-[13px] tracking-[0.16em] text-[#4f5967] md:text-[13px]">EXPORT NETWORK</p>
               <div className="mt-5 h-px w-16 bg-[#C5A46D]/55" />
               <AnimatePresence mode="wait">
-                <motion.div key={effectiveExportScene} initial={{ opacity: 0, y: 18, filter: "blur(4px)" }} animate={{ opacity: 1, y: 0, filter: "blur(0px)" }} exit={{ opacity: 0, y: -12, filter: "blur(4px)" }} transition={{ duration: 0.82, ease: "easeInOut" }}>
-                  <h2 className="mt-6 font-serif text-[2.35rem] leading-[1.02] text-[#0f1726] md:mt-7 md:text-[3.8rem]">{activeScene.title}</h2>
-                  <p className="mt-4 max-w-md text-[1rem] leading-relaxed text-[#3e4958] md:mt-5 md:text-[1.06rem] md:font-medium">{activeScene.body}</p>
+                <motion.div key={effectiveExportScene} initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={{ duration: 0.82, ease: "easeInOut" }}>
+                  <motion.h2 className="mt-6 font-serif text-[2.35rem] leading-[1.02] text-[#0f1726] md:mt-7 md:text-[3.8rem]" initial={isMobileView ? { opacity: 0, scale: 0.96 } : undefined} animate={isMobileView ? { opacity: 1, scale: 1 } : undefined} transition={isMobileView ? { duration: 0.7, ease: "easeOut" } : undefined}>{activeScene.title}</motion.h2>
+                  <motion.p className="mt-4 max-w-md text-[1rem] leading-relaxed text-[#3e4958] md:mt-5 md:text-[1.06rem] md:font-medium" initial={isMobileView ? { opacity: 0 } : undefined} animate={isMobileView ? { opacity: 1 } : undefined} transition={isMobileView ? { duration: 0.72, delay: 0.16, ease: "easeOut" } : undefined}>{activeScene.body}</motion.p>
                 </motion.div>
               </AnimatePresence>
               <div className="mt-8 flex items-center gap-3">
@@ -1140,9 +1171,9 @@ export default function ShowroomExperience() {
       </motion.section>
 
       <motion.section ref={whyRef} className="relative -mt-1 overflow-visible bg-[linear-gradient(180deg,#f8f4ec_0%,#f5f1e8_52%,#f1ebe0_100%)] text-[#2f2a24] md:h-auto">
-        <div ref={whyMobilePinRef} className="relative h-[88svh] min-h-[88svh] md:hidden">
-          <p className="pointer-events-none absolute left-1/2 top-[8%] z-[2] -translate-x-1/2 whitespace-nowrap text-[12px] tracking-[0.12em] text-[#6f624f]">WHY CHOOSE D.P. JEWELS</p>
-          <div className="absolute left-1/2 top-[54%] z-[1] h-[19rem] w-full max-w-[25rem] -translate-x-1/2 -translate-y-1/2 px-4">
+        <div ref={whyMobilePinRef} className="relative h-[86svh] min-h-[86svh] md:hidden">
+          <p className="pointer-events-none absolute left-1/2 top-[12%] z-[2] -translate-x-1/2 whitespace-nowrap text-[12px] tracking-[0.12em] text-[#6f624f]">WHY CHOOSE D.P. JEWELS</p>
+          <div className="absolute left-1/2 top-[52%] z-[1] h-[18rem] w-full max-w-[25rem] -translate-x-1/2 -translate-y-1/2 px-4">
             {whyChoosePoints.map((point, idx) => (
               <article
                 key={`why-mobile-${point.num}`}
@@ -1150,9 +1181,9 @@ export default function ShowroomExperience() {
                 className="absolute inset-0 flex translate-z-0 items-center justify-center text-center [will-change:transform,opacity]"
               >
                 <div className="w-full">
-                  {point.num ? <p className="mb-2 text-[13px] tracking-[0.14em] text-[#8d7a57]">{point.num}</p> : null}
+                  {point.num ? <p className="mb-1 text-[13px] tracking-[0.14em] text-[#8d7a57]">{point.num}</p> : null}
                   <h3 className="font-serif text-[2.5rem] font-medium leading-[1.05] text-[#2e2822]">{point.title}</h3>
-                  {point.desc ? <p className="mx-auto mt-3 max-w-[33ch] text-[1.08rem] leading-[1.74] text-[#564c40]">{point.desc}</p> : null}
+                  {point.desc ? <p className="mx-auto mt-2 max-w-[33ch] text-[1.08rem] leading-[1.74] text-[#564c40]">{point.desc}</p> : null}
                 </div>
               </article>
             ))}
@@ -1177,34 +1208,6 @@ export default function ShowroomExperience() {
             ))}
           </div>
         </div>
-      </motion.section>
-
-      <motion.section ref={contactRef} id="contact" style={{ y: isMobileView ? 0 : contactDrift }} className="relative -mt-1 bg-[#f7f2e9] py-[5.1rem] md:py-[6.9rem]" {...sectionReveal}>
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-14 bg-[linear-gradient(180deg,rgba(255,255,255,0.62)_0%,rgba(255,255,255,0)_100%)]" />
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_82%_20%,rgba(112,132,168,0.08)_0%,rgba(112,132,168,0)_30%)]" />
-        <div className="pointer-events-none absolute inset-0 opacity-[0.1] [background-image:radial-gradient(rgba(74,66,54,0.12)_0.42px,transparent_0.42px)] [background-size:3px_3px]" />
-        <div className="pointer-events-none absolute left-0 top-[16%] hidden h-px w-[12%] bg-[linear-gradient(90deg,rgba(148,163,184,0.32),transparent)] md:block" />
-        <motion.div className="mx-auto grid w-full max-w-[1440px] px-5 md:px-8 gap-12 md:grid-cols-[1.35fr_0.65fr] md:items-start lg:pr-4" variants={staggerContainer} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}>
-          <motion.article className="md:pr-14" variants={staggerItem}>
-            <h3 className="font-serif text-[2.2rem] text-[#121721] md:text-[2.9rem]">Contact Us</h3>
-            <p className="mt-6 max-w-[54ch] text-[1.03rem] leading-[1.95] text-[#253244] md:text-[1.08rem] md:font-medium">
-              EC-4080 B, Bharat Diamond Bourse,<br />
-              Bandra Kurla Complex,<br />
-              Bandra(E), Mumbai-51
-            </p>
-            <div className="mt-8 grid gap-2 text-[1.03rem] text-[#253244] md:text-[1.08rem] md:font-medium sm:grid-cols-2">
-              <p>Tel: 022 3596 3936</p>
-              <p>QBC: 022 3392 3961</p>
-              <p className="break-words sm:col-span-2">Email: ppsonecha@gmail.com</p>
-            </div>
-          </motion.article>
-          <motion.article className="relative border-l border-[#cfd8e4] pl-7 md:pl-10" variants={staggerItem}>
-            <div className="relative flex flex-col gap-3 md:pt-1">
-              <a href="tel:02235963936" className="lux-hover-lift lux-interactive inline-flex items-center justify-center gap-2 border border-[#cfd8e4] px-4 py-3 text-[15px] font-medium text-[#111827] transition-all duration-500 hover:shadow-[0_10px_20px_rgba(15,23,42,0.08)]"><Phone size={16} /> Call Office</a>
-              <a href={WHATSAPP_LINK} className="lux-hover-lift lux-interactive inline-flex items-center justify-center gap-2 border border-[#111827] bg-[#111827] px-4 py-3 text-[15px] font-medium text-white transition-all duration-500 hover:bg-[#0f172a] hover:shadow-[0_12px_22px_rgba(15,23,42,0.16)]"><MessageCircle size={16} /> WhatsApp Enquiry</a>
-            </div>
-          </motion.article>
-        </motion.div>
       </motion.section>
 
       <a href={WHATSAPP_LINK} target="_blank" rel="noreferrer" aria-label="WhatsApp Enquiry" className="floating-wa">

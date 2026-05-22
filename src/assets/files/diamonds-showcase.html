@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diamond Cuts Showcase</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%);
+            min-height: 100vh;
+            padding: 60px 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            color: #ffffff;
+            margin-bottom: 16px;
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            color: #b0b0b0;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* Diamond Cuts Grid */
+        .diamonds-grid {
+            display: grid;
+            gap: 50px;
+            margin-bottom: 80px;
+        }
+
+        /* Desktop: 4 columns */
+        @media (min-width: 1200px) {
+            .diamonds-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        /* Tablet: 2 columns */
+        @media (min-width: 768px) and (max-width: 1199px) {
+            .diamonds-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 40px;
+            }
+        }
+
+        /* Mobile: 1 column */
+        @media (max-width: 767px) {
+            .diamonds-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+
+        /* Diamond Card */
+        .diamond-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            opacity: 0;
+            animation: slideUp 0.6s ease-out forwards;
+        }
+
+        .diamond-card:nth-child(1) { animation-delay: 0.1s; }
+        .diamond-card:nth-child(2) { animation-delay: 0.2s; }
+        .diamond-card:nth-child(3) { animation-delay: 0.3s; }
+        .diamond-card:nth-child(4) { animation-delay: 0.4s; }
+        .diamond-card:nth-child(5) { animation-delay: 0.5s; }
+        .diamond-card:nth-child(6) { animation-delay: 0.6s; }
+        .diamond-card:nth-child(7) { animation-delay: 0.7s; }
+        .diamond-card:nth-child(8) { animation-delay: 0.8s; }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Diamond Image Container */
+        .diamond-image-container {
+            width: 100%;
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(ellipse at center, rgba(255,255,255,0.05) 0%, transparent 100%);
+            border-radius: 12px;
+            margin-bottom: 24px;
+            padding: 20px;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .diamond-image-container::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.1) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .diamond-card:hover .diamond-image-container {
+            background: radial-gradient(ellipse at center, rgba(255,255,255,0.1) 0%, transparent 100%);
+            transform: scale(1.05);
+        }
+
+        .diamond-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.1));
+            transition: filter 0.4s ease;
+        }
+
+        .diamond-card:hover .diamond-image-container img {
+            filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.25));
+        }
+
+        /* Diamond Info */
+        .diamond-info h3 {
+            font-size: 1.3rem;
+            color: #ffffff;
+            margin-bottom: 8px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .diamond-info p {
+            font-size: 0.95rem;
+            color: #a0a0a0;
+            line-height: 1.5;
+        }
+
+        /* Specifications Grid */
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-top: 80px;
+            padding-top: 60px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .spec-item {
+            text-align: center;
+        }
+
+        .spec-item h4 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #7a7a7a;
+            margin-bottom: 12px;
+        }
+
+        .spec-item p {
+            font-size: 1.4rem;
+            color: #ffffff;
+            font-weight: 300;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 767px) {
+            .header h1 {
+                font-size: 2.2rem;
+            }
+
+            .diamond-image-container {
+                aspect-ratio: auto;
+                height: 250px;
+            }
+
+            .specs-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Diamond Cuts</h1>
+            <p>Explore our comprehensive collection of premium diamond cuts, each with unique optical properties and timeless elegance.</p>
+        </div>
+
+        <div class="diamonds-grid">
+            <!-- Oval Cut -->
+            <div class="diamond-card">
+                <div class="diamond-image-container">
+                    <img src="./assets/diamonds/diamond_oval.png" alt="Oval Cut Diamond">
+                </div>
+                <div class="diamond-info">
+                    <h3>Oval</h3>
+                    <p>Elongated brilliance with increased surface area</p>
+                </div>
+            </div>
+
+            <!-- Emerald Cut -->
+            <div class="diamond-card">
+                <div class="diamond-image-container">
+                    <img src="./assets/diamonds/diamond_emerald.png" alt="Emerald Cut Diamond">
+                </div>
+                <div class="diamond-info">
+                    <h3>Emerald</h3>
+                    <p>Step-cut elegance with mirror-like clarity</p>
+                </div>
+            </div>
+
+            <!-- Pear Cut -->
+            <div class="diamond-card">
+                <div class="diamond-image-container">
+                    <img src="./assets/diamonds/diamond_pear.png" alt="Pear Cut Diamond">
+                </div>
+                <div class="diamond-info">
+                    <h3>Pear</h3>
+                    <p>Teardrop silhouette with romantic appeal</p>
+                </div>
+            </div>
+
+            <!-- Cushion Cut -->
+            <div class="diamond-card">
+                <div class="diamond-image-container">
+                    <img src="./assets/diamonds/diamond_cushion.png" alt="Cushion Cut Diamond">
+                </div>
+                <div class="diamond-info">
+                    <h3>Cushion</h3>
+                    <p>Rounded square with soft, warm glow</p>
+                </div>
+            </div>
+
+            <!-- Princess Cut -->
+            <div class="diamond-card">
+                <div class="diamond-image-container">
+                    <img src="./assets/diamonds/diamond_princess.png" alt="Princess Cut Diamond">
+                </div>
+                <div class="diamond-info">
+                    <h3>Princess</h3>
+                    <p>Contemporary square with exceptional sparkle</p>
+                </div>
+            </div>
+
+            <!-- Marquise Cut -->
+            <div class="diamond-card">
+                <div class="diamond-image-container">
+                    <img src="./assets/diamonds/diamond_marquise.png" alt="Marquise Cut Diamond">
+                </div>
+                <div class="diamond-info">
+                    <h3>Marquise</h3>
+                    <p>Elongated brilliance with maximum impact</p>
+                </div>
+            </div>
+
+            <!-- Radiant Cut -->
+            <div class="diamond-card">
+                <div class="diamond-image-container">
+                    <img src="./assets/diamonds/diamond_radiant.png" alt="Radiant Cut Diamond">
+                </div>
+                <div class="diamond-info">
+                    <h3>Radiant</h3>
+                    <p>Hybrid cut combining elegance and fire</p>
+                </div>
+            </div>
+
+            <!-- Asscher Cut -->
+            <div class="diamond-card">
+                <div class="diamond-image-container">
+                    <img src="./assets/diamonds/diamond_asscher.png" alt="Asscher Cut Diamond">
+                </div>
+                <div class="diamond-info">
+                    <h3>Asscher</h3>
+                    <p>Art deco square with vintage prestige</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="specs-grid">
+            <div class="spec-item">
+                <h4>Assets Created</h4>
+                <p>8</p>
+            </div>
+            <div class="spec-item">
+                <h4>Format</h4>
+                <p>PNG + Transparency</p>
+            </div>
+            <div class="spec-item">
+                <h4>Resolution</h4>
+                <p>High-Res</p>
+            </div>
+            <div class="spec-item">
+                <h4>Responsive</h4>
+                <p>Yes</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
