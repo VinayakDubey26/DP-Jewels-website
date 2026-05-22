@@ -1,0 +1,298 @@
+WHY CHOOSE D.P. JEWELS - SCROLL DIAGNOSTIC
+FILE: src/sections/ShowroomExperience.tsx
+
+================================================
+1. PROOF POINTS
+================================================
+
+const whyChoosePoints = [
+  {
+    num: "01",
+    title: "25+ Years of Industry Trust",
+    desc: "Decades of dependable relationships built across buyers, brokers, and supply partners.",
+  },
+  {
+    num: "02",
+    title: "Sourced To Your Exact Requirement",
+    desc: "From size and shape to quality benchmarks, sourcing is aligned to your exact ask.",
+  },
+  {
+    num: "03",
+    title: "Relationships Before Transactions",
+    desc: "Long-term trust guides every deal, every recommendation, and every follow-through.",
+  },
+  {
+    num: "04",
+    title: "Always Within Reach",
+    desc: "Responsive support, steady communication, and dependable availability when timing matters.",
+  },
+  {
+    num: "",
+    title: "Built on Relationships.\nTrusted for Results.",
+    desc: "",
+  },
+];
+
+================================================
+2. GSAP TIMELINE
+================================================
+
+There is no gsap.timeline(...) currently used for Why Choose.
+The current implementation uses gsap.set(...) inside ScrollTrigger.onUpdate.
+
+const totalSteps = proofLayers.length;
+const stageStarts = [0, 0.16, 0.32, 0.48, 0.64];
+const overlapHalf = 0.025; // tiny overlap window around boundaries 1-4
+
+gsap.set(proofLayers, { opacity: 0, scale: 1.02, transformOrigin: "50% 50%", willChange: "transform,opacity" });
+gsap.set(proofLayers[0], { opacity: 1, scale: 1 });
+
+Inside onUpdate:
+
+if (totalSteps >= 5 && p >= finalFadeStart) {
+  const t = Math.max(0, Math.min(1, (p - finalFadeStart) / (finalFadeEnd - finalFadeStart)));
+  // Force only points 4 and 5 during final phase.
+  for (let i = 0; i < totalSteps; i += 1) {
+    gsap.set(proofLayers[i], { opacity: 0, scale: 1.02, pointerEvents: "none" });
+  }
+  if (p < finalHoldStart) {
+    gsap.set(proofLayers[3], { opacity: 1 - t, scale: 1 - 0.02 * t });
+    gsap.set(proofLayers[4], { opacity: t, scale: 1.02 - 0.02 * t });
+  } else {
+    // 0.78-1.00: message 5 fully visible hold.
+    gsap.set(proofLayers[4], { opacity: 1, scale: 1 });
+  }
+  return;
+}
+
+let activeIndex = stageStarts.length - 1;
+for (let i = 0; i < stageStarts.length; i += 1) {
+  if (p >= stageStarts[i]) activeIndex = i;
+}
+
+// Reset to one dominant visible message.
+for (let i = 0; i < totalSteps; i += 1) {
+  gsap.set(proofLayers[i], { opacity: i === activeIndex ? 1 : 0, scale: i === activeIndex ? 1 : 1.02, pointerEvents: "none" });
+}
+
+// Tiny overlap only near the next boundary.
+const nextBoundary = stageStarts[activeIndex + 1];
+if (typeof nextBoundary === "number" && p >= nextBoundary - overlapHalf && p <= nextBoundary + overlapHalf) {
+  const t = (p - (nextBoundary - overlapHalf)) / (overlapHalf * 2);
+  const blend = Math.max(0, Math.min(1, t));
+  gsap.set(proofLayers[activeIndex], { opacity: 1 - blend, scale: 1 - 0.02 * blend });
+  gsap.set(proofLayers[activeIndex + 1], { opacity: blend, scale: 1.02 - 0.02 * blend });
+}
+
+================================================
+3. SCROLLTRIGGER
+================================================
+
+const endDistance = () => `+=${Math.round(window.innerHeight * 2.8)}`;
+
+const ctx = gsap.context(() => {
+  const st = ScrollTrigger.create({
+    trigger: whyRef.current,
+    start: "top top",
+    end: endDistance,
+    pin: whyPinRef.current,
+    pinSpacing: true,
+    scrub: 0.8,
+    anticipatePin: 1,
+    invalidateOnRefresh: true,
+    onUpdate: (self) => {
+      const p = self.progress;
+      // Long final transition window for point 5, then mandatory hold.
+      const finalFadeStart = 0.64;
+      const finalFadeEnd = 0.78;
+      const finalHoldStart = 0.78;
+
+      if (totalSteps >= 5 && p >= finalFadeStart) {
+        const t = Math.max(0, Math.min(1, (p - finalFadeStart) / (finalFadeEnd - finalFadeStart)));
+        // Force only points 4 and 5 during final phase.
+        for (let i = 0; i < totalSteps; i += 1) {
+          gsap.set(proofLayers[i], { opacity: 0, scale: 1.02, pointerEvents: "none" });
+        }
+        if (p < finalHoldStart) {
+          gsap.set(proofLayers[3], { opacity: 1 - t, scale: 1 - 0.02 * t });
+          gsap.set(proofLayers[4], { opacity: t, scale: 1.02 - 0.02 * t });
+        } else {
+          // 0.78-1.00: message 5 fully visible hold.
+          gsap.set(proofLayers[4], { opacity: 1, scale: 1 });
+        }
+        return;
+      }
+
+      let activeIndex = stageStarts.length - 1;
+      for (let i = 0; i < stageStarts.length; i += 1) {
+        if (p >= stageStarts[i]) activeIndex = i;
+      }
+
+      // Reset to one dominant visible message.
+      for (let i = 0; i < totalSteps; i += 1) {
+        gsap.set(proofLayers[i], { opacity: i === activeIndex ? 1 : 0, scale: i === activeIndex ? 1 : 1.02, pointerEvents: "none" });
+      }
+
+      // Tiny overlap only near the next boundary.
+      const nextBoundary = stageStarts[activeIndex + 1];
+      if (typeof nextBoundary === "number" && p >= nextBoundary - overlapHalf && p <= nextBoundary + overlapHalf) {
+        const t = (p - (nextBoundary - overlapHalf)) / (overlapHalf * 2);
+        const blend = Math.max(0, Math.min(1, t));
+        gsap.set(proofLayers[activeIndex], { opacity: 1 - blend, scale: 1 - 0.02 * blend });
+        gsap.set(proofLayers[activeIndex + 1], { opacity: blend, scale: 1.02 - 0.02 * blend });
+      }
+    },
+  });
+  st.refresh();
+}, whyRef);
+
+markers: not present
+
+================================================
+4. JSX STRUCTURE
+================================================
+
+<motion.section ref={whyRef} className="relative -mt-1 overflow-visible bg-[linear-gradient(180deg,#f8f4ec_0%,#f5f1e8_52%,#f1ebe0_100%)] text-[#2f2a24] md:h-[240vh]">
+  <div className="mx-auto w-full max-w-[1380px] px-5 py-16 md:hidden">
+    <p className="text-center text-[13px] tracking-[0.16em] text-[#6f624f]">WHY CHOOSE D.P. JEWELS</p>
+    <div className="mt-8 space-y-8">
+      {whyChoosePoints.map((point, idx) => (
+        <motion.article
+          key={`why-mobile-${point.num}`}
+          initial={{ opacity: 0, scale: 1.02 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true, amount: 0.45 }}
+          transition={{ duration: 0.88, ease: CINEMATIC_EASE, delay: idx * 0.03 }}
+          className="text-center"
+        >
+          {point.num ? <p className="mb-2 text-[13px] tracking-[0.14em] text-[#8d7a57]">{point.num}</p> : null}
+          <h3 className="font-serif text-[2.16rem] leading-[1.04] text-[#2e2822]">{point.title}</h3>
+          {point.desc ? <p className="mx-auto mt-3 max-w-[34ch] text-[1rem] leading-[1.72] text-[#564c40] md:font-medium">{point.desc}</p> : null}
+        </motion.article>
+      ))}
+    </div>
+  </div>
+
+  <div ref={whyPinRef} className="relative hidden h-screen min-h-[100svh] md:block">
+    <p className="pointer-events-none absolute left-1/2 top-[13%] z-[2] -translate-x-1/2 text-[13px] tracking-[0.16em] text-[#6f624f]">WHY CHOOSE D.P. JEWELS</p>
+    <div className="absolute left-1/2 top-1/2 z-[1] h-[22rem] w-full max-w-[58rem] -translate-x-1/2 -translate-y-1/2 px-8">
+      {whyChoosePoints.map((point, idx) => (
+        <article
+          key={`why-desktop-${point.num}`}
+          ref={(node) => { whyProofRefs.current[idx] = node; }}
+          className="absolute inset-0 flex items-center justify-center text-center"
+        >
+          <div className="w-full">
+            {point.num ? <p className="mb-4 text-[13px] tracking-[0.16em] text-[#8f7c5b]">{point.num}</p> : null}
+            <h2 className="font-serif text-[4.6rem] leading-[1.02] text-[#29241f]">{point.title}</h2>
+            {point.desc ? <p className="mx-auto mt-6 max-w-[42rem] text-[1.18rem] leading-[1.9] text-[#554b3f] md:font-medium">{point.desc}</p> : null}
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</motion.section>
+
+================================================
+5. SECTION HEIGHTS
+================================================
+
+Relevant code:
+
+<motion.section ref={whyRef} className="relative -mt-1 overflow-visible bg-[linear-gradient(180deg,#f8f4ec_0%,#f5f1e8_52%,#f1ebe0_100%)] text-[#2f2a24] md:h-[240vh]">
+
+<div ref={whyPinRef} className="relative hidden h-screen min-h-[100svh] md:block">
+
+- wrapper height: md:h-[240vh]
+- wrapper min-height: none explicit
+- pinned container uses: h-screen
+- pinned container min-height: min-h-[100svh]
+- vh usage: md:h-[240vh]
+- svh usage: min-h-[100svh]
+- spacer divs: no explicit manual spacer div for Why
+
+================================================
+6. ACTIVE STEP LOGIC
+================================================
+
+No React state activeIndex used for Why.
+Active switching is driven by ScrollTrigger onUpdate progress.
+
+const stageStarts = [0, 0.16, 0.32, 0.48, 0.64];
+
+let activeIndex = stageStarts.length - 1;
+for (let i = 0; i < stageStarts.length; i += 1) {
+  if (p >= stageStarts[i]) activeIndex = i;
+}
+
+Final-window logic:
+
+const finalFadeStart = 0.64;
+const finalFadeEnd = 0.78;
+const finalHoldStart = 0.78;
+
+if (totalSteps >= 5 && p >= finalFadeStart) {
+  const t = Math.max(0, Math.min(1, (p - finalFadeStart) / (finalFadeEnd - finalFadeStart)));
+  ...
+}
+
+================================================
+7. CSS CLASSES
+================================================
+
+Section wrapper classes:
+relative -mt-1 overflow-visible bg-[linear-gradient(180deg,#f8f4ec_0%,#f5f1e8_52%,#f1ebe0_100%)] text-[#2f2a24] md:h-[240vh]
+
+Pinned container classes:
+relative hidden h-screen min-h-[100svh] md:block
+
+Proof text container classes:
+absolute left-1/2 top-1/2 z-[1] h-[22rem] w-full max-w-[58rem] -translate-x-1/2 -translate-y-1/2 px-8
+
+Proof layer classes:
+absolute inset-0 flex items-center justify-center text-center
+
+Custom CSS definitions for these classes: none (Tailwind utility classes only).
+
+================================================
+8. OTHER SCROLLTRIGGERS
+================================================
+
+In this file, only one ScrollTrigger.create(...) is present, and it is for Why Choose:
+
+const st = ScrollTrigger.create({
+  trigger: whyRef.current,
+  ...
+});
+
+No additional ScrollTrigger.create blocks for Why in this file.
+
+================================================
+9. WHY THE 5TH POINT RELEASES EARLY
+================================================
+
+Primary cause lines in current code:
+
+1) The 5th message enters only in a late progress window:
+   const finalFadeStart = 0.64;
+   const finalFadeEnd = 0.78;
+
+2) Hard reset loop on every onUpdate tick:
+   for (let i = 0; i < totalSteps; i += 1) {
+     gsap.set(proofLayers[i], { opacity: 0, scale: 1.02, pointerEvents: "none" });
+   }
+
+3) Wrapper has fixed desktop height while pin end is separately computed:
+   md:h-[240vh]
+   and
+   end: () => `+=${Math.round(window.innerHeight * 2.8)}`
+
+4) Additional boundary overlap logic executes for earlier stage bands:
+   const nextBoundary = stageStarts[activeIndex + 1];
+   if (typeof nextBoundary === "number" && p >= nextBoundary - overlapHalf && p <= nextBoundary + overlapHalf) { ... }
+
+Why this can look early:
+- message 5 starts only at 0.64 progress and reaches full at 0.78.
+- if scroll traverses quickly/scrub interpolation is coarse, time at fully settled state can feel short.
+- repeated per-tick gsap.set resets can make the final state feel unstable right before release.
+

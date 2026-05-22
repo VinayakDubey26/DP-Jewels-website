@@ -127,33 +127,23 @@ const whyChoosePoints = [
   },
   {
     num: "02",
-    title: "200,000+ Carats Traded",
-    desc: "Volume handled with consistency, precision, and market-led judgment over time.",
-  },
-  {
-    num: "03",
     title: "Sourced To Your Exact Requirement",
     desc: "From size and shape to quality benchmarks, sourcing is aligned to your exact ask.",
   },
   {
-    num: "04",
-    title: "Global Trade Network",
-    desc: "A broad and active network supports faster access to the right stones worldwide.",
-  },
-  {
-    num: "05",
+    num: "03",
     title: "Relationships Before Transactions",
     desc: "Long-term trust guides every deal, every recommendation, and every follow-through.",
   },
   {
-    num: "06",
+    num: "04",
     title: "Always Within Reach",
     desc: "Responsive support, steady communication, and dependable availability when timing matters.",
   },
   {
-    num: "07",
-    title: "Built On Trust Since 1999",
-    desc: "D.P. Jewels remains a reliable sourcing partner shaped by continuity and credibility.",
+    num: "",
+    title: "Built on Relationships.\nTrusted for Results.",
+    desc: "",
   },
 ];
 
@@ -209,16 +199,20 @@ const exportDesktopLayout = {
     usa: { x: -186, y: 760, labelX: -202, labelY: 752, label: "USA", anchor: "end" },
   },
   internalNodes: [
-    { key: "kashmir", x: 335, y: 158 },
-    { key: "up", x: 422, y: 350 },
-    { key: "assam", x: 807, y: 372 },
-    { key: "south", x: 360, y: 818 },
+    { key: "northHub", x: 356, y: 360, tier: "major" },
+    { key: "northEnd", x: 340, y: 180, tier: "border" },
+    { key: "eastHub", x: 566, y: 500, tier: "major" },
+    { key: "eastAssam", x: 764, y: 390, tier: "border" },
+    { key: "southHub", x: 356, y: 736, tier: "major" },
+    { key: "southBorder", x: 392, y: 850, tier: "border" },
   ],
   internalRoutes: [
-    { key: "kashmir", path: "M280 605 C298 468 316 276 335 158" },
-    { key: "up", path: "M280 605 C334 520 380 434 422 350" },
-    { key: "assam", path: "M280 605 C424 548 614 470 807 372" },
-    { key: "south", path: "M280 605 C304 674 332 746 360 818" },
+    { key: "mumbai-north", path: "M280 605 C318 528 340 448 356 360" },
+    { key: "north-end", path: "M356 360 C351 311 346 253 340 180" },
+    { key: "mumbai-east", path: "M280 605 C386 584 480 548 566 500" },
+    { key: "east-assam", path: "M566 500 C640 456 700 422 764 390" },
+    { key: "mumbai-south", path: "M280 605 C322 656 344 696 356 736" },
+    { key: "south-border", path: "M356 736 C370 776 382 814 392 850" },
   ],
   routes: [
     { key: "dubai", scene: 2, type: "primary", path: "M280 605 C208 588 116 552 20 525" },
@@ -232,33 +226,37 @@ const exportDesktopLayout = {
 
 const exportMobileLayout = {
   nodes: {
-    mumbai: { x: 280, y: 607, labelX: 296, labelY: 632, label: "Mumbai" },
-    dubai: { x: 116, y: 556, labelX: 26, labelY: 552, label: "Dubai", anchor: "start" },
-    london: { x: 72, y: 240, labelX: 18, labelY: 234, label: "London", anchor: "start" },
-    singapore: { x: 660, y: 716, labelX: 528, labelY: 712, label: "Singapore", anchor: "start" },
-    hongKong: { x: 834, y: 596, labelX: 774, labelY: 588, label: "Hong Kong", anchor: "end" },
-    canada: { x: 36, y: 398, labelX: 14, labelY: 392, label: "Canada", anchor: "start" },
-    usa: { x: 72, y: 778, labelX: 18, labelY: 772, label: "USA", anchor: "start" },
+    mumbai: { x: 282, y: 632, labelX: 324, labelY: 686, label: "Mumbai" },
+    dubai: { x: 28, y: 594, labelX: 8, labelY: 586, label: "Dubai", anchor: "start" },
+    london: { x: -20, y: 204, labelX: 8, labelY: 196, label: "London", anchor: "start" },
+    singapore: { x: 752, y: 760, labelX: 770, labelY: 786, label: "Singapore", anchor: "start" },
+    hongKong: { x: 882, y: 594, labelX: 868, labelY: 582, label: "Hong Kong", anchor: "end" },
+    canada: { x: -12, y: 388, labelX: 8, labelY: 380, label: "Canada", anchor: "start" },
+    usa: { x: -10, y: 830, labelX: 8, labelY: 822, label: "USA", anchor: "start" },
   },
   internalNodes: [
-    { key: "kashmir", x: 337, y: 176 },
-    { key: "up", x: 416, y: 354 },
-    { key: "assam", x: 736, y: 388 },
-    { key: "south", x: 360, y: 796 },
+    { key: "northHub", x: 370, y: 352, tier: "major" },
+    { key: "northEnd", x: 340, y: 180, tier: "border" },
+    { key: "eastHub", x: 566, y: 500, tier: "major" },
+    { key: "eastAssam", x: 764, y: 390, tier: "border" },
+    { key: "southHub", x: 356, y: 736, tier: "major" },
+    { key: "southBorder", x: 392, y: 850, tier: "border" },
   ],
   internalRoutes: [
-    { key: "kashmir", path: "M280 607 C300 482 320 286 337 176" },
-    { key: "up", path: "M280 607 C336 514 382 432 416 354" },
-    { key: "assam", path: "M280 607 C414 556 568 486 736 388" },
-    { key: "south", path: "M280 607 C308 676 334 738 360 796" },
+    { key: "mumbai-north", path: "M282 632 C326 554 350 446 370 352" },
+    { key: "north-end", path: "M370 352 C362 304 352 248 340 180" },
+    { key: "mumbai-east", path: "M282 632 C388 608 482 558 566 500" },
+    { key: "east-assam", path: "M566 500 C640 456 700 422 764 390" },
+    { key: "mumbai-south", path: "M282 632 C322 678 344 706 356 736" },
+    { key: "south-border", path: "M356 736 C370 776 382 814 392 850" },
   ],
   routes: [
-    { key: "dubai", scene: 2, type: "primary", path: "M280 607 C234 594 176 574 116 556" },
-    { key: "london", scene: 3, type: "secondary", path: "M280 607 C214 468 152 326 72 240" },
-    { key: "singapore", scene: 4, type: "primary", path: "M280 607 C380 644 514 692 660 716" },
-    { key: "hongKong", scene: 5, type: "primary", path: "M280 607 C434 620 622 632 834 596" },
-    { key: "canada", scene: 6, type: "secondary", path: "M280 607 C170 508 108 436 36 398" },
-    { key: "usa", scene: 7, type: "secondary", path: "M280 607 C190 708 138 762 72 778" },
+    { key: "dubai", scene: 2, type: "primary", path: "M282 632 C226 630 146 614 28 594" },
+    { key: "london", scene: 3, type: "secondary", path: "M282 632 C206 504 122 318 -20 204" },
+    { key: "singapore", scene: 4, type: "primary", path: "M282 632 C406 684 558 742 752 760" },
+    { key: "hongKong", scene: 5, type: "primary", path: "M282 632 C450 646 634 644 882 594" },
+    { key: "canada", scene: 6, type: "secondary", path: "M282 632 C154 526 84 434 -12 388" },
+    { key: "usa", scene: 7, type: "secondary", path: "M282 632 C168 756 94 812 -10 830" },
   ],
 } as const;
 
@@ -283,6 +281,8 @@ export default function ShowroomExperience() {
   const whyRef = useRef<HTMLElement>(null);
   const whyPinRef = useRef<HTMLDivElement>(null);
   const whyProofRefs = useRef<Array<HTMLElement | null>>([]);
+  const whyMobilePinRef = useRef<HTMLDivElement>(null);
+  const whyMobileProofRefs = useRef<Array<HTMLElement | null>>([]);
   const contactRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
   const heroY = useTransform(scrollYProgress, [0, 1], [0, -26]);
@@ -305,13 +305,11 @@ export default function ShowroomExperience() {
   const { scrollYProgress: presenceProgress } = useScroll({ target: presenceRef, offset: ["start start", "end end"] });
   const { scrollYProgress: bdbProgress } = useScroll({ target: bdbRef, offset: ["start end", "end start"] });
   const { scrollYProgress: certProgress } = useScroll({ target: certRef, offset: ["start end", "end start"] });
-  const { scrollYProgress: whyProgress } = useScroll({ target: whyRef, offset: ["start end", "end start"] });
   const { scrollYProgress: contactProgress } = useScroll({ target: contactRef, offset: ["start end", "end start"] });
   const aboutDrift = useTransform(aboutProgress, [0, 1], [0, -10]);
   const diamondsDrift = useTransform(diamondsProgress, [0, 1], [12, -12]);
   const bdbDrift = useTransform(bdbProgress, [0, 1], [9, -9]);
   const certDrift = useTransform(certProgress, [0, 1], [8, -8]);
-  const whyDrift = useTransform(whyProgress, [0, 1], [8, -8]);
   const contactDrift = useTransform(contactProgress, [0, 1], [8, -8]);
   const bdbImageParallaxY = useTransform(bdbProgress, [0, 1], [10, -10]);
   const bdbImageParallaxScale = useTransform(bdbProgress, [0, 1], [1.04, 1.02]);
@@ -325,8 +323,8 @@ export default function ShowroomExperience() {
   }));
   const exportMapOpacity = useTransform(presenceProgress, [0, 0.04, 0.95, 1], [0, 1, 1, 0.96]);
   const exportHubOpacity = useTransform(presenceProgress, [0.06, 0.12], [0, 1]);
-  const exportInternalNetworkOpacity = useTransform(presenceProgress, [0.12, 0.19], [0, 1]);
-  const exportInternalLineProgress = useSpring(useTransform(presenceProgress, [0.12, 0.19], [0, 1]), { stiffness: 50, damping: 23, mass: 0.58 });
+  const exportInternalNetworkOpacity = useTransform(presenceProgress, [0.58, 0.68], [0, 1]);
+  const exportInternalLineProgress = useSpring(useTransform(presenceProgress, [0.58, 0.68], [0, 1]), { stiffness: 50, damping: 23, mass: 0.58 });
   const exportCameraXRaw = useTransform(presenceProgress, [0, 0.24, 0.46, 0.68, 1], [0, -2, 2.5, -2.25, 0]);
   const exportCameraYRaw = useTransform(presenceProgress, [0, 0.24, 0.46, 0.68, 1], [0, -1.5, 1.2, -0.8, 0]);
   const exportCameraScaleRaw = useTransform(presenceProgress, [0, 0.24, 0.52, 0.78, 1], isMobileView ? [1, 1.006, 1.008, 1.01, 1.008] : [0.94, 0.99, 1.04, 1.08, 1.05]);
@@ -353,13 +351,20 @@ export default function ShowroomExperience() {
     canada: { progress: routeCanadaProgress, opacity: routeCanadaOpacity },
     usa: { progress: routeUsaProgress, opacity: routeUsaOpacity },
   };
-  const activeScene = exportStoryScenes[activeExportScene];
+  const effectiveExportScene = isMobileView ? exportStoryScenes.length - 1 : activeExportScene;
+  const activeScene = exportStoryScenes[effectiveExportScene];
 
   useMotionValueEvent(presenceProgress, "change", (latest) => {
+    if (isMobileView) return;
     const acceleratedProgress = Math.min(0.98, latest * 1.72);
     const nextScene = Math.min(exportStoryScenes.length - 1, Math.max(0, Math.floor(acceleratedProgress * exportStoryScenes.length)));
     setActiveExportScene((currentScene) => (currentScene === nextScene ? currentScene : nextScene));
   });
+  useEffect(() => {
+    if (isMobileView) {
+      setActiveExportScene(exportStoryScenes.length - 1);
+    }
+  }, [isMobileView]);
   useEffect(() => {
     const media = window.matchMedia("(max-width: 768px)");
     const update = () => setIsMobileView(media.matches);
@@ -370,57 +375,68 @@ export default function ShowroomExperience() {
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
-    if (isMobileView || !whyRef.current || !whyPinRef.current) {
+    if (!whyRef.current) {
       return;
     }
 
-    const proofLayers = whyProofRefs.current.filter((node): node is HTMLElement => Boolean(node));
-    if (!proofLayers.length) return;
-    const totalSteps = proofLayers.length;
-    let currentStepIndex = 0;
-
-    gsap.set(proofLayers, { opacity: 0, willChange: "opacity" });
-    gsap.set(proofLayers[0], { opacity: 1 });
-
     const ctx = gsap.context(() => {
-      ScrollTrigger.create({
-        trigger: whyRef.current,
-        start: "top top",
-        end: () => `+=${window.innerHeight * totalSteps}`,
-        pin: whyPinRef.current,
-        pinSpacing: true,
-        scrub: 0.9,
-        anticipatePin: 1,
-        invalidateOnRefresh: true,
-        onUpdate: (self) => {
-          // Reserve the final ~12% of progress as a hold on the last proof point.
-          const normalized = Math.min(1, self.progress / 0.88);
-          const nextStepIndex = Math.min(
-            totalSteps - 1,
-            Math.floor(normalized * totalSteps),
-          );
+      const pinTarget = isMobileView ? whyMobilePinRef.current : whyPinRef.current;
+      const proofPool = isMobileView ? whyMobileProofRefs.current : whyProofRefs.current;
+      if (!pinTarget) return;
+      const proofLayers = proofPool.filter((node): node is HTMLElement => Boolean(node));
+      if (!proofLayers.length) return;
 
-          if (nextStepIndex === currentStepIndex) return;
+      gsap.set(proofLayers, {
+        opacity: 0,
+        scale: 1.02,
+        transformOrigin: "50% 50%",
+        willChange: "transform,opacity",
+        pointerEvents: "none",
+      });
+      gsap.set(proofLayers[0], { opacity: 1, scale: 1 });
 
-          gsap.to(proofLayers[currentStepIndex], {
-            opacity: 0,
-            duration: 0.42,
-            ease: "power2.out",
-            overwrite: "auto",
-          });
-          gsap.to(proofLayers[nextStepIndex], {
-            opacity: 1,
-            duration: 0.42,
-            ease: "power2.out",
-            overwrite: "auto",
-          });
-
-          currentStepIndex = nextStepIndex;
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: whyRef.current,
+          start: "top top",
+          end: isMobileView ? "+=620" : "+=560",
+          scrub: isMobileView ? 0.35 : 0.8,
+          pin: pinTarget,
+          pinSpacing: true,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
         },
       });
+
+      const holdDuration = isMobileView ? 0.62 : 0.8;
+      const swapDuration = isMobileView ? 0.28 : 0.35;
+      const finalHoldDuration = isMobileView ? 0.9 : 0.8;
+
+      tl.to(proofLayers[0], { opacity: 1, scale: 1, duration: holdDuration })
+        .to(proofLayers[0], { opacity: 0, scale: 0.98, duration: swapDuration })
+        .to(proofLayers[1], { opacity: 1, scale: 1, duration: swapDuration }, "<")
+        .to(proofLayers[1], { opacity: 1, scale: 1, duration: holdDuration })
+        .to(proofLayers[1], { opacity: 0, scale: 0.98, duration: swapDuration })
+        .to(proofLayers[2], { opacity: 1, scale: 1, duration: swapDuration }, "<")
+        .to(proofLayers[2], { opacity: 1, scale: 1, duration: holdDuration })
+        .to(proofLayers[2], { opacity: 0, scale: 0.98, duration: swapDuration })
+        .to(proofLayers[3], { opacity: 1, scale: 1, duration: swapDuration }, "<")
+        .to(proofLayers[3], { opacity: 1, scale: 1, duration: holdDuration })
+        .to(proofLayers[3], { opacity: 0, scale: 0.98, duration: swapDuration })
+        .to(proofLayers[4], { opacity: 1, scale: 1, duration: swapDuration }, "<")
+        .to(proofLayers[4], { opacity: 1, scale: 1, duration: finalHoldDuration });
+
+      ScrollTrigger.refresh();
     }, whyRef);
 
-    return () => ctx.revert();
+    return () => {
+      ctx.revert();
+      ScrollTrigger.getAll().forEach((trigger) => {
+        if (trigger.vars.trigger === whyRef.current || trigger.vars.pin === whyPinRef.current || trigger.vars.pin === whyMobilePinRef.current) {
+          trigger.kill();
+        }
+      });
+    };
   }, [isMobileView]);
   const heroContentStagger = {
     hidden: {},
@@ -649,18 +665,18 @@ export default function ShowroomExperience() {
         </div>
       </motion.section>
 
-      <section ref={presenceRef} className="relative -mt-3 h-[270vh] bg-[linear-gradient(180deg,#ffffff_0%,#faf7f2_46%,#f6f1e8_100%)] md:h-[305vh]">
-        <div className="sticky top-0 flex min-h-screen min-h-[100svh] items-center overflow-visible py-0">
+      <section ref={presenceRef} className="relative -mt-3 h-auto bg-[linear-gradient(180deg,#ffffff_0%,#faf7f2_46%,#f6f1e8_100%)] md:h-[305vh]">
+        <div className="relative flex items-center overflow-visible py-0 md:sticky md:top-0 md:min-h-screen md:min-h-[100svh] md:py-0">
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_48%_48%,rgba(197,164,109,0.12)_0%,rgba(197,164,109,0.045)_32%,rgba(250,247,242,0)_68%)]" />
           <div className="pointer-events-none absolute inset-0 opacity-[0.035] [background-image:radial-gradient(rgba(70,58,42,0.38)_0.45px,transparent_0.45px)] [background-size:4px_4px]" />
           <div className="pointer-events-none absolute right-0 top-[18%] hidden h-px w-[14%] bg-[linear-gradient(270deg,rgba(197,164,109,0.38),transparent)] md:block" />
 
-          <div className="relative mx-auto grid w-full max-w-[1680px] items-center gap-3 px-3 md:gap-6 md:px-5 lg:grid-cols-[minmax(0,0.74fr)_minmax(320px,0.26fr)] lg:gap-6">
-            <motion.div className="relative order-2 mx-auto h-[min(82svh,820px)] w-full max-w-[100vw] md:h-[min(96vh,1260px)] md:max-w-[1480px] lg:order-1 lg:h-[min(98vh,1320px)] lg:max-w-none" style={{ opacity: exportMapOpacity }}>
+          <div className="relative mx-auto grid w-full max-w-[1680px] items-center gap-3 px-1 md:gap-6 md:px-5 lg:grid-cols-[minmax(0,0.74fr)_minmax(320px,0.26fr)] lg:gap-6">
+            <motion.div className="relative order-2 mx-auto h-[min(86svh,900px)] w-[96vw] max-w-[96vw] overflow-hidden md:h-[min(96vh,1260px)] md:w-full md:max-w-[1480px] md:overflow-visible lg:order-1 lg:h-[min(98vh,1320px)] lg:max-w-none" style={{ opacity: isMobileView ? 1 : exportMapOpacity }}>
               <img src={indiaExportStory} alt="" aria-hidden className="sr-only" loading="lazy" decoding="async" />
               <div className="pointer-events-none absolute left-1/2 top-1/2 h-[86%] w-[86%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(255,251,243,0.82)_0%,rgba(255,251,243,0.26)_50%,rgba(255,251,243,0)_80%)]" />
               <div className="pointer-events-none absolute inset-[4%] bg-[radial-gradient(circle_at_52%_52%,rgba(255,255,255,0.5)_0%,rgba(255,255,255,0.12)_56%,rgba(255,255,255,0)_100%)]" />
-              <motion.svg viewBox="-250 -10 1280 1055" preserveAspectRatio="xMidYMid meet" className="absolute left-1/2 top-1/2 h-[114%] w-[114%] -translate-x-1/2 -translate-y-1/2 md:left-0 md:top-0 md:h-full md:w-full md:translate-x-0 md:translate-y-0" role="img" aria-label="DP Jewels export network from Mumbai, India">
+              <motion.svg viewBox="-250 -10 1280 1055" preserveAspectRatio="xMidYMid meet" className="absolute left-1/2 top-1/2 h-[132%] w-[132%] -translate-x-1/2 -translate-y-1/2 md:left-0 md:top-0 md:h-full md:w-full md:translate-x-0 md:translate-y-0" role="img" aria-label="DP Jewels export network from Mumbai, India">
                 <defs>
                   <filter id="exportHubGlow" x="-220%" y="-220%" width="540%" height="540%">
                     <feGaussianBlur stdDeviation="6" result="blur" />
@@ -673,7 +689,13 @@ export default function ShowroomExperience() {
                   </filter>
                 </defs>
 
-                <motion.g style={{ x: isMobileView ? 12 : exportCameraX, y: exportCameraY, scale: exportCameraScale, transformOrigin: `${exportNodes.mumbai.x}px ${exportNodes.mumbai.y}px` }}>
+                <motion.g
+                  style={
+                    isMobileView
+                      ? { x: -34, y: 0, scale: 1, transformOrigin: `${exportNodes.mumbai.x}px ${exportNodes.mumbai.y}px` }
+                      : { x: exportCameraX, y: exportCameraY, scale: exportCameraScale, transformOrigin: `${exportNodes.mumbai.x}px ${exportNodes.mumbai.y}px` }
+                  }
+                >
                   <image href={indiaMapClean} x="0" y="0" width="1000" height="1000" opacity={isMobileView ? 1 : 0.94} preserveAspectRatio="xMidYMid meet" />
                   {indiaOutlinePath ? (
                     <motion.path
@@ -691,51 +713,145 @@ export default function ShowroomExperience() {
                     />
                   ) : null}
 
-                  <motion.g style={{ opacity: exportHubOpacity }}>
-                    <motion.circle cx={exportNodes.mumbai.x} cy={exportNodes.mumbai.y} r={isMobileView ? 26 : 24} fill="#C5A46D" opacity="0.18" filter={isMobileView ? undefined : "url(#exportHubGlow)"} animate={isMobileView ? { scale: [1, 1.1, 1], opacity: [0.16, 0.22, 0.16] } : { scale: [1, 1.2, 1], opacity: [0.16, 0.26, 0.16] }} transition={{ duration: isMobileView ? 3.8 : 5.6, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }} />
-                    {!isMobileView && <motion.circle cx={exportNodes.mumbai.x} cy={exportNodes.mumbai.y} r={18.5} fill="none" stroke="#C5A46D" strokeWidth={2.2} opacity="0.64" animate={{ scale: [1, 1.45], opacity: [0.54, 0.1] }} transition={{ duration: 4.9, repeat: Number.POSITIVE_INFINITY, ease: "easeOut" }} />}
-                    <circle cx={exportNodes.mumbai.x} cy={exportNodes.mumbai.y} r={isMobileView ? 9.8 : 8.6} fill="#c4a166" filter={isMobileView ? undefined : "url(#exportHubGlow)"} />
-                    <text x={exportNodes.mumbai.labelX} y={exportNodes.mumbai.labelY} textAnchor="start" fontSize={isMobileView ? 22 : 27} fontWeight={560} letterSpacing="0.035em" fill="#665a49">
+                  <motion.g style={{ opacity: isMobileView ? 1 : exportHubOpacity }}>
+                    <motion.circle cx={exportNodes.mumbai.x} cy={exportNodes.mumbai.y} r={isMobileView ? 26 : 25} fill="#C5A46D" opacity="0.18" filter={isMobileView ? undefined : "url(#exportHubGlow)"} animate={isMobileView ? { scale: [1, 1.08, 1], opacity: [0.16, 0.23, 0.16] } : { scale: [1, 1.2, 1], opacity: [0.18, 0.3, 0.18] }} transition={{ duration: isMobileView ? 4.2 : 5.6, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }} />
+                    {isMobileView && <motion.circle cx={exportNodes.mumbai.x} cy={exportNodes.mumbai.y} r={18.8} fill="none" stroke="rgba(197,164,109,0.55)" strokeWidth={1.4} animate={{ scale: [1, 1.38], opacity: [0.48, 0.06] }} transition={{ duration: 4.6, repeat: Number.POSITIVE_INFINITY, ease: "easeOut" }} />}
+                    {!isMobileView && <motion.circle cx={exportNodes.mumbai.x} cy={exportNodes.mumbai.y} r={19.4} fill="none" stroke="#C5A46D" strokeWidth={2.3} opacity="0.68" animate={{ scale: [1, 1.42], opacity: [0.56, 0.12] }} transition={{ duration: 5, repeat: Number.POSITIVE_INFINITY, ease: "easeOut" }} />}
+                    <circle cx={exportNodes.mumbai.x} cy={exportNodes.mumbai.y} r={isMobileView ? 9.8 : 9.4} fill="#c4a166" filter={isMobileView ? undefined : "url(#exportHubGlow)"} />
+                    <text x={exportNodes.mumbai.labelX} y={exportNodes.mumbai.labelY} textAnchor="start" fontSize={isMobileView ? 24 : 27} fontWeight={580} letterSpacing="0.032em" fill="#5e5344">
                       Mumbai
                     </text>
                   </motion.g>
 
-                  <motion.g style={{ opacity: exportInternalNetworkOpacity }}>
+                  <motion.g style={{ opacity: isMobileView ? 1 : exportInternalNetworkOpacity }}>
                     {exportInternalRoutes.map((route) => (
                       <motion.path
                         key={route.key}
                         d={route.path}
                         pathLength="1"
                         fill="none"
-                        stroke="rgba(197,164,109,0.76)"
-                        strokeWidth={isMobileView ? 1.1 : 1.62}
+                        stroke={isMobileView ? "rgba(197,164,109,0.9)" : "rgba(197,164,109,0.74)"}
+                        strokeWidth={isMobileView ? 1.8 : 1.44}
                         strokeLinecap="round"
                         strokeLinejoin="round"
                         vectorEffect="non-scaling-stroke"
-                        style={{ pathLength: isMobileView ? 1 : exportInternalLineProgress, opacity: exportInternalNetworkOpacity }}
+                        style={{ pathLength: isMobileView ? 1 : exportInternalLineProgress, opacity: isMobileView ? 0.96 : exportInternalNetworkOpacity }}
+                        animate={isMobileView ? { opacity: [0.82, 1, 0.82] } : undefined}
+                        transition={isMobileView ? { duration: 4.2, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" } : undefined}
                       />
                     ))}
+                    {isMobileView &&
+                      exportInternalRoutes.map((route) => (
+                        <motion.path
+                          key={`${route.key}-mobile-glow`}
+                          d={route.path}
+                          pathLength="1"
+                          fill="none"
+                          stroke="rgba(244,231,200,0.36)"
+                          strokeWidth={1.08}
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          vectorEffect="non-scaling-stroke"
+                          animate={{ opacity: [0.24, 0.46, 0.24] }}
+                          transition={{ duration: 4.6, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+                        />
+                      ))}
+                    {isMobileView &&
+                      exportInternalRoutes.map((route, index) => (
+                        <motion.circle
+                          key={`${route.key}-mobile-particle`}
+                          r={1.9}
+                          fill="rgba(245,231,198,0.95)"
+                          animate={{ opacity: [0.34, 0.96, 0.34] }}
+                          transition={{ duration: 1.7, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut", delay: (index % 7) * 0.2 }}
+                        >
+                          <animateMotion
+                            dur={`${4.6 + (index % 5) * 0.55}s`}
+                            repeatCount="indefinite"
+                            begin={`${(index % 8) * 0.26}s`}
+                            path={route.path}
+                          />
+                        </motion.circle>
+                      ))}
+                    {!isMobileView &&
+                      exportInternalRoutes.map((route) => (
+                        <motion.path
+                          key={`${route.key}-glow`}
+                          d={route.path}
+                          pathLength="1"
+                          fill="none"
+                          stroke="rgba(241,226,189,0.28)"
+                          strokeWidth={0.9}
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          vectorEffect="non-scaling-stroke"
+                          style={{ pathLength: exportInternalLineProgress, opacity: exportInternalNetworkOpacity }}
+                        />
+                      ))}
+                    {!isMobileView &&
+                      exportInternalRoutes.map((route, index) => (
+                        <motion.circle
+                          key={`${route.key}-particle`}
+                          r={3.25}
+                          fill="rgba(250,240,216,1)"
+                          animate={{ opacity: [0.66, 1, 0.66] }}
+                          transition={{ duration: 2.9 + (index % 5) * 0.38, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut", delay: (index % 7) * 0.22 }}
+                        >
+                          <animateMotion
+                            dur={`${5.2 + (index % 6) * 0.7}s`}
+                            repeatCount="indefinite"
+                            begin={`${(index % 9) * 0.3}s`}
+                            path={route.path}
+                          />
+                        </motion.circle>
+                      ))}
+                    {!isMobileView &&
+                      exportInternalRoutes.map((route, index) => (
+                        <motion.circle
+                          key={`${route.key}-trail`}
+                          r={2.55}
+                          fill="rgba(245,232,200,0.82)"
+                          animate={{ opacity: [0.3, 0.66, 0.3] }}
+                          transition={{ duration: 3.2, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut", delay: (index % 7) * 0.24 }}
+                        >
+                          <animateMotion
+                            dur={`${5.2 + (index % 6) * 0.7}s`}
+                            repeatCount="indefinite"
+                            begin={`${0.22 + (index % 9) * 0.24}s`}
+                            path={route.path}
+                          />
+                        </motion.circle>
+                      ))}
                   </motion.g>
 
                   <g>
                     {exportInternalNodes.map((node, index) => (
+                      (() => {
+                        const nodeTier = "tier" in node ? node.tier : "major";
+                        return (
                       <motion.g
                         key={node.key}
                         initial={{ opacity: 0, scale: 0.84 }}
-                        animate={{ opacity: activeExportScene >= 1 ? 0.82 : 0, scale: activeExportScene >= 1 ? 1 : 0.84 }}
-                        transition={{ duration: 0.9, delay: 0.08 + index * 0.09, ease: "easeInOut" }}
-                        style={{ transformOrigin: `${node.x}px ${node.y}px` }}
+                        animate={
+                          isMobileView
+                            ? { opacity: [0.82, 1, 0.82], scale: [1, 1.045, 1] }
+                            : undefined
+                        }
+                        transition={isMobileView ? { duration: 3.6, delay: index * 0.35, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" } : undefined}
+                        style={{ transformOrigin: `${node.x}px ${node.y}px`, opacity: isMobileView ? undefined : exportInternalNetworkOpacity }}
                       >
-                        <circle cx={node.x} cy={node.y} r={isMobileView ? 4.2 : 4.8} fill="#C5A46D" opacity="0.88" />
-                        <circle cx={node.x} cy={node.y} r={isMobileView ? 6.2 : 7.4} fill="none" stroke="rgba(197,164,109,0.24)" strokeWidth={isMobileView ? 0.58 : 0.72} />
+                        <circle cx={node.x} cy={node.y} r={isMobileView ? 4.8 : nodeTier === "major" ? 8.6 : 6.6} fill="#C5A46D" opacity={isMobileView ? 0.96 : 0.92} />
+                        <circle cx={node.x} cy={node.y} r={isMobileView ? 7.6 : nodeTier === "major" ? 12.8 : 9.9} fill="none" stroke={isMobileView ? "rgba(244,231,200,0.48)" : "rgba(241,226,189,0.36)"} strokeWidth={isMobileView ? 0.86 : 0.84} />
                       </motion.g>
+                        );
+                      })()
                     ))}
                   </g>
 
                   {exportRoutes.map((route) => {
                     const motionValues = routeMotion[route.key];
-                    const isVisible = activeExportScene >= route.scene;
-                    const isActive = activeExportScene === route.scene;
+                    const isVisible = effectiveExportScene >= route.scene;
+                    const isActive = effectiveExportScene === route.scene;
 
                     return (
                       <g key={route.key}>
@@ -744,12 +860,44 @@ export default function ShowroomExperience() {
                           pathLength="1"
                           fill="none"
                           stroke="#C5A46D"
-                          strokeWidth={route.type === "primary" ? (isMobileView ? 1.75 : 2.85) : (isMobileView ? 1.45 : 2.2)}
+                          strokeWidth={route.type === "primary" ? (isMobileView ? 2.05 : 2.85) : (isMobileView ? 1.65 : 2.2)}
                           strokeLinecap="round"
                           strokeLinejoin="round"
                           vectorEffect="non-scaling-stroke"
-                          style={{ pathLength: isMobileView ? 1 : motionValues.progress, opacity: isMobileView ? (isVisible ? (route.type === "primary" ? 0.92 : 0.78) : 0) : motionValues.opacity }}
+                          style={{ pathLength: isMobileView ? 1 : motionValues.progress, opacity: isMobileView ? (route.type === "primary" ? 0.9 : 0.74) : motionValues.opacity }}
+                          animate={isMobileView ? { opacity: route.type === "primary" ? [0.76, 0.94, 0.76] : [0.58, 0.8, 0.58] } : undefined}
+                          transition={isMobileView ? { duration: route.type === "primary" ? 4.6 : 5.2, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" } : undefined}
                         />
+                        {isMobileView && (
+                          <>
+                            <motion.circle
+                              r={route.type === "primary" ? 2.9 : 2.5}
+                              fill="rgba(245,230,194,0.95)"
+                              animate={{ opacity: [0.45, 0.95, 0.45] }}
+                              transition={{ duration: 1.8, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut", delay: route.scene * 0.22 }}
+                            >
+                              <animateMotion
+                                dur={`${route.type === "primary" ? 4.8 : 5.6}s`}
+                                repeatCount="indefinite"
+                                begin={`${route.scene * 0.32}s`}
+                                path={route.path}
+                              />
+                            </motion.circle>
+                            <motion.circle
+                              r={route.type === "primary" ? 1.8 : 1.6}
+                              fill="rgba(197,164,109,0.95)"
+                              animate={{ opacity: [0.3, 0.8, 0.3] }}
+                              transition={{ duration: 1.8, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut", delay: route.scene * 0.3 }}
+                            >
+                              <animateMotion
+                                dur={`${route.type === "primary" ? 4.8 : 5.6}s`}
+                                repeatCount="indefinite"
+                                begin={`${0.9 + route.scene * 0.28}s`}
+                                path={route.path}
+                              />
+                            </motion.circle>
+                          </>
+                        )}
                         {!isMobileView && isVisible && (
                           <motion.path
                             d={route.path}
@@ -764,10 +912,54 @@ export default function ShowroomExperience() {
                             transition={{ duration: 0.95, ease: CINEMATIC_EASE }}
                           />
                         )}
-                        <motion.circle cx={route.node.x} cy={route.node.y} r={isMobileView ? 5.8 : 5.8} fill="#C5A46D" initial={false} animate={{ opacity: isVisible ? (route.type === "primary" ? 0.92 : 0.74) : 0, scale: isVisible ? 1 : 0.84 }} transition={{ duration: 0.8, ease: CINEMATIC_EASE }} />
-                        <motion.text x={route.node.labelX} y={route.node.labelY} textAnchor={route.node.anchor} fontSize={isMobileView ? 26 : 24} fontWeight={isMobileView ? 580 : 500} letterSpacing="0.028em" fill={isMobileView ? "#5c5244" : "#6a5d4a"} paintOrder="stroke" stroke={isMobileView ? "rgba(255,251,243,0.56)" : "rgba(255,251,243,0.38)"} strokeWidth={isMobileView ? 0.9 : 0.7} initial={false} animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 8 }} transition={{ duration: 0.92, ease: "easeInOut" }}>
-                          {route.node.label}
-                        </motion.text>
+                        <motion.circle cx={route.node.x} cy={route.node.y} r={isMobileView ? 6.2 : 5.8} fill="#C5A46D" initial={false} animate={isMobileView ? { opacity: [0.76, 0.98, 0.76], scale: [1, 1.08, 1] } : { opacity: isVisible ? (route.type === "primary" ? 0.92 : 0.74) : 0, scale: isVisible ? 1 : 0.84 }} transition={isMobileView ? { duration: 3.4 + route.scene * 0.12, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut", delay: route.scene * 0.18 } : { duration: 0.8, ease: CINEMATIC_EASE }} />
+                        {isMobileView && (
+                          <motion.circle
+                            cx={route.node.x}
+                            cy={route.node.y}
+                            r={route.type === "primary" ? 10.5 : 9.2}
+                            fill="none"
+                            stroke="rgba(197,164,109,0.42)"
+                            strokeWidth={1}
+                            animate={{ scale: [1, 1.26], opacity: [0.36, 0.06] }}
+                            transition={{ duration: 3.2 + route.scene * 0.14, repeat: Number.POSITIVE_INFINITY, ease: "easeOut", delay: route.scene * 0.14 }}
+                            style={{ transformOrigin: `${route.node.x}px ${route.node.y}px` }}
+                          />
+                        )}
+                        {isMobileView ? (
+                          <text
+                            x={route.node.labelX}
+                            y={route.node.labelY}
+                            textAnchor={route.node.anchor}
+                            fontSize={28}
+                            fontWeight={600}
+                            letterSpacing="0.026em"
+                            fill="#584d3f"
+                            paintOrder="stroke"
+                            stroke="rgba(255,251,243,0.8)"
+                            strokeWidth={1.1}
+                          >
+                            {route.node.label}
+                          </text>
+                        ) : (
+                          <motion.text
+                            x={route.node.labelX}
+                            y={route.node.labelY}
+                            textAnchor={route.node.anchor}
+                            fontSize={24}
+                            fontWeight={500}
+                            letterSpacing="0.026em"
+                            fill="#6a5d4a"
+                            paintOrder="stroke"
+                            stroke="rgba(255,251,243,0.38)"
+                            strokeWidth={0.7}
+                            initial={false}
+                            animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 8 }}
+                            transition={{ duration: 0.92, ease: "easeInOut" }}
+                          >
+                            {route.node.label}
+                          </motion.text>
+                        )}
                       </g>
                     );
                   })}
@@ -779,14 +971,14 @@ export default function ShowroomExperience() {
               <p className="text-[13px] tracking-[0.16em] text-[#4f5967] md:text-[13px]">EXPORT NETWORK</p>
               <div className="mt-5 h-px w-16 bg-[#C5A46D]/55" />
               <AnimatePresence mode="wait">
-                <motion.div key={activeExportScene} initial={{ opacity: 0, y: 18, filter: "blur(4px)" }} animate={{ opacity: 1, y: 0, filter: "blur(0px)" }} exit={{ opacity: 0, y: -12, filter: "blur(4px)" }} transition={{ duration: 0.82, ease: "easeInOut" }}>
+                <motion.div key={effectiveExportScene} initial={{ opacity: 0, y: 18, filter: "blur(4px)" }} animate={{ opacity: 1, y: 0, filter: "blur(0px)" }} exit={{ opacity: 0, y: -12, filter: "blur(4px)" }} transition={{ duration: 0.82, ease: "easeInOut" }}>
                   <h2 className="mt-6 font-serif text-[2.35rem] leading-[1.02] text-[#0f1726] md:mt-7 md:text-[3.8rem]">{activeScene.title}</h2>
                   <p className="mt-4 max-w-md text-[1rem] leading-relaxed text-[#3e4958] md:mt-5 md:text-[1.06rem] md:font-medium">{activeScene.body}</p>
                 </motion.div>
               </AnimatePresence>
               <div className="mt-8 flex items-center gap-3">
                 {exportStoryScenes.map((_, index) => (
-                  <span key={`export-scene-${index}`} className={`h-px transition-all duration-700 ${index <= activeExportScene ? "w-8 bg-[#C5A46D]/75" : "w-4 bg-[#cbd5e1]"}`} />
+                  <span key={`export-scene-${index}`} className={`h-px transition-all duration-700 ${index <= effectiveExportScene ? "w-8 bg-[#C5A46D]/75" : "w-4 bg-[#cbd5e1]"}`} />
                 ))}
               </div>
             </div>
@@ -947,23 +1139,22 @@ export default function ShowroomExperience() {
         </div>
       </motion.section>
 
-      <motion.section ref={whyRef} className="relative -mt-1 overflow-hidden bg-[linear-gradient(180deg,#f8f4ec_0%,#f5f1e8_52%,#f1ebe0_100%)] text-[#2f2a24] md:h-[200vh]">
-        <div className="mx-auto w-full max-w-[1380px] px-5 py-16 md:hidden">
-          <p className="text-center text-[13px] tracking-[0.16em] text-[#6f624f]">WHY CHOOSE D.P. JEWELS</p>
-          <div className="mt-8 space-y-8">
+      <motion.section ref={whyRef} className="relative -mt-1 overflow-visible bg-[linear-gradient(180deg,#f8f4ec_0%,#f5f1e8_52%,#f1ebe0_100%)] text-[#2f2a24] md:h-auto">
+        <div ref={whyMobilePinRef} className="relative h-[88svh] min-h-[88svh] md:hidden">
+          <p className="pointer-events-none absolute left-1/2 top-[10%] z-[2] -translate-x-1/2 text-[13px] tracking-[0.16em] text-[#6f624f]">WHY CHOOSE D.P. JEWELS</p>
+          <div className="absolute left-1/2 top-1/2 z-[1] h-[19rem] w-full max-w-[25rem] -translate-x-1/2 -translate-y-1/2 px-4">
             {whyChoosePoints.map((point, idx) => (
-              <motion.article
+              <article
                 key={`why-mobile-${point.num}`}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.45 }}
-                transition={{ duration: 0.88, ease: CINEMATIC_EASE, delay: idx * 0.03 }}
-                className="text-center"
+                ref={(node) => { whyMobileProofRefs.current[idx] = node; }}
+                className="absolute inset-0 flex translate-z-0 items-center justify-center text-center [will-change:transform,opacity]"
               >
-                <p className="mb-2 text-[13px] tracking-[0.14em] text-[#8d7a57]">{point.num}</p>
-                <h3 className="font-serif text-[2.16rem] leading-[1.04] text-[#2e2822]">{point.title}</h3>
-                <p className="mx-auto mt-3 max-w-[34ch] text-[1rem] leading-[1.72] text-[#564c40] md:font-medium">{point.desc}</p>
-              </motion.article>
+                <div className="w-full">
+                  {point.num ? <p className="mb-2 text-[13px] tracking-[0.14em] text-[#8d7a57]">{point.num}</p> : null}
+                  <h3 className="font-serif text-[2.5rem] font-medium leading-[1.05] text-[#2e2822]">{point.title}</h3>
+                  {point.desc ? <p className="mx-auto mt-3 max-w-[33ch] text-[1.08rem] leading-[1.74] text-[#564c40]">{point.desc}</p> : null}
+                </div>
+              </article>
             ))}
           </div>
         </div>
@@ -978,9 +1169,9 @@ export default function ShowroomExperience() {
                 className="absolute inset-0 flex items-center justify-center text-center"
               >
                 <div className="w-full">
-                  <p className="mb-4 text-[13px] tracking-[0.16em] text-[#8f7c5b]">{point.num}</p>
+                  {point.num ? <p className="mb-4 text-[13px] tracking-[0.16em] text-[#8f7c5b]">{point.num}</p> : null}
                   <h2 className="font-serif text-[4.6rem] leading-[1.02] text-[#29241f]">{point.title}</h2>
-                  <p className="mx-auto mt-6 max-w-[42rem] text-[1.18rem] leading-[1.9] text-[#554b3f] md:font-medium">{point.desc}</p>
+                  {point.desc ? <p className="mx-auto mt-6 max-w-[42rem] text-[1.18rem] leading-[1.9] text-[#554b3f] md:font-medium">{point.desc}</p> : null}
                 </div>
               </article>
             ))}
