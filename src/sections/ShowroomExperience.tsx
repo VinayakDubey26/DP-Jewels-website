@@ -399,7 +399,7 @@ export default function ShowroomExperience() {
         scrollTrigger: {
           trigger: whyRef.current,
           start: "top top",
-          end: isMobileView ? "+=620" : "+=560",
+          end: isMobileView ? "+=980" : "+=560",
           scrub: isMobileView ? 0.35 : 0.8,
           pin: pinTarget,
           pinSpacing: true,
@@ -1141,8 +1141,8 @@ export default function ShowroomExperience() {
 
       <motion.section ref={whyRef} className="relative -mt-1 overflow-visible bg-[linear-gradient(180deg,#f8f4ec_0%,#f5f1e8_52%,#f1ebe0_100%)] text-[#2f2a24] md:h-auto">
         <div ref={whyMobilePinRef} className="relative h-[88svh] min-h-[88svh] md:hidden">
-          <p className="pointer-events-none absolute left-1/2 top-[10%] z-[2] -translate-x-1/2 text-[13px] tracking-[0.16em] text-[#6f624f]">WHY CHOOSE D.P. JEWELS</p>
-          <div className="absolute left-1/2 top-1/2 z-[1] h-[19rem] w-full max-w-[25rem] -translate-x-1/2 -translate-y-1/2 px-4">
+          <p className="pointer-events-none absolute left-1/2 top-[8%] z-[2] -translate-x-1/2 whitespace-nowrap text-[12px] tracking-[0.12em] text-[#6f624f]">WHY CHOOSE D.P. JEWELS</p>
+          <div className="absolute left-1/2 top-[54%] z-[1] h-[19rem] w-full max-w-[25rem] -translate-x-1/2 -translate-y-1/2 px-4">
             {whyChoosePoints.map((point, idx) => (
               <article
                 key={`why-mobile-${point.num}`}

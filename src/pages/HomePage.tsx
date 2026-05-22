@@ -8,7 +8,8 @@ export default function HomePage() {
   const [done, setDone] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => setDone(true), 1650);
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
+    const timer = setTimeout(() => setDone(true), isMobile ? 1180 : 1650);
     return () => clearTimeout(timer);
   }, []);
 
