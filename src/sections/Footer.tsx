@@ -4,7 +4,7 @@ const WHATSAPP_LINK = "https://wa.me/918356810826?text=Hello%20D.P.%20Jewels%2C%
 
 export default function Footer() {
   return (
-    <footer className="relative -mt-1 overflow-hidden border-t border-white/10 bg-[linear-gradient(180deg,#081225_0%,#040816_45%,#030510_100%)] px-5 pb-14 pt-28 text-[#F8F4EC]">
+    <footer data-theme="dark" className="relative -mt-1 overflow-hidden border-t border-white/10 bg-[linear-gradient(180deg,#081225_0%,#040816_45%,#030510_100%)] px-5 pb-14 pt-28 text-[#F8F4EC]">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-[linear-gradient(180deg,rgba(248,244,236,0.2)_0%,rgba(248,244,236,0.08)_32%,rgba(248,244,236,0)_100%)]" />
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_24%_8%,rgba(160,176,204,0.14)_0%,rgba(160,176,204,0)_42%)]" />
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_86%_86%,rgba(130,150,182,0.09)_0%,rgba(130,150,182,0)_44%)]" />
@@ -13,10 +13,7 @@ export default function Footer() {
 
       <div className="relative mx-auto w-full max-w-6xl">
         <div className="flex flex-col items-center text-center md:items-start md:text-left">
-          <img src="/logo-white.png" alt="D.P. Jewels" width={198} height={62} loading="lazy" decoding="async" className="h-[54px] w-auto object-contain opacity-95 md:h-[62px]" />
-          <p className="mt-4 text-[12px] tracking-[0.2em] text-slate-100 md:text-[13px] md:tracking-[0.22em]">
-            DIAMOND TRADERS • IMPORTERS • EXPORTERS
-          </p>
+          <img src="/logo-white.png" alt="D.P. Jewels" width={292} height={94} loading="lazy" decoding="async" className="h-[82px] w-auto object-contain opacity-95 md:h-[94px]" />
         </div>
 
         <div className="mt-12 h-px w-full bg-gradient-to-r from-transparent via-white/20 to-transparent" />

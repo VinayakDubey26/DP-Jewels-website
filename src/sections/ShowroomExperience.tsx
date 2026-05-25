@@ -18,10 +18,10 @@ import indiaMapClean from "../assets/india_map_clean_champagne.svg";
 import indiaMapCleanRaw from "../assets/india_map_clean_champagne.svg?raw";
 import indiaExportStory from "../assets/dpj_india_export_story.svg";
 import bdbImage from "../assets/images/bdb.png";
-import giaLogo from "../assets/certs/gia.svg";
-import igiLogo from "../assets/certs/igi.svg";
-import gjepcLogo from "../assets/certs/gjepc.svg";
-import gsiLogo from "../assets/certs/gsi.svg";
+import giaLogo from "../assets/certifications/gia.svg";
+import igiLogo from "../assets/certifications/igi.svg";
+import gjepcLogo from "../assets/certifications/gjepc.svg";
+import gsiLogo from "../assets/certifications/gsi.svg";
 
 const WHATSAPP_LINK = "https://wa.me/918356810826?text=Hello%20D.P.%20Jewels%2C%20I%20am%20interested%20in%20a%20diamond%20enquiry.";
 const CINEMATIC_EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
@@ -96,26 +96,22 @@ const certifications = [
   {
     code: "GIA",
     logo: giaLogo,
-    name: "Gemological Institute of America",
-    description: "Internationally recognized grading standards.",
+    description: "Internationally recognized diamond grading standards",
   },
   {
     code: "IGI",
     logo: igiLogo,
-    name: "International Gemological Institute",
-    description: "Trusted global diamond certification.",
+    description: "Independent diamond and jewelry certification",
   },
   {
     code: "GJEPC",
     logo: gjepcLogo,
-    name: "Gem & Jewellery Export Promotion Council",
-    description: "Institutional trade credibility and export alignment.",
+    description: "India's leading gem and jewellery trade body",
   },
   {
     code: "GSI",
     logo: gsiLogo,
-    name: "Gemological Science International",
-    description: "Independent gemological verification confidence.",
+    description: "Advanced gemological verification and grading",
   },
 ];
 
@@ -190,7 +186,7 @@ const indiaOutlinePath = indiaMapCleanRaw.match(/<path[^>]*d="([^"]+)"/)?.[1] ??
 
 const exportDesktopLayout = {
   nodes: {
-    mumbai: { x: 280, y: 605, labelX: 299, labelY: 632, label: "Mumbai" },
+    mumbai: { x: 280, y: 605, labelX: 320, labelY: 647, label: "Mumbai" },
     dubai: { x: 20, y: 525, labelX: 4, labelY: 517, label: "Dubai", anchor: "end" },
     london: { x: -122, y: 198, labelX: -138, labelY: 190, label: "London", anchor: "end" },
     singapore: { x: 792, y: 726, labelX: 806, labelY: 718, label: "Singapore", anchor: "start" },
@@ -269,7 +265,6 @@ function getCircularOffset(index: number, activeIndex: number, total: number) {
 
 export default function ShowroomExperience() {
   const [activeDiamondIndex, setActiveDiamondIndex] = useState(0);
-  const [activeCertificationIndex, setActiveCertificationIndex] = useState<number>(0);
   const [activeExportScene, setActiveExportScene] = useState(0);
   const [isMobileView, setIsMobileView] = useState(false);
   const heroRef = useRef<HTMLElement>(null);
@@ -352,6 +347,10 @@ export default function ShowroomExperience() {
   };
   const effectiveExportScene = isMobileView ? exportStoryScenes.length - 1 : activeExportScene;
   const activeScene = exportStoryScenes[effectiveExportScene];
+  const mobilePresenceScene = {
+    title: "Global Presence",
+    body: "Connecting India's diamond industry to global markets.",
+  };
 
   useMotionValueEvent(presenceProgress, "change", (latest) => {
     if (isMobileView) return;
@@ -406,9 +405,9 @@ export default function ShowroomExperience() {
 
       const tl = gsap.timeline({
         scrollTrigger: {
-          trigger: whyRef.current,
-          start: isMobileView ? "top top" : "top top",
-          end: isMobileView ? "+=980" : "+=560",
+          trigger: isMobileView ? pinTarget : whyRef.current,
+          start: "top top",
+          end: isMobileView ? "+=760" : "+=560",
           scrub: isMobileView ? 0.35 : 0.8,
           pin: pinTarget,
           pinSpacing: true,
@@ -417,8 +416,8 @@ export default function ShowroomExperience() {
         },
       });
 
-      const holdDuration = isMobileView ? 0.62 : 0.8;
-      const swapDuration = isMobileView ? 0.28 : 0.35;
+      const holdDuration = isMobileView ? 0.52 : 0.8;
+      const swapDuration = isMobileView ? 0.22 : 0.35;
       const finalHoldDuration = isMobileView ? 0.9 : 0.8;
 
       tl.to(proofLayers[0], { opacity: 1, scale: 1, duration: holdDuration })
@@ -438,8 +437,12 @@ export default function ShowroomExperience() {
       ScrollTrigger.refresh();
     }, whyRef);
 
+    const onLoadRefresh = () => ScrollTrigger.refresh();
+    window.addEventListener("load", onLoadRefresh);
+
     return () => {
       ctx.revert();
+      window.removeEventListener("load", onLoadRefresh);
       ScrollTrigger.getAll().forEach((trigger) => {
         if (trigger.vars.trigger === whyRef.current || trigger.vars.pin === whyPinRef.current || trigger.vars.pin === whyMobilePinRef.current) {
           trigger.kill();
@@ -469,6 +472,7 @@ export default function ShowroomExperience() {
       <section
         ref={heroRef}
         id="home"
+        data-theme="dark"
         className="relative flex h-[100svh] h-[100dvh] h-screen min-h-[100svh] min-h-[100vh] items-center overflow-hidden bg-[#040816]"
         onMouseMove={(e) => {
           if (isMobileView) return;
@@ -507,11 +511,11 @@ export default function ShowroomExperience() {
         </div>
       </section>
 
-      <motion.section ref={aboutRef} id="about" style={{ y: isMobileView ? 0 : aboutDrift }} className="relative -mt-3 bg-[#FAF7F2] py-[4.1rem] md:-mt-4 md:py-[5.4rem]" {...sectionReveal}>
+      <motion.section ref={aboutRef} id="about" data-theme="light" style={{ y: isMobileView ? 0 : aboutDrift }} className="relative -mt-3 bg-[#FAF7F2] py-[4.1rem] md:-mt-4 md:py-[5.4rem]" {...sectionReveal}>
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_14%,rgba(112,132,168,0.08)_0%,rgba(112,132,168,0)_36%)]" />
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_82%_88%,rgba(212,190,150,0.07)_0%,rgba(212,190,150,0)_32%)]" />
         <div className="pointer-events-none absolute left-0 top-[22%] hidden h-px w-[16%] bg-[linear-gradient(90deg,rgba(148,163,184,0.4),transparent)] md:block" />
-        <motion.div className="mx-auto grid w-full max-w-[1440px] px-5 md:px-8 gap-11 lg:grid-cols-[1.08fr_0.92fr] lg:items-start lg:pl-4" variants={staggerContainer} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}>
+        <motion.div className="mx-auto grid w-full max-w-[1440px] gap-11 px-5 md:px-8 md:pl-20 lg:grid-cols-[1.08fr_0.92fr] lg:items-start lg:pl-24" variants={staggerContainer} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}>
           <motion.article className="lg:pt-3" variants={staggerItem}>
             <motion.p className="text-[13px] tracking-[0.2em] text-[#3f4b5d] md:text-[13px] md:tracking-[0.22em]" variants={staggerItem}>ABOUT D.P. JEWELS</motion.p>
             <motion.h2 className="mt-4 max-w-[14ch] font-serif text-[2.65rem] leading-[1.04] md:text-[3.7rem]" variants={staggerItem}>Built on Trust, Since 1999</motion.h2>
@@ -537,7 +541,7 @@ export default function ShowroomExperience() {
         </motion.div>
       </motion.section>
 
-      <motion.section ref={diamondsRef} id="diamonds" style={{ y: isMobileView ? 0 : diamondsDrift }} className="relative -mt-2 min-h-screen overflow-hidden bg-[linear-gradient(180deg,#061024_0%,#040816_48%,#030611_100%)] py-[4rem] md:-mt-3 md:py-[6rem]" {...sectionReveal}>
+      <motion.section ref={diamondsRef} id="diamonds" data-theme="dark" style={{ y: isMobileView ? 0 : diamondsDrift }} className="relative -mt-2 min-h-screen overflow-hidden bg-[linear-gradient(180deg,#061024_0%,#040816_48%,#030611_100%)] py-[4rem] md:-mt-3 md:py-[6rem]" {...sectionReveal}>
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_56%,rgba(224,233,245,0.09)_0%,rgba(224,233,245,0)_44%)]" />
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_14%_28%,rgba(206,218,238,0.07)_0%,rgba(206,218,238,0)_30%)]" />
         <div className="pointer-events-none absolute inset-0 hidden opacity-[0.1] [background-image:radial-gradient(rgba(255,255,255,0.26)_0.35px,transparent_0.35px)] [background-size:3px_3px] md:block" />
@@ -658,7 +662,6 @@ export default function ShowroomExperience() {
                 />
               ))}
             </div>
-            <p className="text-[13px] tracking-[0.12em] text-[#b7c4d8]">Swipe to view all diamond shapes</p>
             <div className="mt-2">
                 <h3 className="text-center font-serif text-[2.2rem] tracking-[0.08em] text-[#f6f1e8] md:text-[2.52rem]">{activeDiamond}</h3>
               <div className="mt-3 flex justify-center">
@@ -674,7 +677,7 @@ export default function ShowroomExperience() {
         </div>
       </motion.section>
 
-      <section ref={presenceRef} className="relative -mt-3 h-auto bg-[linear-gradient(180deg,#ffffff_0%,#faf7f2_46%,#f6f1e8_100%)] md:h-[305vh]">
+      <section ref={presenceRef} data-theme="light" className="relative -mt-3 h-auto bg-[linear-gradient(180deg,#ffffff_0%,#faf7f2_46%,#f6f1e8_100%)] md:h-[305vh]">
         <div className="relative flex items-center overflow-visible py-0 md:sticky md:top-0 md:min-h-screen md:min-h-[100svh] md:py-0">
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_48%_48%,rgba(197,164,109,0.12)_0%,rgba(197,164,109,0.045)_32%,rgba(250,247,242,0)_68%)]" />
           <div className="pointer-events-none absolute inset-0 opacity-[0.035] [background-image:radial-gradient(rgba(70,58,42,0.38)_0.45px,transparent_0.45px)] [background-size:4px_4px]" />
@@ -727,7 +730,7 @@ export default function ShowroomExperience() {
                     {isMobileView && <motion.circle cx={exportNodes.mumbai.x} cy={exportNodes.mumbai.y} r={18.8} fill="none" stroke="rgba(197,164,109,0.55)" strokeWidth={1.4} animate={{ scale: [1, 1.38], opacity: [0.48, 0.06] }} transition={{ duration: 4.6, repeat: Number.POSITIVE_INFINITY, ease: "easeOut" }} />}
                     {!isMobileView && <motion.circle cx={exportNodes.mumbai.x} cy={exportNodes.mumbai.y} r={19.4} fill="none" stroke="#C5A46D" strokeWidth={2.3} opacity="0.68" animate={{ scale: [1, 1.42], opacity: [0.56, 0.12] }} transition={{ duration: 5, repeat: Number.POSITIVE_INFINITY, ease: "easeOut" }} />}
                     <circle cx={exportNodes.mumbai.x} cy={exportNodes.mumbai.y} r={isMobileView ? 9.8 : 9.4} fill="#c4a166" filter={isMobileView ? undefined : "url(#exportHubGlow)"} />
-                    <text x={exportNodes.mumbai.labelX} y={exportNodes.mumbai.labelY} textAnchor="start" fontSize={isMobileView ? 24 : 27} fontWeight={580} letterSpacing="0.032em" fill="#5e5344">
+                    <text x={exportNodes.mumbai.labelX} y={exportNodes.mumbai.labelY} textAnchor="start" fontSize={isMobileView ? 24 : 27} fontWeight={isMobileView ? 580 : 610} letterSpacing="0.032em" fill="#5b4f3f">
                       Mumbai
                     </text>
                     {!isMobileView && (
@@ -745,20 +748,6 @@ export default function ShowroomExperience() {
                           transition={{ duration: 0.5, ease: "easeOut" }}
                         >
                           Based in Mumbai
-                        </motion.text>
-                        <motion.text
-                          x={exportNodes.mumbai.labelX}
-                          y={exportNodes.mumbai.labelY + 28}
-                          textAnchor="start"
-                          fontSize={14}
-                          fontWeight={500}
-                          letterSpacing="0.08em"
-                          fill="#7b6a53"
-                          initial={false}
-                          animate={{ opacity: effectiveExportScene >= 2 ? 1 : 0 }}
-                          transition={{ duration: 0.55, ease: "easeOut" }}
-                        >
-                          All-India Distribution
                         </motion.text>
                       </>
                     )}
@@ -1001,12 +990,23 @@ export default function ShowroomExperience() {
             <div className="order-1 mx-auto w-full max-w-[460px] lg:order-2 lg:ml-0">
               <p className="text-[13px] tracking-[0.16em] text-[#4f5967] md:text-[13px]">EXPORT NETWORK</p>
               <div className="mt-5 h-px w-16 bg-[#C5A46D]/55" />
-              <AnimatePresence mode="wait">
-                <motion.div key={effectiveExportScene} initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={{ duration: 0.82, ease: "easeInOut" }}>
-                  <motion.h2 className="mt-6 font-serif text-[2.35rem] leading-[1.02] text-[#0f1726] md:mt-7 md:text-[3.8rem]" initial={isMobileView ? { opacity: 0, scale: 0.96 } : undefined} animate={isMobileView ? { opacity: 1, scale: 1 } : undefined} transition={isMobileView ? { duration: 0.7, ease: "easeOut" } : undefined}>{activeScene.title}</motion.h2>
-                  <motion.p className="mt-4 max-w-md text-[1rem] leading-relaxed text-[#3e4958] md:mt-5 md:text-[1.06rem] md:font-medium" initial={isMobileView ? { opacity: 0 } : undefined} animate={isMobileView ? { opacity: 1 } : undefined} transition={isMobileView ? { duration: 0.72, delay: 0.16, ease: "easeOut" } : undefined}>{activeScene.body}</motion.p>
+              {isMobileView ? (
+                <motion.div initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.35 }} transition={{ duration: 0.72, ease: "easeOut" }}>
+                  <motion.h2 className="mt-6 font-serif text-[2.35rem] leading-[1.02] text-[#0f1726] md:mt-7 md:text-[3.8rem]" initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.7, ease: "easeOut" }}>
+                    {mobilePresenceScene.title}
+                  </motion.h2>
+                  <motion.p className="mt-4 max-w-md text-[1rem] leading-relaxed text-[#3e4958] md:mt-5 md:text-[1.06rem] md:font-medium" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.72, delay: 0.16, ease: "easeOut" }}>
+                    {mobilePresenceScene.body}
+                  </motion.p>
                 </motion.div>
-              </AnimatePresence>
+              ) : (
+                <AnimatePresence mode="wait">
+                  <motion.div key={effectiveExportScene} initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={{ duration: 0.82, ease: "easeInOut" }}>
+                    <motion.h2 className="mt-6 font-serif text-[2.35rem] leading-[1.02] text-[#0f1726] md:mt-7 md:text-[3.8rem]">{activeScene.title}</motion.h2>
+                    <motion.p className="mt-4 max-w-md text-[1rem] leading-relaxed text-[#3e4958] md:mt-5 md:text-[1.06rem] md:font-medium">{activeScene.body}</motion.p>
+                  </motion.div>
+                </AnimatePresence>
+              )}
               <div className="mt-8 flex items-center gap-3">
                 {exportStoryScenes.map((_, index) => (
                   <span key={`export-scene-${index}`} className={`h-px transition-all duration-700 ${index <= effectiveExportScene ? "w-8 bg-[#C5A46D]/75" : "w-4 bg-[#cbd5e1]"}`} />
@@ -1017,7 +1017,7 @@ export default function ShowroomExperience() {
         </div>
       </section>
 
-      <motion.section ref={bdbRef} style={{ y: isMobileView ? 0 : bdbDrift }} className="relative -mt-2 w-full overflow-hidden py-5 md:py-9" {...sectionReveal}>
+      <motion.section ref={bdbRef} data-theme="light" style={{ y: isMobileView ? 0 : bdbDrift }} className="relative -mt-2 w-full overflow-hidden py-5 md:py-9" {...sectionReveal}>
         <div className="relative w-full bg-[#f7f3ec] md:bg-[#050913]">
           <motion.div
             className="absolute inset-0 hidden bg-cover bg-center bg-no-repeat md:block"
@@ -1052,42 +1052,35 @@ export default function ShowroomExperience() {
                 <p className="mt-6 max-w-[58ch] text-[1.06rem] leading-[1.8] text-[#27364a] md:text-[1.14rem] [text-shadow:0_1px_8px_rgba(248,244,236,0.38)] md:font-medium">
                   Operating from Bharat Diamond Bourse, Bandra Kurla Complex, D.P. Jewels is positioned at the heart of India&apos;s diamond trade, serving buyers with trust, precision, and long-standing industry experience.
                 </p>
-                <p className="mt-8 border-l border-[#a9b6ca] pl-5 text-[1.06rem] leading-[1.8] text-[#162334] md:text-[1.14rem] [text-shadow:0_1px_8px_rgba(248,244,236,0.35)] md:mt-10 md:font-medium">
-                  EC-4080 B, Bharat Diamond Bourse,<br />
-                  Bandra Kurla Complex,<br />
-                  Bandra(E), Mumbai-51
-                </p>
               </motion.article>
             </div>
           </div>
-          <div className="mx-auto w-full max-w-[1440px] px-5 pb-2 pt-3 md:hidden">
+          <div className="mx-auto w-full max-w-[1440px] px-0 pb-0 pt-2 md:hidden">
             <article className="w-full max-w-[620px] py-3">
               <p className="text-[13px] tracking-[0.14em] text-[#9a7a36]">TRUST & LOCATION</p>
               <h2 className="mt-4 max-w-[14ch] font-serif text-[2rem] leading-[1.06] text-[#111827]">Based at Bharat Diamond Bourse</h2>
               <p className="mt-6 max-w-[58ch] text-[1.06rem] leading-[1.8] text-[#27364a] md:text-[1.12rem]">
                 Operating from Bharat Diamond Bourse, Bandra Kurla Complex, D.P. Jewels is positioned at the heart of India&apos;s diamond trade, serving buyers with trust, precision, and long-standing industry experience.
               </p>
-              <p className="mt-8 border-l border-[#a9b6ca] pl-5 text-[1.06rem] leading-[1.8] text-[#162334] md:text-[1.12rem]">
-                EC-4080 B, Bharat Diamond Bourse,<br />
-                Bandra Kurla Complex,<br />
-                Bandra(E), Mumbai-51
-              </p>
             </article>
-            <img
-              src={bdbImage}
-              alt="Bharat Diamond Bourse cinematic artwork"
-              width={2139}
-              height={1426}
-              className="mt-10 h-auto w-full object-cover object-center"
-              loading="lazy"
-              decoding="async"
-            />
+            <div className="mt-5 flex justify-center overflow-hidden">
+              <img
+                src={bdbImage}
+                alt="Bharat Diamond Bourse cinematic artwork"
+                width={2139}
+                height={1426}
+                className="h-auto w-[100vw] max-w-[100vw] object-contain object-center"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
           </div>
         </div>
       </motion.section>
 
       <motion.section
         ref={certRef}
+        data-theme="light"
         style={{ y: isMobileView ? 0 : certDrift }}
         className="relative -mt-1 overflow-hidden bg-[linear-gradient(180deg,#f7f3ec_0%,#f5f1ea_52%,#efe9df_100%)] py-[3.8rem] text-[#2c2a27] md:py-[4.8rem]"
         initial={{ opacity: 0, y: 20 }}
@@ -1111,76 +1104,45 @@ export default function ShowroomExperience() {
           </div>
 
           <div className="relative mt-8 md:mt-10">
-            <div className="mx-auto grid max-w-[1280px] gap-y-7 border-y border-[#d9cdb6]/74 py-7 md:grid-cols-4 md:gap-x-8 md:gap-y-7 md:py-9">
+            <div className="mx-auto grid max-w-[1280px] grid-cols-2 gap-4 border-y border-[#d9cdb6]/62 py-7 md:grid-cols-4 md:gap-6 md:py-9">
               {certifications.map((item, idx) => (
-              <motion.button
+              <motion.article
                 key={item.code}
-                type="button"
-                className="group lux-interactive relative block px-1 py-1 text-center transition-all duration-[600ms]"
+                className="group relative flex h-full flex-col rounded-[1.2rem] border border-[#ddcfb5]/58 bg-[linear-gradient(180deg,rgba(255,252,246,0.7)_0%,rgba(247,241,232,0.56)_100%)] px-3 py-5 text-center shadow-[0_10px_24px_rgba(136,113,73,0.06)] transition-all duration-500 hover:-translate-y-0.5 hover:shadow-[0_14px_30px_rgba(136,113,73,0.1)] md:px-5 md:py-6"
                 initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.5 }}
-                transition={{ duration: 0.92, delay: idx * 0.08, ease: SOFT_EASE }}
-                onMouseEnter={() => setActiveCertificationIndex(idx)}
-                onFocus={() => setActiveCertificationIndex(idx)}
-                onClick={() => setActiveCertificationIndex(idx)}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.8, delay: idx * 0.1, ease: SOFT_EASE }}
               >
-                <div className="relative">
+                <div className="flex min-h-[72px] items-center justify-center md:min-h-[88px]">
                   <img
                     src={item.logo}
                     alt={`${item.code} certification logo`}
-                    className="mx-auto h-[5.8rem] w-auto opacity-[0.99] grayscale transition-all duration-[560ms] group-hover:scale-[1.03] group-hover:opacity-100 group-hover:drop-shadow-[0_0_18px_rgba(185,154,98,0.36)] md:h-[7.1rem]"
+                    className="h-[4.5rem] w-auto max-w-[82%] object-contain opacity-[0.99] transition-opacity duration-500 group-hover:opacity-100 md:h-[5.3rem]"
                     loading="lazy"
                     decoding="async"
                   />
-                  <p className="mt-3 text-[14px] tracking-[0.13em] text-[#5b5348] transition-colors duration-[560ms] group-hover:text-[#7c6a4b] md:text-[15px] md:font-medium">{item.code}</p>
-                  <AnimatePresence>
-                    {activeCertificationIndex === idx && (
-                      <motion.p
-                        initial={{ opacity: 0, y: 8 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: 6 }}
-                        transition={{ duration: 0.48, ease: SOFT_EASE }}
-                        className="pointer-events-none absolute left-1/2 top-[calc(100%+0.25rem)] z-10 hidden w-max max-w-[15rem] -translate-x-1/2 text-center text-[12px] leading-[1.4] tracking-[0.02em] text-[#776a59] md:block"
-                      >
-                        {item.description}
-                      </motion.p>
-                    )}
-                  </AnimatePresence>
                 </div>
-              </motion.button>
+                <p className="mt-4 text-[12px] leading-[1.5] text-[#6e6356] md:text-[13px]">{item.description}</p>
+              </motion.article>
             ))}
-            </div>
-            <div className="mt-2 min-h-[2.1rem] md:hidden">
-              <AnimatePresence mode="wait">
-                <motion.p
-                  key={certifications[activeCertificationIndex].code}
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -6 }}
-                  transition={{ duration: 0.42, ease: SOFT_EASE }}
-                  className="text-center text-[13px] leading-[1.4] tracking-[0.02em] text-[#746957]"
-                >
-                  {certifications[activeCertificationIndex].description}
-                </motion.p>
-              </AnimatePresence>
             </div>
             <p className="mt-5 ml-auto w-full max-w-[52ch] text-right text-[13px] tracking-[0.12em] text-[#655d52] md:font-medium">VERIFIED BY LEADING GLOBAL GEM & TRADE INSTITUTIONS</p>
           </div>
         </div>
       </motion.section>
 
-      <motion.section ref={whyRef} className="relative -mt-1 overflow-visible bg-[linear-gradient(180deg,#f8f4ec_0%,#f5f1e8_52%,#f1ebe0_100%)] text-[#2f2a24] md:h-auto">
-        <div ref={whyMobilePinRef} className="relative h-[86svh] min-h-[86svh] md:hidden">
-          <p className="pointer-events-none absolute left-1/2 top-[12%] z-[2] -translate-x-1/2 whitespace-nowrap text-[12px] tracking-[0.12em] text-[#6f624f]">WHY CHOOSE D.P. JEWELS</p>
-          <div className="absolute left-1/2 top-[52%] z-[1] h-[18rem] w-full max-w-[25rem] -translate-x-1/2 -translate-y-1/2 px-4">
+      <motion.section ref={whyRef} data-theme="light" className="relative -mt-1 overflow-visible bg-[linear-gradient(180deg,#f8f4ec_0%,#f5f1e8_52%,#f1ebe0_100%)] text-[#2f2a24] md:h-auto">
+        <div ref={whyMobilePinRef} className="relative h-[100svh] min-h-[100svh] md:hidden">
+          <p className="pointer-events-none absolute left-1/2 top-[12%] z-[2] -translate-x-1/2 whitespace-nowrap text-[13px] tracking-[0.12em] text-[#6f624f]">WHY CHOOSE D.P. JEWELS</p>
+          <div className="absolute inset-0 z-[1] flex items-center justify-center px-4">
             {whyChoosePoints.map((point, idx) => (
               <article
                 key={`why-mobile-${point.num}`}
                 ref={(node) => { whyMobileProofRefs.current[idx] = node; }}
-                className="absolute inset-0 flex translate-z-0 items-center justify-center text-center [will-change:transform,opacity]"
+                className="absolute inset-0 flex items-center justify-center text-center"
               >
-                <div className="w-full">
+                <div className="w-full max-w-[25rem]">
                   {point.num ? <p className="mb-1 text-[13px] tracking-[0.14em] text-[#8d7a57]">{point.num}</p> : null}
                   <h3 className="font-serif text-[2.5rem] font-medium leading-[1.05] text-[#2e2822]">{point.title}</h3>
                   {point.desc ? <p className="mx-auto mt-2 max-w-[33ch] text-[1.08rem] leading-[1.74] text-[#564c40]">{point.desc}</p> : null}
@@ -1191,7 +1153,7 @@ export default function ShowroomExperience() {
         </div>
 
         <div ref={whyPinRef} className="relative hidden h-screen min-h-[100svh] md:block">
-          <p className="pointer-events-none absolute left-1/2 top-[13%] z-[2] -translate-x-1/2 text-[13px] tracking-[0.16em] text-[#6f624f]">WHY CHOOSE D.P. JEWELS</p>
+          <p className="pointer-events-none absolute left-1/2 top-[13%] z-[2] -translate-x-1/2 text-[14px] tracking-[0.16em] text-[#6f624f]">WHY CHOOSE D.P. JEWELS</p>
           <div className="absolute left-1/2 top-1/2 z-[1] h-[22rem] w-full max-w-[58rem] -translate-x-1/2 -translate-y-1/2 px-8">
             {whyChoosePoints.map((point, idx) => (
               <article

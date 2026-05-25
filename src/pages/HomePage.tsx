@@ -1,5 +1,6 @@
-﻿import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import LoadingScreen from "../components/LoadingScreen";
+import Navbar from "../components/Navbar";
 import ScrollProgress from "../components/ScrollProgress";
 import Footer from "../sections/Footer";
 import ShowroomExperience from "../sections/ShowroomExperience";
@@ -16,6 +17,7 @@ export default function HomePage() {
   return (
     <div>
       <LoadingScreen done={done} />
+      {done ? <Navbar /> : null}
       <ScrollProgress />
       <main>
         <ShowroomExperience />
