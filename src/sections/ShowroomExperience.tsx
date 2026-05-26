@@ -198,13 +198,13 @@ const exportDesktopLayout = {
 
 const exportMobileLayout = {
   nodes: {
-    mumbai: { x: 282, y: 632, labelX: 324, labelY: 686, label: "Mumbai" },
-    dubai: { x: 28, y: 594, labelX: 8, labelY: 586, label: "Dubai", anchor: "start" },
-    london: { x: -20, y: 204, labelX: 8, labelY: 196, label: "London", anchor: "start" },
-    singapore: { x: 752, y: 760, labelX: 770, labelY: 786, label: "Singapore", anchor: "start" },
-    hongKong: { x: 882, y: 594, labelX: 868, labelY: 582, label: "Hong Kong", anchor: "end" },
-    canada: { x: -12, y: 388, labelX: 8, labelY: 380, label: "Canada", anchor: "start" },
-    usa: { x: -10, y: 830, labelX: 8, labelY: 822, label: "USA", anchor: "start" },
+    mumbai: { x: 282, y: 632, labelX: 338, labelY: 700, label: "Mumbai" },
+    dubai: { x: 94, y: 606, labelX: 90, labelY: 628, label: "Dubai", anchor: "start" },
+    london: { x: 84, y: 266, labelX: 84, labelY: 236, label: "London", anchor: "start" },
+    singapore: { x: 674, y: 744, labelX: 688, labelY: 786, label: "Singapore", anchor: "start" },
+    hongKong: { x: 758, y: 566, labelX: 734, labelY: 598, label: "Hong Kong", anchor: "start" },
+    canada: { x: 90, y: 426, labelX: 78, labelY: 402, label: "Canada", anchor: "start" },
+    usa: { x: 96, y: 786, labelX: 94, labelY: 824, label: "USA", anchor: "start" },
   },
   internalNodes: [
     { key: "northHub", x: 370, y: 352, tier: "major" },
@@ -223,12 +223,12 @@ const exportMobileLayout = {
     { key: "south-border", path: "M356 736 C370 776 382 814 392 850" },
   ],
   routes: [
-    { key: "dubai", scene: 3, type: "primary", path: "M282 632 C226 630 146 614 28 594" },
-    { key: "usa", scene: 4, type: "secondary", path: "M282 632 C168 756 94 812 -10 830" },
-    { key: "london", scene: 5, type: "secondary", path: "M282 632 C206 504 122 318 -20 204" },
-    { key: "hongKong", scene: 6, type: "primary", path: "M282 632 C450 646 634 644 882 594" },
-    { key: "singapore", scene: 7, type: "primary", path: "M282 632 C406 684 558 742 752 760" },
-    { key: "canada", scene: 8, type: "secondary", path: "M282 632 C154 526 84 434 -12 388" },
+    { key: "dubai", scene: 3, type: "primary", path: "M282 632 C236 624 168 616 94 606" },
+    { key: "usa", scene: 4, type: "secondary", path: "M282 632 C206 724 160 772 96 786" },
+    { key: "london", scene: 5, type: "secondary", path: "M282 632 C232 508 172 346 84 266" },
+    { key: "hongKong", scene: 6, type: "primary", path: "M282 632 C420 626 574 604 758 566" },
+    { key: "singapore", scene: 7, type: "primary", path: "M282 632 C392 676 518 726 674 744" },
+    { key: "canada", scene: 8, type: "secondary", path: "M282 632 C206 536 154 456 90 426" },
   ],
 } as const;
 
@@ -700,18 +700,18 @@ export default function ShowroomExperience() {
         </div>
       </motion.section>
 
-      <motion.section ref={presenceRef} data-theme="light" className="relative -mt-3 h-auto bg-[linear-gradient(180deg,#ffffff_0%,#faf7f2_46%,#f6f1e8_100%)] md:h-[305vh]" {...sectionReveal}>
+      <motion.section ref={presenceRef} data-theme="light" className="relative -mt-3 h-auto bg-[linear-gradient(180deg,#ffffff_0%,#faf7f2_46%,#f6f1e8_100%)] md:h-[332vh]" {...sectionReveal}>
         <div className="relative flex items-center overflow-visible py-0 md:sticky md:top-0 md:min-h-screen md:min-h-[100svh] md:py-0">
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_48%_48%,rgba(197,164,109,0.12)_0%,rgba(197,164,109,0.045)_32%,rgba(250,247,242,0)_68%)]" />
           <div className="pointer-events-none absolute inset-0 opacity-[0.035] [background-image:radial-gradient(rgba(70,58,42,0.38)_0.45px,transparent_0.45px)] [background-size:4px_4px]" />
           <div className="pointer-events-none absolute right-0 top-[18%] hidden h-px w-[14%] bg-[linear-gradient(270deg,rgba(197,164,109,0.38),transparent)] md:block" />
 
           <div className="relative mx-auto grid w-full max-w-[1680px] items-center gap-1 px-1 md:gap-6 md:px-5 lg:grid-cols-[minmax(0,0.74fr)_minmax(320px,0.26fr)] lg:gap-6">
-            <motion.div className="relative order-2 mx-auto h-[min(86svh,900px)] w-[96vw] max-w-[96vw] overflow-hidden md:h-[min(96vh,1260px)] md:w-full md:max-w-[1480px] md:overflow-visible lg:order-1 lg:h-[min(98vh,1320px)] lg:max-w-none" style={{ opacity: isMobileView ? 1 : exportMapOpacity }}>
+            <motion.div className="relative order-2 mx-auto h-[min(86svh,900px)] w-[92vw] max-w-[92vw] overflow-hidden md:h-[min(96vh,1260px)] md:w-full md:max-w-[1480px] md:overflow-visible lg:order-1 lg:h-[min(98vh,1320px)] lg:max-w-none" style={{ opacity: isMobileView ? 1 : exportMapOpacity }}>
               <img src={indiaExportStory} alt="" aria-hidden className="sr-only" loading="lazy" decoding="async" />
               <div className="pointer-events-none absolute left-1/2 top-1/2 h-[86%] w-[86%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(255,251,243,0.82)_0%,rgba(255,251,243,0.26)_50%,rgba(255,251,243,0)_80%)]" />
               <div className="pointer-events-none absolute inset-[4%] bg-[radial-gradient(circle_at_52%_52%,rgba(255,255,255,0.5)_0%,rgba(255,255,255,0.12)_56%,rgba(255,255,255,0)_100%)]" />
-              <motion.svg viewBox="-250 -10 1280 1055" preserveAspectRatio="xMidYMid meet" className="absolute left-1/2 top-1/2 h-[132%] w-[132%] -translate-x-1/2 -translate-y-1/2 md:left-0 md:top-0 md:h-full md:w-full md:translate-x-0 md:translate-y-0" role="img" aria-label="DP Jewels export network from Mumbai, India">
+              <motion.svg viewBox="-250 -10 1280 1055" preserveAspectRatio="xMidYMid meet" className="absolute left-1/2 top-1/2 h-[140%] w-[140%] -translate-x-1/2 -translate-y-1/2 md:left-0 md:top-0 md:h-full md:w-full md:translate-x-0 md:translate-y-0" role="img" aria-label="DP Jewels export network from Mumbai, India">
                 <defs>
                   <filter id="exportHubGlow" x="-220%" y="-220%" width="540%" height="540%">
                     <feGaussianBlur stdDeviation="6" result="blur" />
@@ -727,7 +727,7 @@ export default function ShowroomExperience() {
                 <motion.g
                   style={
                     isMobileView
-                      ? { x: -34, y: -28, scale: 1, transformOrigin: `${exportNodes.mumbai.x}px ${exportNodes.mumbai.y}px` }
+                      ? { x: -96, y: -22, scale: 1.1, transformOrigin: `${exportNodes.mumbai.x}px ${exportNodes.mumbai.y}px` }
                       : { x: exportCameraX, y: exportCameraY, scale: exportCameraScale, transformOrigin: `${exportNodes.mumbai.x}px ${exportNodes.mumbai.y}px` }
                   }
                 >
