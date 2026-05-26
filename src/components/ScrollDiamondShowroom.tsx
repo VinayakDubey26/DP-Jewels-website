@@ -1,5 +1,7 @@
-﻿import { motion, useMotionTemplate, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import type { RefObject } from "react";
+
+const EASE_SECONDARY: [number, number, number, number] = [0.215, 0.61, 0.355, 1];
 
 type Props = {
   targetRef: RefObject<HTMLElement | null>;
@@ -16,19 +18,16 @@ export default function ScrollDiamondShowroom({ targetRef }: Props) {
   const rotate = useTransform(scrollYProgress, [0, 1], [0, -10]);
   const y = useTransform(scrollYProgress, [0, 1], [0, -150]);
   const x = useTransform(scrollYProgress, [0, 1], [0, -120]);
-  const blur = useTransform(scrollYProgress, [0, 1], [0, 1.8]);
-  const bright = useTransform(scrollYProgress, [0, 1], [1.1, 0.78]);
   const glowOpacity = useTransform(scrollYProgress, [0, 1], [0.55, 0.15]);
   const facetA = useTransform(scrollYProgress, [0, 1], [0.85, 0.3]);
   const facetB = useTransform(scrollYProgress, [0, 1], [0.6, 0.95]);
-  const filter = useMotionTemplate`brightness(${bright}) blur(${blur}px)`;
 
   return (
     <motion.div
       className="showroom-diamond"
-      style={{ scale, opacity, rotateX, rotateY, rotate, y, x, filter }}
+      style={{ scale, opacity, rotateX, rotateY, rotate, y, x }}
       animate={reduceMotion ? undefined : { y: [0, -8, 0] }}
-      transition={reduceMotion ? undefined : { duration: 7.2, repeat: Infinity, ease: "easeInOut" }}
+      transition={reduceMotion ? undefined : { duration: 7.2, repeat: Infinity, ease: EASE_SECONDARY }}
       aria-hidden="true"
     >
       <motion.div className="diamond-glow" style={{ opacity: glowOpacity }} />
@@ -64,8 +63,10 @@ export default function ScrollDiamondShowroom({ targetRef }: Props) {
       <motion.span
         className="showroom-diamond-sweep"
         animate={reduceMotion ? undefined : { x: ["-145%", "145%"] }}
-        transition={reduceMotion ? undefined : { duration: 5.6, repeat: Infinity, ease: "easeInOut" }}
+        transition={reduceMotion ? undefined : { duration: 5.6, repeat: Infinity, ease: EASE_SECONDARY }}
       />
     </motion.div>
   );
 }
+
+

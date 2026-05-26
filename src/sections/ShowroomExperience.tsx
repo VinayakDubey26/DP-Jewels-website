@@ -1,19 +1,19 @@
 import { MessageCircle } from "lucide-react";
-import { AnimatePresence, motion, useMotionTemplate, useMotionValue, useMotionValueEvent, useScroll, useSpring, useTransform } from "framer-motion";
+import { AnimatePresence, motion, useMotionValueEvent, useScroll, useSpring, useTransform } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import bgImage from "../assets/bg.jpg";
-import diamondRound from "../assets/shaped/diamond_round.png";
-import diamondOval from "../assets/shaped/diamond_oval.png";
-import diamondPear from "../assets/shaped/diamond_pear.png";
-import diamondCushion from "../assets/shaped/diamond_cushion.png";
-import diamondPrincess from "../assets/shaped/diamond_princess.png";
-import diamondMarquise from "../assets/shaped/diamond_marquise.png";
-import diamondEmerald from "../assets/shaped/diamond_emerald.png";
-import diamondRadiant from "../assets/shaped/diamond_radiant.png";
-import diamondAsscher from "../assets/shaped/diamond_asscher.png";
-import diamondHeart from "../assets/shaped/diamond_heart.png";
+import diamondRound from "../assets/diamonds/diamond_round.webp";
+import diamondOval from "../assets/diamonds/diamond_oval.webp";
+import diamondPear from "../assets/diamonds/diamond_pear.webp";
+import diamondAsscher from "../assets/diamonds/diamond_asscher.webp";
+import diamondEmerald from "../assets/diamonds/diamond_emerald.webp";
+import diamondCushion from "../assets/diamonds/diamond_cushion.webp";
+import diamondPrincess from "../assets/diamonds/diamond_princess.webp";
+import diamondRadiant from "../assets/diamonds/diamond_radiant.webp";
+import diamondMarquise from "../assets/diamonds/diamond_marquise.webp";
+import diamondHeart from "../assets/diamonds/diamond_heart.webp";
 import indiaMapClean from "../assets/india_map_clean_champagne.svg";
 import indiaMapCleanRaw from "../assets/india_map_clean_champagne.svg?raw";
 import indiaExportStory from "../assets/dpj_india_export_story.svg";
@@ -24,13 +24,15 @@ import gjepcLogo from "../assets/certifications/gjepc.svg";
 import gsiLogo from "../assets/certifications/gsi.svg";
 
 const WHATSAPP_LINK = "https://wa.me/918356810826?text=Hello%20D.P.%20Jewels%2C%20I%20am%20interested%20in%20a%20diamond%20enquiry.";
-const CINEMATIC_EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
-const SOFT_EASE: [number, number, number, number] = [0.25, 0.92, 0.34, 1];
+const EASE_PRIMARY: [number, number, number, number] = [0.16, 1, 0.3, 1];
+const EASE_SECONDARY: [number, number, number, number] = [0.215, 0.61, 0.355, 1];
+const CINEMATIC_EASE = EASE_PRIMARY;
+const SOFT_EASE = EASE_SECONDARY;
 const sectionReveal = {
-  initial: { opacity: 0, y: 28, filter: "blur(3px)" },
-  whileInView: { opacity: 1, y: 0, filter: "blur(0px)" },
-  viewport: { once: true, amount: 0.24 },
-  transition: { duration: 1.34, ease: SOFT_EASE },
+  initial: { opacity: 0, y: 18 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, amount: 0.18 },
+  transition: { duration: 1.02, ease: SOFT_EASE },
 };
 const staggerContainer = {
   hidden: {},
@@ -42,48 +44,22 @@ const staggerContainer = {
   },
 };
 const staggerItem = {
-  hidden: { opacity: 0, y: 40, filter: "blur(6px)" },
-  show: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 1.1, ease: CINEMATIC_EASE } },
+  hidden: { opacity: 0, y: 40 },
+  show: { opacity: 1, y: 0, transition: { duration: 1.06, ease: CINEMATIC_EASE } },
 };
 
-const diamondShapes = [
-  "Round",
-  "Oval",
-  "Emerald",
-  "Pear",
-  "Cushion",
-  "Princess",
-  "Marquise",
-  "Radiant",
-  "Asscher",
-  "Heart",
-];
-
-const diamondShapeImageMap: Record<string, string> = {
-  Round: diamondRound,
-  Oval: diamondOval,
-  Emerald: diamondEmerald,
-  Pear: diamondPear,
-  Cushion: diamondCushion,
-  Princess: diamondPrincess,
-  Marquise: diamondMarquise,
-  Radiant: diamondRadiant,
-  Asscher: diamondAsscher,
-  Heart: diamondHeart,
-};
-
-const diamondOpticalClassMap: Record<string, string> = {
-  Round: "scale-[0.95]",
-  Oval: "scale-[1]",
-  Emerald: "scale-[0.98]",
-  Pear: "scale-[0.92]",
-  Cushion: "scale-[0.98]",
-  Princess: "scale-[0.98]",
-  Marquise: "scale-x-[1.08] scale-y-[0.97]",
-  Radiant: "scale-[0.97] -translate-y-[4%]",
-  Asscher: "scale-[0.93]",
-  Heart: "scale-[0.98] translate-y-[4%]",
-};
+const diamondItems = [
+  { name: "Round Brilliant", image: diamondRound, normalizeClass: "scale-[0.94]" },
+  { name: "Oval", image: diamondOval, normalizeClass: "scale-[0.92]" },
+  { name: "Pear", image: diamondPear, normalizeClass: "scale-[0.9]" },
+  { name: "Asscher", image: diamondAsscher, normalizeClass: "scale-[0.93]" },
+  { name: "Emerald", image: diamondEmerald, normalizeClass: "scale-[0.91]" },
+  { name: "Cushion", image: diamondCushion, normalizeClass: "scale-[0.95]" },
+  { name: "Princess", image: diamondPrincess, normalizeClass: "scale-[0.94]" },
+  { name: "Radiant", image: diamondRadiant, normalizeClass: "scale-[0.93]" },
+  { name: "Marquise", image: diamondMarquise, normalizeClass: "scale-[0.9]" },
+  { name: "Heart", image: diamondHeart, normalizeClass: "scale-[0.92]" },
+] as const;
 
 const aboutMetrics = [
   { value: "25+", label: "Years of Experience", offsetClass: "md:ml-0" },
@@ -256,6 +232,19 @@ const exportMobileLayout = {
   ],
 } as const;
 
+const heroGlitters = [
+  { left: "12%", top: "22%", size: 2, duration: 8.2, delay: 0.2, driftX: 6, driftY: -10, maxOpacity: 0.26 },
+  { left: "19%", top: "36%", size: 1.5, duration: 9.1, delay: 1.1, driftX: -5, driftY: -8, maxOpacity: 0.2 },
+  { left: "28%", top: "18%", size: 1.5, duration: 10.4, delay: 0.6, driftX: 4, driftY: -7, maxOpacity: 0.18 },
+  { left: "34%", top: "30%", size: 2, duration: 9.8, delay: 1.8, driftX: -6, driftY: -9, maxOpacity: 0.24 },
+  { left: "44%", top: "16%", size: 1.5, duration: 11.1, delay: 0.4, driftX: 5, driftY: -8, maxOpacity: 0.18 },
+  { left: "52%", top: "28%", size: 2, duration: 8.7, delay: 2.1, driftX: -4, driftY: -10, maxOpacity: 0.22 },
+  { left: "62%", top: "20%", size: 1.5, duration: 10.8, delay: 1.5, driftX: 6, driftY: -7, maxOpacity: 0.16 },
+  { left: "72%", top: "34%", size: 2, duration: 9.4, delay: 0.9, driftX: -5, driftY: -9, maxOpacity: 0.2 },
+  { left: "81%", top: "24%", size: 1.5, duration: 11.6, delay: 2.4, driftX: 4, driftY: -8, maxOpacity: 0.16 },
+  { left: "88%", top: "38%", size: 2, duration: 8.9, delay: 1.2, driftX: -4, driftY: -10, maxOpacity: 0.22 },
+] as const;
+
 function getCircularOffset(index: number, activeIndex: number, total: number) {
   let diff = index - activeIndex;
   if (diff > total / 2) diff -= total;
@@ -267,6 +256,11 @@ export default function ShowroomExperience() {
   const [activeDiamondIndex, setActiveDiamondIndex] = useState(0);
   const [activeExportScene, setActiveExportScene] = useState(0);
   const [isMobileView, setIsMobileView] = useState(false);
+  const [dotsCanRun, setDotsCanRun] = useState(false);
+  const exportSceneRef = useRef(0);
+  const externalDotAnimRefs = useRef<Array<SVGAnimationElement | null>>([]);
+  const internalDotAnimRefs = useRef<Array<SVGAnimationElement | null>>([]);
+  const dotStartTimersRef = useRef<number[]>([]);
   const heroRef = useRef<HTMLElement>(null);
   const aboutRef = useRef<HTMLElement>(null);
   const diamondsRef = useRef<HTMLElement>(null);
@@ -282,18 +276,6 @@ export default function ShowroomExperience() {
   const heroY = useTransform(scrollYProgress, [0, 1], [0, -26]);
   const heroScale = useTransform(scrollYProgress, [0, 1], [1.02, 1.06]);
   const heroOverlayOpacity = useTransform(scrollYProgress, [0, 1], [0.92, 1]);
-  const heroLightX = useMotionValue(58);
-  const heroLightY = useMotionValue(44);
-  const heroLightXSpring = useSpring(heroLightX, { stiffness: 55, damping: 22, mass: 0.45 });
-  const heroLightYSpring = useSpring(heroLightY, { stiffness: 55, damping: 22, mass: 0.45 });
-  const heroLightGradient = useMotionTemplate`radial-gradient(circle at ${heroLightXSpring}% ${heroLightYSpring}%, rgba(214,196,156,0.14) 0%, rgba(214,196,156,0.06) 18%, rgba(4,8,22,0) 38%)`;
-  const heroMouseShiftXRaw = useTransform(heroLightX, [32, 78], [-10, 10]);
-  const heroMouseShiftYRaw = useTransform(heroLightY, [26, 68], [-8, 8]);
-  const heroMouseShiftX = useSpring(heroMouseShiftXRaw, { stiffness: 40, damping: 24, mass: 0.8 });
-  const heroMouseShiftY = useSpring(heroMouseShiftYRaw, { stiffness: 40, damping: 24, mass: 0.8 });
-  const heroImageY = useTransform([heroY, heroMouseShiftY], ([scrollY, mouseY]) => Number(scrollY) + Number(mouseY));
-  const heroContentX = useTransform(heroMouseShiftX, (v) => v * -0.35);
-  const heroContentY = useTransform(heroMouseShiftY, (v) => v * -0.25);
   const { scrollYProgress: aboutProgress } = useScroll({ target: aboutRef, offset: ["start end", "end start"] });
   const { scrollYProgress: diamondsProgress } = useScroll({ target: diamondsRef, offset: ["start end", "end start"] });
   const { scrollYProgress: presenceProgress } = useScroll({ target: presenceRef, offset: ["start start", "end end"] });
@@ -313,6 +295,10 @@ export default function ShowroomExperience() {
     ...route,
     node: exportLayout.nodes[route.key],
   }));
+  const externalDotTravelDuration = isMobileView ? 14 : 12;
+  const externalDotPauseDuration = 1.4;
+  const externalDotCycleDuration = externalDotTravelDuration + externalDotPauseDuration;
+  const externalDotTravelRatio = externalDotTravelDuration / externalDotCycleDuration;
   const exportMapOpacity = useTransform(presenceProgress, isMobileView ? [0, 0.04, 0.95, 1] : [0, 0.01, 0.95, 1], isMobileView ? [0, 1, 1, 0.96] : [1, 1, 1, 0.96]);
   const exportHubOpacity = useTransform(presenceProgress, [0.06, 0.12], [0, 1]);
   const exportInternalNetworkOpacity = useTransform(presenceProgress, isMobileView ? [0.58, 0.68] : [0.14, 0.22], [0, 1]);
@@ -354,25 +340,57 @@ export default function ShowroomExperience() {
 
   useMotionValueEvent(presenceProgress, "change", (latest) => {
     if (isMobileView) return;
-    let nextScene = 0;
-    if (latest >= 0.1) nextScene = 1;
-    if (latest >= 0.2) nextScene = 2;
-    if (latest >= 0.3) nextScene = 3;
-    if (latest >= 0.4) nextScene = 4;
-    if (latest >= 0.5) nextScene = 5;
-    if (latest >= 0.6) nextScene = 6;
-    if (latest >= 0.7) nextScene = 7;
-    if (latest >= 0.8) nextScene = 8;
-    setActiveExportScene((currentScene) => (currentScene === nextScene ? currentScene : nextScene));
+    const nextScene = Math.max(0, Math.min(8, Math.floor(latest * 10)));
+    if (nextScene === exportSceneRef.current) return;
+    exportSceneRef.current = nextScene;
+    setActiveExportScene(nextScene);
+  });
+  useMotionValueEvent(presenceProgress, "change", (latest) => {
+    const threshold = isMobileView ? 0.9 : 0.86;
+    const sequenceReady = exportSceneRef.current >= 8;
+    const shouldRun = latest >= threshold && sequenceReady;
+    setDotsCanRun((prev) => (prev === shouldRun ? prev : shouldRun));
   });
   useEffect(() => {
     if (isMobileView) {
       setActiveExportScene(exportStoryScenes.length - 1);
+      exportSceneRef.current = exportStoryScenes.length - 1;
     }
   }, [isMobileView]);
   useEffect(() => {
-    return;
-  }, [isMobileView]);
+    dotStartTimersRef.current.forEach((timerId) => window.clearTimeout(timerId));
+    dotStartTimersRef.current = [];
+    if (!dotsCanRun) return;
+
+    internalDotAnimRefs.current.forEach((anim) => {
+      if (!anim) return;
+      const timerId = window.setTimeout(() => {
+        try {
+          anim.beginElement();
+        } catch {
+          // no-op
+        }
+      }, 420);
+      dotStartTimersRef.current.push(timerId);
+    });
+
+    externalDotAnimRefs.current.forEach((anim) => {
+      if (!anim) return;
+      const timerId = window.setTimeout(() => {
+        try {
+          anim.beginElement();
+        } catch {
+          // no-op
+        }
+      }, 420);
+      dotStartTimersRef.current.push(timerId);
+    });
+
+    return () => {
+      dotStartTimersRef.current.forEach((timerId) => window.clearTimeout(timerId));
+      dotStartTimersRef.current = [];
+    };
+  }, [dotsCanRun, isMobileView]);
   useEffect(() => {
     const media = window.matchMedia("(max-width: 768px)");
     const update = () => setIsMobileView(media.matches);
@@ -463,9 +481,9 @@ export default function ShowroomExperience() {
     hidden: { opacity: 0, y: 30 },
     show: { opacity: 1, y: 0, transition: { duration: 1.18, ease: SOFT_EASE } },
   };
-  const activeDiamond = diamondShapes[activeDiamondIndex];
-  const goPrevDiamond = () => setActiveDiamondIndex((prev) => (prev - 1 + diamondShapes.length) % diamondShapes.length);
-  const goNextDiamond = () => setActiveDiamondIndex((prev) => (prev + 1) % diamondShapes.length);
+  const activeDiamond = diamondItems[activeDiamondIndex];
+  const goPrevDiamond = () => setActiveDiamondIndex((prev) => (prev - 1 + diamondItems.length) % diamondItems.length);
+  const goNextDiamond = () => setActiveDiamondIndex((prev) => (prev + 1) % diamondItems.length);
 
   return (
     <div className="atmospheric-shell text-[#111827]">
@@ -474,32 +492,39 @@ export default function ShowroomExperience() {
         id="home"
         data-theme="dark"
         className="relative flex h-[100svh] h-[100dvh] h-screen min-h-[100svh] min-h-[100vh] items-center overflow-hidden bg-[#040816]"
-        onMouseMove={(e) => {
-          if (isMobileView) return;
-          const rect = e.currentTarget.getBoundingClientRect();
-          const x = ((e.clientX - rect.left) / rect.width) * 100;
-          const y = ((e.clientY - rect.top) / rect.height) * 100;
-          heroLightX.set(Math.min(78, Math.max(32, x)));
-          heroLightY.set(Math.min(68, Math.max(26, y)));
-        }}
-        onMouseLeave={() => {
-          heroLightX.set(58);
-          heroLightY.set(44);
-        }}
       >
-        <motion.img src={bgImage} alt="Premium jewellery background" className="absolute inset-0 h-full w-full object-cover object-[58%_44%] saturate-[0.88] contrast-[1.08] brightness-[0.7] md:object-center" style={{ x: heroMouseShiftX, y: heroImageY, scale: heroScale }} loading="eager" fetchPriority="high" decoding="async" />
-        <motion.div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(4,8,22,0.44)_0%,rgba(4,8,22,0.62)_38%,rgba(4,8,22,0.8)_100%)]" style={{ opacity: heroOverlayOpacity }} animate={{ opacity: [0.9, 1, 0.92] }} transition={{ duration: 12, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }} />
-        {!isMobileView && <motion.div aria-hidden className="pointer-events-none absolute inset-0" style={{ backgroundImage: heroLightGradient }} />}
+        <motion.img src={bgImage} alt="Premium jewellery background" className="absolute inset-0 h-full w-full object-cover object-[58%_44%] saturate-[0.88] contrast-[1.08] brightness-[0.7] md:object-center" style={{ y: heroY, scale: heroScale }} loading="eager" fetchPriority="high" decoding="async" />
+        <motion.div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(4,8,22,0.44)_0%,rgba(4,8,22,0.62)_38%,rgba(4,8,22,0.8)_100%)]" style={{ opacity: heroOverlayOpacity }} animate={{ opacity: [0.9, 1, 0.92] }} transition={{ duration: 12, repeat: Number.POSITIVE_INFINITY, ease: EASE_SECONDARY }} />
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_52%_46%,rgba(112,132,168,0.08)_0%,rgba(4,8,22,0)_46%)]" />
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,rgba(0,0,0,0)_38%,rgba(0,0,0,0.26)_100%)]" />
-        <div className="pointer-events-none absolute inset-0 opacity-[0.08] [background-image:radial-gradient(rgba(255,255,255,0.34)_0.5px,transparent_0.5px)] [background-size:3px_3px]" />
-        <motion.div
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_58%_47%,rgba(232,219,188,0.07)_0%,rgba(232,219,188,0)_36%)]"
-          animate={{ opacity: [0.07, 0.11, 0.07] }}
-          transition={{ duration: 12, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
-        />
+        <div className="pointer-events-none absolute inset-0">
+          {heroGlitters.map((glitter, idx) => (
+            <motion.span
+              key={`hero-glitter-${idx}`}
+              className="absolute rounded-full bg-white"
+              style={{
+                left: glitter.left,
+                top: glitter.top,
+                width: glitter.size,
+                height: glitter.size,
+                opacity: 0,
+              }}
+              animate={{
+                x: [0, glitter.driftX, 0],
+                y: [0, glitter.driftY, 0],
+                opacity: [0, glitter.maxOpacity, 0],
+              }}
+              transition={{
+                duration: glitter.duration,
+                repeat: Number.POSITIVE_INFINITY,
+                ease: EASE_SECONDARY,
+                delay: glitter.delay,
+              }}
+            />
+          ))}
+        </div>
         <div className="relative mx-auto flex h-[100svh] h-[100dvh] h-screen min-h-[100svh] min-h-[100vh] w-[min(1220px,94%)] items-center py-0">
-          <motion.div variants={heroContentStagger} initial="hidden" animate="show" className="max-w-[700px] text-white" style={{ x: heroContentX, y: heroContentY }}>
+          <motion.div variants={heroContentStagger} initial="hidden" animate="show" className="max-w-[700px] text-white">
             <motion.h1 variants={heroItem} className="font-serif text-[2.85rem] leading-[1.02] md:text-[5rem]">Diamond Traders, Importers & Exporters</motion.h1>
             <motion.p variants={heroItem} className="mt-6 max-w-[34rem] text-[1.12rem] leading-[1.78] text-[#e9edf5] md:mt-7 md:text-[1.22rem] md:font-medium">
               Trusted sourcing from Bharat Diamond Bourse with 25+ years of precision, transparency, and global export focus.
@@ -541,20 +566,20 @@ export default function ShowroomExperience() {
         </motion.div>
       </motion.section>
 
-      <motion.section ref={diamondsRef} id="diamonds" data-theme="dark" style={{ y: isMobileView ? 0 : diamondsDrift }} className="relative -mt-2 min-h-screen overflow-hidden bg-[linear-gradient(180deg,#061024_0%,#040816_48%,#030611_100%)] py-[4rem] md:-mt-3 md:py-[6rem]" {...sectionReveal}>
+      <motion.section ref={diamondsRef} id="diamonds" data-theme="dark" style={{ y: isMobileView ? 0 : diamondsDrift }} className="relative -mt-2 min-h-[88svh] overflow-hidden bg-[linear-gradient(180deg,#061024_0%,#040816_48%,#030611_100%)] py-[2.4rem] md:-mt-3 md:min-h-[90vh] md:py-[2.8rem]" {...sectionReveal}>
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_56%,rgba(224,233,245,0.09)_0%,rgba(224,233,245,0)_44%)]" />
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_14%_28%,rgba(206,218,238,0.07)_0%,rgba(206,218,238,0)_30%)]" />
         <div className="pointer-events-none absolute inset-0 hidden opacity-[0.1] [background-image:radial-gradient(rgba(255,255,255,0.26)_0.35px,transparent_0.35px)] [background-size:3px_3px] md:block" />
         <div className="mx-auto w-full max-w-[1440px] px-5 md:px-8 lg:pl-8">
           <p className="text-[13px] tracking-[0.2em] text-[#c3ccda] md:text-[13px] md:tracking-[0.22em]">DIAMONDS</p>
-          <h2 className="mt-5 font-serif text-[2.7rem] text-[#f7f2e8] md:text-[4.05rem]">Diamond Shapes & Selections</h2>
-          <p className="mt-5 max-w-2xl text-[1.06rem] leading-[1.82] tracking-[0.02em] text-[#d4dbe6] md:text-[1.14rem] md:font-medium">
+          <h2 className="mt-4 font-serif text-[2.6rem] text-[#f7f2e8] md:mt-3 md:text-[3.75rem]">Diamond Shapes & Selections</h2>
+          <p className="mt-4 max-w-2xl text-[1.02rem] leading-[1.75] tracking-[0.02em] text-[#d4dbe6] md:mt-3 md:text-[1.08rem] md:font-medium">
             Natural & Lab Grown Diamonds
             <br />
             Precision sourced from Bharat Diamond Bourse
           </p>
 
-          <div className="relative mt-[3.6rem] hidden h-[470px] overflow-hidden md:block">
+          <div className="relative mt-[2.1rem] hidden h-[410px] overflow-hidden md:block">
             <button
               type="button"
               aria-label="Previous diamond"
@@ -571,41 +596,40 @@ export default function ShowroomExperience() {
             >
               {">"}
             </button>
-            {diamondShapes.map((shape, idx) => {
-              const offset = getCircularOffset(idx, activeDiamondIndex, diamondShapes.length);
+            {diamondItems.map((shape, idx) => {
+              const offset = getCircularOffset(idx, activeDiamondIndex, diamondItems.length);
               const isActive = offset === 0;
               const absOffset = Math.abs(offset);
               if (absOffset > 1) return null;
               const baseOpacity = absOffset === 0 ? 1 : absOffset === 1 ? 0.42 : absOffset === 2 ? 0.14 : 0;
-              const baseScale = absOffset === 0 ? 1.03 : absOffset === 1 ? 0.8 : 0.64;
-              const baseY = absOffset === 0 ? -2 : absOffset === 1 ? 24 : 34;
-              const shiftX = absOffset === 0 ? 0 : offset < 0 ? -290 : 290;
+              const baseScale = absOffset === 0 ? 1.14 : absOffset === 1 ? 0.78 : 0.62;
+              const baseY = absOffset === 0 ? -6 : absOffset === 1 ? 18 : 26;
+              const shiftX = absOffset === 0 ? 0 : offset < 0 ? -248 : 248;
               return (
                 <motion.article
-                  key={shape}
-                  className="group absolute left-1/2 top-1/2 flex w-[420px] -translate-x-1/2 -translate-y-1/2 cursor-pointer flex-col items-center"
+                  key={shape.name}
+                  className="group absolute left-1/2 top-1/2 flex w-[440px] -translate-x-1/2 -translate-y-1/2 cursor-pointer flex-col items-center"
                   onClick={() => setActiveDiamondIndex(idx)}
                   animate={{
                     x: shiftX,
                     y: baseY,
-                    scale: isActive ? 1.04 : baseScale,
+                    scale: isActive ? 1.12 : baseScale,
                     opacity: baseOpacity,
-                    filter: isActive ? "brightness(1.08) blur(0px)" : "brightness(0.9) blur(1.3px)",
                   }}
                   transition={{ duration: 1.34, ease: CINEMATIC_EASE }}
                 >
                   <motion.div
-                    className="relative mb-3 flex h-[260px] w-full items-center justify-center"
+                    className="relative mb-1 flex h-[280px] w-[280px] items-center justify-center lg:h-[340px] lg:w-[340px]"
                     animate={isActive ? { y: [0, -3, 0], rotateZ: [0, 0.7, 0] } : { y: 0, rotateZ: 0 }}
-                    transition={{ duration: 12, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+                    transition={{ duration: 12, repeat: Number.POSITIVE_INFINITY, ease: EASE_SECONDARY }}
                   >
                     <motion.img
-                      src={diamondShapeImageMap[shape]}
-                      alt={`${shape} diamond`}
-                      className={`relative h-[95%] w-[95%] object-contain object-center drop-shadow-[0_15px_26px_rgba(0,0,0,0.36)] transition-all duration-[1100ms] ${isActive ? "scale-[1.05]" : "scale-[0.95]"} ${diamondOpticalClassMap[shape]}`}
+                      src={shape.image}
+                      alt={`${shape.name} diamond`}
+                      className={`relative h-full w-full object-contain object-center transition-all duration-[1100ms] ${isActive ? "scale-[1.12]" : "scale-[0.95]"} ${shape.normalizeClass}`}
                       animate={isActive ? { rotateY: [0, 1.2, 0], rotateX: [0, -0.8, 0] } : { rotateY: 0, rotateX: 0 }}
-                      transition={{ duration: 14, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
-                      loading="lazy"
+                      transition={{ duration: 14, repeat: Number.POSITIVE_INFINITY, ease: EASE_SECONDARY }}
+                      loading={isActive ? "eager" : "lazy"}
                       decoding="async"
                     />
                   </motion.div>
@@ -614,7 +638,7 @@ export default function ShowroomExperience() {
             })}
           </div>
 
-          <div className="mt-10 flex min-h-[360px] items-center justify-center md:hidden">
+          <div className="mt-6 flex min-h-[300px] items-center justify-center md:hidden">
             <motion.div
               drag="x"
               dragConstraints={{ left: 0, right: 0 }}
@@ -625,22 +649,21 @@ export default function ShowroomExperience() {
               }}
               className="w-full touch-pan-y"
             >
-            {diamondShapes.map((shape, idx) => {
-              const offset = getCircularOffset(idx, activeDiamondIndex, diamondShapes.length);
+            {diamondItems.map((shape, idx) => {
+              const offset = getCircularOffset(idx, activeDiamondIndex, diamondItems.length);
               const isActive = offset === 0;
               if (!isActive) return null;
               return (
                 <article
-                  key={shape}
-                  className="group relative mx-auto flex w-[84%] max-w-[360px] snap-center flex-col items-center justify-center"
+                  key={shape.name}
+                  className="group relative mx-auto flex w-[86%] max-w-[372px] snap-center flex-col items-center justify-center"
                 >
-                  <div className="relative flex h-[276px] w-full items-center justify-center">
-                    <div className="pointer-events-none absolute inset-x-[21%] top-[24%] h-[54%] rounded-full bg-[radial-gradient(circle,rgba(223,231,243,0.16)_0%,rgba(223,231,243,0)_74%)]" />
+                  <div className="relative flex h-[220px] w-[220px] items-center justify-center md:h-[280px] md:w-[280px]">
                     <img
-                      src={diamondShapeImageMap[shape]}
-                      alt={`${shape} diamond`}
-                      className={`h-[94%] w-[94%] object-contain object-center drop-shadow-[0_11px_22px_rgba(0,0,0,0.3)] transition-all duration-700 scale-[1.02] brightness-[1.05] ${diamondOpticalClassMap[shape]}`}
-                      loading="lazy"
+                      src={shape.image}
+                      alt={`${shape.name} diamond`}
+                      className={`h-full w-full object-contain object-center transition-all duration-700 scale-[1.08] ${shape.normalizeClass}`}
+                      loading="eager"
                       decoding="async"
                     />
                   </div>
@@ -652,19 +675,19 @@ export default function ShowroomExperience() {
 
           <div className="mt-0 flex flex-col items-center">
             <div className="mb-3 flex justify-center gap-2">
-              {diamondShapes.map((shape, idx) => (
+              {diamondItems.map((shape, idx) => (
                 <button
-                  key={`${shape}-nav`}
+                  key={`${shape.name}-nav`}
                   type="button"
-                  aria-label={`View ${shape}`}
+                  aria-label={`View ${shape.name}`}
                   onClick={() => setActiveDiamondIndex(idx)}
                   className={`h-[3px] transition-all duration-700 ${idx === activeDiamondIndex ? "w-6 bg-[#e6edf8]" : "w-3 bg-[#90a1ba]/36 hover:bg-[#b8c6dc]/72"}`}
                 />
               ))}
             </div>
-            <div className="mt-2">
-                <h3 className="text-center font-serif text-[2.2rem] tracking-[0.08em] text-[#f6f1e8] md:text-[2.52rem]">{activeDiamond}</h3>
-              <div className="mt-3 flex justify-center">
+            <div className="mt-1">
+                <h3 className="text-center font-serif text-[2.2rem] tracking-[0.08em] text-[#f6f1e8] md:text-[2.52rem]">{activeDiamond.name}</h3>
+              <div className="mt-2 flex justify-center">
                 <a
                   href={WHATSAPP_LINK}
                   className="lux-hover-lift lux-interactive rounded-full border border-[#cfd8e4]/65 px-5 py-1.5 text-[13px] font-medium tracking-[0.12em] text-[#f3eee5] transition-all duration-500 hover:bg-[#f3eee5] hover:text-[#111827]"
@@ -677,7 +700,7 @@ export default function ShowroomExperience() {
         </div>
       </motion.section>
 
-      <section ref={presenceRef} data-theme="light" className="relative -mt-3 h-auto bg-[linear-gradient(180deg,#ffffff_0%,#faf7f2_46%,#f6f1e8_100%)] md:h-[305vh]">
+      <motion.section ref={presenceRef} data-theme="light" className="relative -mt-3 h-auto bg-[linear-gradient(180deg,#ffffff_0%,#faf7f2_46%,#f6f1e8_100%)] md:h-[305vh]" {...sectionReveal}>
         <div className="relative flex items-center overflow-visible py-0 md:sticky md:top-0 md:min-h-screen md:min-h-[100svh] md:py-0">
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_48%_48%,rgba(197,164,109,0.12)_0%,rgba(197,164,109,0.045)_32%,rgba(250,247,242,0)_68%)]" />
           <div className="pointer-events-none absolute inset-0 opacity-[0.035] [background-image:radial-gradient(rgba(70,58,42,0.38)_0.45px,transparent_0.45px)] [background-size:4px_4px]" />
@@ -721,14 +744,14 @@ export default function ShowroomExperience() {
                       opacity={isMobileView ? 0.66 : 0.98}
                       initial={{ opacity: 0, pathLength: isMobileView ? 1 : 0.24 }}
                       animate={{ opacity: isMobileView ? 0.66 : 0.96, pathLength: 1 }}
-                      transition={{ duration: isMobileView ? 0.5 : 1.35, ease: "easeInOut" }}
+                      transition={{ duration: isMobileView ? 0.5 : 1.35, ease: EASE_SECONDARY }}
                     />
                   ) : null}
 
                   <motion.g style={{ opacity: isMobileView ? 1 : exportHubOpacity }}>
-                    <motion.circle cx={exportNodes.mumbai.x} cy={exportNodes.mumbai.y} r={isMobileView ? 26 : 25} fill="#C5A46D" opacity="0.18" filter={isMobileView ? undefined : "url(#exportHubGlow)"} animate={isMobileView ? { scale: [1, 1.08, 1], opacity: [0.16, 0.23, 0.16] } : { scale: [1, 1.2, 1], opacity: [0.18, 0.3, 0.18] }} transition={{ duration: isMobileView ? 4.2 : 5.6, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }} />
-                    {isMobileView && <motion.circle cx={exportNodes.mumbai.x} cy={exportNodes.mumbai.y} r={18.8} fill="none" stroke="rgba(197,164,109,0.55)" strokeWidth={1.4} animate={{ scale: [1, 1.38], opacity: [0.48, 0.06] }} transition={{ duration: 4.6, repeat: Number.POSITIVE_INFINITY, ease: "easeOut" }} />}
-                    {!isMobileView && <motion.circle cx={exportNodes.mumbai.x} cy={exportNodes.mumbai.y} r={19.4} fill="none" stroke="#C5A46D" strokeWidth={2.3} opacity="0.68" animate={{ scale: [1, 1.42], opacity: [0.56, 0.12] }} transition={{ duration: 5, repeat: Number.POSITIVE_INFINITY, ease: "easeOut" }} />}
+                    <motion.circle cx={exportNodes.mumbai.x} cy={exportNodes.mumbai.y} r={isMobileView ? 26 : 25} fill="#C5A46D" opacity="0.18" filter={isMobileView ? undefined : "url(#exportHubGlow)"} animate={isMobileView ? { scale: [1, 1.08, 1], opacity: [0.16, 0.23, 0.16] } : { scale: [1, 1.2, 1], opacity: [0.18, 0.3, 0.18] }} transition={{ duration: isMobileView ? 4.2 : 5.6, repeat: Number.POSITIVE_INFINITY, ease: EASE_SECONDARY }} />
+                    {isMobileView && <motion.circle cx={exportNodes.mumbai.x} cy={exportNodes.mumbai.y} r={18.8} fill="none" stroke="rgba(197,164,109,0.55)" strokeWidth={1.4} animate={{ scale: [1, 1.38], opacity: [0.48, 0.06] }} transition={{ duration: 4.6, repeat: Number.POSITIVE_INFINITY, ease: EASE_PRIMARY }} />}
+                    {!isMobileView && <motion.circle cx={exportNodes.mumbai.x} cy={exportNodes.mumbai.y} r={19.4} fill="none" stroke="#C5A46D" strokeWidth={2.3} opacity="0.68" animate={{ scale: [1, 1.42], opacity: [0.56, 0.12] }} transition={{ duration: 5, repeat: Number.POSITIVE_INFINITY, ease: EASE_PRIMARY }} />}
                     <circle cx={exportNodes.mumbai.x} cy={exportNodes.mumbai.y} r={isMobileView ? 9.8 : 9.4} fill="#c4a166" filter={isMobileView ? undefined : "url(#exportHubGlow)"} />
                     <text x={exportNodes.mumbai.labelX} y={exportNodes.mumbai.labelY} textAnchor="start" fontSize={isMobileView ? 24 : 27} fontWeight={isMobileView ? 580 : 610} letterSpacing="0.032em" fill="#5b4f3f">
                       Mumbai
@@ -745,7 +768,7 @@ export default function ShowroomExperience() {
                           fill="#7b6a53"
                           initial={false}
                           animate={{ opacity: effectiveExportScene === 1 ? 1 : 0 }}
-                          transition={{ duration: 0.5, ease: "easeOut" }}
+                          transition={{ duration: 0.5, ease: EASE_PRIMARY }}
                         >
                           Based in Mumbai
                         </motion.text>
@@ -767,7 +790,7 @@ export default function ShowroomExperience() {
                         vectorEffect="non-scaling-stroke"
                         style={{ pathLength: isMobileView ? 1 : exportInternalLineSafeProgress, opacity: isMobileView ? 0.82 : exportInternalNetworkSafeOpacity }}
                         animate={isMobileView ? { opacity: [0.82, 1, 0.82] } : undefined}
-                        transition={isMobileView ? { duration: 4.2, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" } : undefined}
+                        transition={isMobileView ? { duration: 4.2, repeat: Number.POSITIVE_INFINITY, ease: EASE_SECONDARY } : undefined}
                       />
                     ))}
                     {isMobileView &&
@@ -783,26 +806,8 @@ export default function ShowroomExperience() {
                           strokeLinejoin="round"
                           vectorEffect="non-scaling-stroke"
                           animate={{ opacity: [0.24, 0.46, 0.24] }}
-                          transition={{ duration: 4.2, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+                          transition={{ duration: 4.2, repeat: Number.POSITIVE_INFINITY, ease: EASE_SECONDARY }}
                         />
-                      ))}
-                    {isMobileView &&
-                      exportInternalRoutes.map((route, index) => (
-                        <motion.circle
-                          key={`${route.key}-mobile-particle`}
-                          r={1.9}
-                          fill="rgba(245,231,198,0.95)"
-                          animate={{ opacity: [0.34, 0.96, 0.34] }}
-                          transition={{ duration: 1.7, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut", delay: (index % 7) * 0.2 }}
-                          style={{ opacity: 1 }}
-                        >
-                          <animateMotion
-                            dur={`${4.6 + (index % 5) * 0.55}s`}
-                            repeatCount="indefinite"
-                            begin={`${(index % 8) * 0.26}s`}
-                            path={route.path}
-                          />
-                        </motion.circle>
                       ))}
                     {!isMobileView &&
                       exportInternalRoutes.map((route) => (
@@ -819,36 +824,28 @@ export default function ShowroomExperience() {
                           style={{ pathLength: exportInternalLineProgress, opacity: exportInternalNetworkOpacity }}
                         />
                       ))}
-                    {!isMobileView &&
+                    {dotsCanRun &&
                       exportInternalRoutes.map((route, index) => (
                         <motion.circle
-                          key={`${route.key}-particle`}
-                          r={3.25}
-                          fill="rgba(250,240,216,1)"
-                          animate={{ opacity: [0.66, 1, 0.66] }}
-                          transition={{ duration: 2.9 + (index % 5) * 0.38, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut", delay: (index % 7) * 0.22 }}
+                          key={`${route.key}-internal-dot`}
+                          r={isMobileView ? 2.3 : 3.1}
+                          fill="#8F6A36"
+                          stroke="rgba(233,214,178,0.34)"
+                          strokeWidth={isMobileView ? 0.38 : 0.46}
+                          style={{ opacity: isMobileView ? 0.84 : exportInternalNetworkSafeOpacity }}
                         >
                           <animateMotion
-                            dur={`${5.2 + (index % 6) * 0.7}s`}
+                            ref={(el) => {
+                              internalDotAnimRefs.current[index] = el as SVGAnimationElement | null;
+                            }}
+                            begin="indefinite"
+                            restart="always"
+                            dur={`${externalDotCycleDuration}s`}
+                            calcMode="spline"
+                            keyTimes={`0;${externalDotTravelRatio.toFixed(4)};1`}
+                            keyPoints="0;1;1"
+                            keySplines="0.42 0 0.58 1;0 0 1 1"
                             repeatCount="indefinite"
-                            begin={`${(index % 9) * 0.3}s`}
-                            path={route.path}
-                          />
-                        </motion.circle>
-                      ))}
-                    {!isMobileView &&
-                      exportInternalRoutes.map((route, index) => (
-                        <motion.circle
-                          key={`${route.key}-trail`}
-                          r={2.55}
-                          fill="rgba(245,232,200,0.82)"
-                          animate={{ opacity: [0.3, 0.66, 0.3] }}
-                          transition={{ duration: 3.2, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut", delay: (index % 7) * 0.24 }}
-                        >
-                          <animateMotion
-                            dur={`${5.2 + (index % 6) * 0.7}s`}
-                            repeatCount="indefinite"
-                            begin={`${0.22 + (index % 9) * 0.24}s`}
                             path={route.path}
                           />
                         </motion.circle>
@@ -863,12 +860,8 @@ export default function ShowroomExperience() {
                       <motion.g
                         key={node.key}
                         initial={{ opacity: 0, scale: 0.84 }}
-                        animate={
-                          isMobileView
-                            ? { opacity: [0.82, 1, 0.82], scale: [1, 1.045, 1] }
-                            : undefined
-                        }
-                        transition={isMobileView ? { duration: 3.6, delay: index * 0.35, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" } : undefined}
+                        animate={undefined}
+                        transition={undefined}
                         style={{ transformOrigin: `${node.x}px ${node.y}px`, opacity: isMobileView ? 0.98 : exportInternalNetworkSafeOpacity }}
                       >
                         <circle cx={node.x} cy={node.y} r={isMobileView ? 4.8 : nodeTier === "major" ? 8.6 : 6.6} fill="#C5A46D" opacity={isMobileView ? 1 : 0.92} />
@@ -879,10 +872,10 @@ export default function ShowroomExperience() {
                     ))}
                   </g>
 
-                  {exportRoutes.map((route) => {
+                  {exportRoutes.map((route, routeIndex) => {
                     const motionValues = routeMotion[route.key];
                     const isVisible = effectiveExportScene >= route.scene;
-                    const isActive = effectiveExportScene === route.scene;
+                    const routeIsReady = (isMobileView ? effectiveExportScene >= route.scene : isVisible) && dotsCanRun;
 
                     return (
                       <g key={route.key}>
@@ -896,26 +889,32 @@ export default function ShowroomExperience() {
                           strokeLinejoin="round"
                           vectorEffect="non-scaling-stroke"
                           style={{ pathLength: isMobileView ? 1 : motionValues.progress, opacity: isMobileView ? (route.type === "primary" ? 0.7 : 0.62) : motionValues.opacity }}
-                          animate={isMobileView ? { opacity: route.type === "primary" ? [0.76, 0.94, 0.76] : [0.58, 0.8, 0.58] } : undefined}
-                          transition={isMobileView ? { duration: route.type === "primary" ? 4.6 : 5.2, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" } : undefined}
+                          animate={undefined}
+                          transition={undefined}
                         />
-                        {isMobileView && (
-                          <>
-                            <motion.circle
-                              r={route.type === "primary" ? 2.9 : 2.5}
-                              fill="rgba(245,230,194,0.95)"
-                              animate={{ opacity: [0.45, 0.95, 0.45] }}
-                              transition={{ duration: 1.8, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut", delay: route.scene * 0.22 }}
-                              style={{ opacity: 1 }}
-                            >
-                              <animateMotion
-                                dur={`${route.type === "primary" ? 3.6 : 3.9}s`}
-                                repeatCount="indefinite"
-                                begin={`${route.scene * 0.32}s`}
-                                path={route.path}
-                              />
-                            </motion.circle>
-                          </>
+                        {routeIsReady && (
+                          <motion.circle
+                            r={isMobileView ? (route.type === "primary" ? 2.6 : 2.3) : (route.type === "primary" ? 3.6 : 3.2)}
+                            fill="#9B7540"
+                            stroke="rgba(233,214,178,0.42)"
+                            strokeWidth={isMobileView ? 0.45 : 0.55}
+                            style={{ opacity: isMobileView ? 0.97 : motionValues.opacity }}
+                          >
+                            <animateMotion
+                              ref={(el) => {
+                                externalDotAnimRefs.current[routeIndex] = el as SVGAnimationElement | null;
+                              }}
+                              begin="indefinite"
+                              restart="always"
+                              dur={`${externalDotCycleDuration}s`}
+                              calcMode="spline"
+                              keyTimes={`0;${externalDotTravelRatio.toFixed(4)};1`}
+                              keyPoints="0;1;1"
+                              keySplines="0.42 0 0.58 1;0 0 1 1"
+                              repeatCount="indefinite"
+                              path={route.path}
+                            />
+                          </motion.circle>
                         )}
                         {!isMobileView && isVisible && (
                           <motion.path
@@ -931,20 +930,7 @@ export default function ShowroomExperience() {
                             transition={{ duration: 0.95, ease: CINEMATIC_EASE }}
                           />
                         )}
-                        <motion.circle cx={route.node.x} cy={route.node.y} r={isMobileView ? 4 : 5.8} fill="#C5A46D" initial={false} animate={isMobileView ? { opacity: [0.66, 0.84, 0.66], scale: [1, 1.05, 1] } : { opacity: isVisible ? (route.type === "primary" ? 0.92 : 0.74) : 0, scale: isVisible ? 1 : 0.84 }} transition={isMobileView ? { duration: 3.6 + route.scene * 0.12, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut", delay: route.scene * 0.18 } : { duration: 0.8, ease: CINEMATIC_EASE }} />
-                        {isMobileView && (
-                          <motion.circle
-                            cx={route.node.x}
-                            cy={route.node.y}
-                            r={route.type === "primary" ? 10.5 : 9.2}
-                            fill="none"
-                            stroke="rgba(197,164,109,0.42)"
-                            strokeWidth={1}
-                            animate={{ scale: [1, 1.26], opacity: [0.36, 0.06] }}
-                            transition={{ duration: 3.2 + route.scene * 0.14, repeat: Number.POSITIVE_INFINITY, ease: "easeOut", delay: route.scene * 0.14 }}
-                            style={{ transformOrigin: `${route.node.x}px ${route.node.y}px` }}
-                          />
-                        )}
+                        <motion.circle cx={route.node.x} cy={route.node.y} r={isMobileView ? 4 : 5.8} fill="#C5A46D" initial={false} animate={{ opacity: isVisible ? (route.type === "primary" ? 0.92 : 0.74) : 0, scale: isVisible ? 1 : 0.84 }} transition={{ duration: 0.68, ease: CINEMATIC_EASE }} />
                         {isMobileView ? (
                           <text
                             x={route.node.labelX}
@@ -975,7 +961,7 @@ export default function ShowroomExperience() {
                             strokeWidth={0.7}
                             initial={false}
                             animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 8 }}
-                            transition={{ duration: 0.92, ease: "easeInOut" }}
+                            transition={{ duration: 0.92, ease: EASE_SECONDARY }}
                           >
                             {route.node.label}
                           </motion.text>
@@ -987,21 +973,21 @@ export default function ShowroomExperience() {
               </motion.svg>
             </motion.div>
 
-            <div className="order-1 mx-auto w-full max-w-[460px] lg:order-2 lg:ml-0">
+            <div className="order-1 mx-auto w-full max-w-[460px] px-5 pt-14 sm:px-6 md:px-0 md:pt-0 lg:order-2 lg:ml-0">
               <p className="text-[13px] tracking-[0.16em] text-[#4f5967] md:text-[13px]">EXPORT NETWORK</p>
               <div className="mt-5 h-px w-16 bg-[#C5A46D]/55" />
               {isMobileView ? (
-                <motion.div initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.35 }} transition={{ duration: 0.72, ease: "easeOut" }}>
-                  <motion.h2 className="mt-6 font-serif text-[2.35rem] leading-[1.02] text-[#0f1726] md:mt-7 md:text-[3.8rem]" initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.7, ease: "easeOut" }}>
+                <motion.div initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.35 }} transition={{ duration: 0.9, ease: EASE_PRIMARY }}>
+                  <motion.h2 className="mt-6 font-serif text-[2.35rem] leading-[1.02] text-[#0f1726] md:mt-7 md:text-[3.8rem]" initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.9, ease: EASE_PRIMARY }}>
                     {mobilePresenceScene.title}
                   </motion.h2>
-                  <motion.p className="mt-4 max-w-md text-[1rem] leading-relaxed text-[#3e4958] md:mt-5 md:text-[1.06rem] md:font-medium" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.72, delay: 0.16, ease: "easeOut" }}>
+                  <motion.p className="mt-4 max-w-md text-[1rem] leading-relaxed text-[#3e4958] md:mt-5 md:text-[1.06rem] md:font-medium" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.9, delay: 0.16, ease: EASE_PRIMARY }}>
                     {mobilePresenceScene.body}
                   </motion.p>
                 </motion.div>
               ) : (
                 <AnimatePresence mode="wait">
-                  <motion.div key={effectiveExportScene} initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={{ duration: 0.82, ease: "easeInOut" }}>
+                  <motion.div key={effectiveExportScene} initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={{ duration: 1.02, ease: EASE_SECONDARY }}>
                     <motion.h2 className="mt-6 font-serif text-[2.35rem] leading-[1.02] text-[#0f1726] md:mt-7 md:text-[3.8rem]">{activeScene.title}</motion.h2>
                     <motion.p className="mt-4 max-w-md text-[1rem] leading-relaxed text-[#3e4958] md:mt-5 md:text-[1.06rem] md:font-medium">{activeScene.body}</motion.p>
                   </motion.div>
@@ -1015,7 +1001,7 @@ export default function ShowroomExperience() {
             </div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       <motion.section ref={bdbRef} data-theme="light" style={{ y: isMobileView ? 0 : bdbDrift }} className="relative -mt-2 w-full overflow-hidden py-5 md:py-9" {...sectionReveal}>
         <div className="relative w-full bg-[#f7f3ec] md:bg-[#050913]">
@@ -1029,14 +1015,14 @@ export default function ShowroomExperience() {
             aria-hidden
             className="pointer-events-none absolute inset-0 hidden md:block bg-[radial-gradient(circle_at_68%_34%,rgba(255,255,255,0.1)_0%,rgba(255,255,255,0)_44%)]"
             animate={{ opacity: [0.1, 0.16, 0.1] }}
-            transition={{ duration: 12, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+            transition={{ duration: 12, repeat: Number.POSITIVE_INFINITY, ease: EASE_SECONDARY }}
           />
           )}
           <div className="relative mx-auto block w-full max-w-[2200px] md:hidden" />
           <div className="relative hidden w-full md:block md:pt-[44%] lg:pt-[40%]" />
 
           <div className="pointer-events-none absolute inset-y-0 left-0 hidden w-[72%] bg-[linear-gradient(96deg,rgba(248,244,236,0.7)_0%,rgba(248,244,236,0.48)_26%,rgba(248,244,236,0.18)_48%,rgba(248,244,236,0)_72%)] md:block md:w-[62%]" />
-          <div className="pointer-events-none absolute inset-y-0 left-0 hidden w-[44%] backdrop-blur-[1.6px] md:block md:w-[36%]" />
+          <div className="pointer-events-none absolute inset-y-0 left-0 hidden w-[44%] bg-[linear-gradient(96deg,rgba(248,244,236,0.24)_0%,rgba(248,244,236,0.12)_42%,rgba(248,244,236,0)_100%)] md:block md:w-[36%]" />
 
           <div className="absolute inset-0 hidden items-center md:flex">
             <div className="mx-auto w-full max-w-[1440px] px-5 md:px-8">
@@ -1056,7 +1042,7 @@ export default function ShowroomExperience() {
             </div>
           </div>
           <div className="mx-auto w-full max-w-[1440px] px-0 pb-0 pt-2 md:hidden">
-            <article className="w-full max-w-[620px] py-3">
+            <article className="w-full max-w-[620px] px-5 py-3 sm:px-6">
               <p className="text-[13px] tracking-[0.14em] text-[#9a7a36]">TRUST & LOCATION</p>
               <h2 className="mt-4 max-w-[14ch] font-serif text-[2rem] leading-[1.06] text-[#111827]">Based at Bharat Diamond Bourse</h2>
               <p className="mt-6 max-w-[58ch] text-[1.06rem] leading-[1.8] text-[#27364a] md:text-[1.12rem]">
@@ -1083,10 +1069,7 @@ export default function ShowroomExperience() {
         data-theme="light"
         style={{ y: isMobileView ? 0 : certDrift }}
         className="relative -mt-1 overflow-hidden bg-[linear-gradient(180deg,#f7f3ec_0%,#f5f1ea_52%,#efe9df_100%)] py-[3.8rem] text-[#2c2a27] md:py-[4.8rem]"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.16 }}
-        transition={{ duration: 0.95, ease: SOFT_EASE }}
+        {...sectionReveal}
       >
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_14%_20%,rgba(255,255,255,0.56)_0%,rgba(255,255,255,0)_38%)]" />
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_78%_76%,rgba(202,176,122,0.16)_0%,rgba(202,176,122,0)_36%)]" />
@@ -1112,7 +1095,7 @@ export default function ShowroomExperience() {
                 initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.8, delay: idx * 0.1, ease: SOFT_EASE }}
+                transition={{ duration: 0.68, delay: idx * 0.1, ease: SOFT_EASE }}
               >
                 <div className="flex min-h-[72px] items-center justify-center md:min-h-[88px]">
                   <img
@@ -1132,7 +1115,7 @@ export default function ShowroomExperience() {
         </div>
       </motion.section>
 
-      <motion.section ref={whyRef} data-theme="light" className="relative -mt-1 overflow-visible bg-[linear-gradient(180deg,#f8f4ec_0%,#f5f1e8_52%,#f1ebe0_100%)] text-[#2f2a24] md:h-auto">
+      <motion.section ref={whyRef} data-theme="light" className="relative -mt-1 overflow-visible bg-[linear-gradient(180deg,#f8f4ec_0%,#f5f1e8_52%,#f1ebe0_100%)] text-[#2f2a24] md:h-auto" {...sectionReveal}>
         <div ref={whyMobilePinRef} className="relative h-[100svh] min-h-[100svh] md:hidden">
           <p className="pointer-events-none absolute left-1/2 top-[12%] z-[2] -translate-x-1/2 whitespace-nowrap text-[13px] tracking-[0.12em] text-[#6f624f]">WHY CHOOSE D.P. JEWELS</p>
           <div className="absolute inset-0 z-[1] flex items-center justify-center px-4">
@@ -1170,6 +1153,7 @@ export default function ShowroomExperience() {
             ))}
           </div>
         </div>
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-[linear-gradient(180deg,rgba(241,235,224,0)_0%,rgba(7,16,36,0.18)_100%)]" />
       </motion.section>
 
       <a href={WHATSAPP_LINK} target="_blank" rel="noreferrer" aria-label="WhatsApp Enquiry" className="floating-wa">
@@ -1178,4 +1162,7 @@ export default function ShowroomExperience() {
     </div>
   );
 }
+
+
+
 

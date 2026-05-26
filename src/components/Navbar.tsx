@@ -9,6 +9,8 @@ const LOGO_BY_THEME: Record<LogoTheme, string> = {
   white: logoWhite,
   black: logoBlack,
 };
+const EASE_PRIMARY: [number, number, number, number] = [0.16, 1, 0.3, 1];
+const EASE_SECONDARY: [number, number, number, number] = [0.215, 0.61, 0.355, 1];
 
 export default function Navbar() {
   const [logoTheme, setLogoTheme] = useState<LogoTheme>("black");
@@ -83,7 +85,7 @@ export default function Navbar() {
       ref={headerRef}
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.04 }}
+      transition={{ duration: 1.02, ease: EASE_PRIMARY, delay: 0.04 }}
       className="fixed right-5 top-[18px] z-[110] md:inset-x-0 md:top-[-4px]"
     >
       <nav className="flex h-[52px] w-auto items-center justify-end px-0 md:h-[104px] md:w-full md:justify-start md:px-5 lg:px-6">
@@ -97,7 +99,7 @@ export default function Navbar() {
               decoding="async"
               initial={{ opacity: 0.4 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 0.25, ease: "easeOut" }}
+              transition={{ duration: 0.56, ease: EASE_SECONDARY }}
               className="navbar-logo h-[42px] w-auto max-w-none object-contain md:h-[64px] lg:h-[72px]"
             />
           </a>
@@ -107,3 +109,4 @@ export default function Navbar() {
     </motion.header>
   );
 }
+

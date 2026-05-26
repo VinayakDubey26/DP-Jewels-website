@@ -225,8 +225,7 @@ a, button {
     background-color var(--hover-duration) var(--ease-luxury),
     border-color var(--hover-duration) var(--ease-luxury),
     transform var(--hover-duration) var(--ease-luxury),
-    box-shadow var(--hover-duration) var(--ease-luxury),
-    filter var(--hover-duration) var(--ease-luxury);
+    box-shadow var(--hover-duration) var(--ease-luxury);
 }
 
 .lux-interactive {
@@ -236,22 +235,14 @@ a, button {
     background-color var(--hover-duration) var(--ease-luxury),
     border-color var(--hover-duration) var(--ease-luxury),
     transform var(--hover-duration) var(--ease-luxury),
-    box-shadow var(--hover-duration) var(--ease-luxury),
-    filter var(--hover-duration) var(--ease-luxury);
-  will-change: transform, box-shadow, filter;
+    box-shadow var(--hover-duration) var(--ease-luxury);
+  will-change: transform, box-shadow;
 }
 
 .lux-interactive:hover,
 .lux-interactive:focus-visible {
   transform: translateY(-2px) scale(var(--hover-scale));
   box-shadow: var(--hover-glow);
-  filter: saturate(1.02) brightness(1.01);
-}
-
-a:not(.lux-interactive):hover,
-button:not(.lux-interactive):hover {
-  text-shadow: 0 0 8px rgba(185, 154, 98, 0.16);
-  transition: text-shadow var(--hover-duration) var(--ease-luxury);
 }
 
 .editorial-rule {

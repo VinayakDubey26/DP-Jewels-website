@@ -1,4 +1,6 @@
-﻿import { motion } from "framer-motion";
+import { motion } from "framer-motion";
+
+const EASE_PRIMARY: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 type Props = {
   title: string;
@@ -11,7 +13,7 @@ export default function SectionHeading({ title, subtitle }: Props) {
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.4 }}
-      transition={{ duration: 0.7, ease: "easeOut" }}
+      transition={{ duration: 0.9, ease: EASE_PRIMARY }}
       className="mx-auto mb-12 max-w-3xl text-center"
     >
       <h2 className="font-serif text-3xl tracking-[0.08em] md:text-5xl">{title}</h2>
@@ -19,4 +21,6 @@ export default function SectionHeading({ title, subtitle }: Props) {
     </motion.div>
   );
 }
+
+
 

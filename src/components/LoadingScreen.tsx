@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+const EASE_PRIMARY: [number, number, number, number] = [0.16, 1, 0.3, 1];
+const EASE_SECONDARY: [number, number, number, number] = [0.215, 0.61, 0.355, 1];
 
 export default function LoadingScreen({ done }: { done: boolean }) {
   const [isMobileView, setIsMobileView] = useState(false);
@@ -16,7 +18,7 @@ export default function LoadingScreen({ done }: { done: boolean }) {
     <motion.div
       initial={{ opacity: 1 }}
       animate={{ opacity: done ? 0 : 1 }}
-      transition={{ duration: isMobileView ? 0.62 : 0.8, ease: "easeInOut" }}
+      transition={{ duration: isMobileView ? 0.62 : 0.68, ease: EASE_SECONDARY }}
       className={`fixed inset-0 z-[100] flex translate-z-0 items-center justify-center bg-white [will-change:opacity,transform] ${done ? "pointer-events-none" : ""}`}
     >
       <motion.img
@@ -25,8 +27,9 @@ export default function LoadingScreen({ done }: { done: boolean }) {
         className="h-auto w-[min(600px,86vw)] translate-z-0 object-contain [will-change:opacity,transform]"
         initial={{ opacity: 0, scale: isMobileView ? 0.985 : 0.96 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: isMobileView ? 0.72 : 0.9, ease: "easeOut" }}
+        transition={{ duration: isMobileView ? 0.66 : 0.7, ease: EASE_PRIMARY }}
       />
     </motion.div>
   );
 }
+
