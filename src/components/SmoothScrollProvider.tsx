@@ -54,14 +54,15 @@ const createLenis = () => {
   gsap.registerPlugin(ScrollTrigger);
   const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (prefersReduced) return null;
+  const isMobile = window.matchMedia("(max-width: 768px)").matches;
 
   sharedLenis = new Lenis({
-    duration: 1.08,
+    duration: isMobile ? 0.72 : 1.02,
     easing: (t: number) => 1 - Math.pow(1 - t, 3),
     smoothWheel: true,
-    syncTouch: false,
+    syncTouch: !isMobile,
     touchMultiplier: 1,
-    wheelMultiplier: 0.92,
+    wheelMultiplier: 1,
   });
 
   sharedLenis.on("scroll", ScrollTrigger.update);

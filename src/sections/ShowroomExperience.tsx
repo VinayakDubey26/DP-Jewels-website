@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import bgImage from "../assets/bg.jpg";
+import mobileHeroImage from "../assets/mobile.png";
 import diamondRound from "../assets/diamonds/diamond_round.webp";
 import diamondOval from "../assets/diamonds/diamond_oval.webp";
 import diamondPear from "../assets/diamonds/diamond_pear.webp";
@@ -18,6 +19,7 @@ import indiaMapClean from "../assets/india_map_clean_champagne.svg";
 import indiaMapCleanRaw from "../assets/india_map_clean_champagne.svg?raw";
 import indiaExportStory from "../assets/dpj_india_export_story.svg";
 import bdbImage from "../assets/images/bdb.png";
+import bdbMobileImage from "../assets/bdb_mobile.png";
 import giaLogo from "../assets/certifications/gia.svg";
 import igiLogo from "../assets/certifications/igi.svg";
 import gjepcLogo from "../assets/certifications/gjepc.svg";
@@ -94,28 +96,23 @@ const certifications = [
 const whyChoosePoints = [
   {
     num: "01",
-    title: "25+ Years of Industry Trust",
-    desc: "Decades of dependable relationships built across buyers, brokers, and supply partners.",
+    title: "Built on Relationships",
+    desc: "Long-standing partnerships across the diamond trade.",
   },
   {
     num: "02",
-    title: "Sourced To Your Exact Requirement",
-    desc: "From size and shape to quality benchmarks, sourcing is aligned to your exact ask.",
+    title: "Trusted for Results",
+    desc: "Transparent execution and dependable sourcing.",
   },
   {
     num: "03",
-    title: "Relationships Before Transactions",
-    desc: "Long-term trust guides every deal, every recommendation, and every follow-through.",
+    title: "Global Reach",
+    desc: "Serving buyers across domestic and international markets.",
   },
   {
     num: "04",
-    title: "Always Within Reach",
-    desc: "Responsive support, steady communication, and dependable availability when timing matters.",
-  },
-  {
-    num: "",
-    title: "Built on Relationships.\nTrusted for Results.",
-    desc: "",
+    title: "Precision Sourcing",
+    desc: "Selected through trusted industry networks.",
   },
 ];
 
@@ -134,27 +131,27 @@ const exportStoryScenes = [
   },
   {
     title: "Dubai",
-    body: "A key regional corridor for refined diamond trade across the Middle East.",
+    body: "Reliable sourcing support for Middle East diamond demand.",
   },
   {
     title: "USA",
-    body: "Supporting international buyers with transparent communication and consistent execution.",
+    body: "Consistent execution for U.S. diamond buyers.",
   },
   {
     title: "London",
-    body: "Serving established jewellery markets with disciplined sourcing and export reliability.",
+    body: "Disciplined sourcing for London jewellery markets.",
   },
   {
     title: "Hong Kong",
-    body: "Reaching major Asian trading corridors through dependable export execution and market familiarity.",
+    body: "Dependable supply for Hong Kong trading corridors.",
   },
   {
     title: "Singapore",
-    body: "Connecting to Southeast Asia through precise coordination and trusted buyer relationships.",
+    body: "Precise coordination for Southeast Asian buyers.",
   },
   {
     title: "Canada",
-    body: "Extending Indian diamond expertise into mature North American markets.",
+    body: "Trusted sourcing for Canadian diamond markets.",
   },
 ];
 
@@ -164,11 +161,11 @@ const exportDesktopLayout = {
   nodes: {
     mumbai: { x: 280, y: 605, labelX: 320, labelY: 647, label: "Mumbai" },
     dubai: { x: 20, y: 525, labelX: 4, labelY: 517, label: "Dubai", anchor: "end" },
-    london: { x: -122, y: 198, labelX: -138, labelY: 190, label: "London", anchor: "end" },
+    london: { x: -122, y: 198, labelX: -102, labelY: 190, label: "London", anchor: "start" },
     singapore: { x: 792, y: 726, labelX: 806, labelY: 718, label: "Singapore", anchor: "start" },
-    hongKong: { x: 888, y: 506, labelX: 904, labelY: 500, label: "Hong Kong", anchor: "start" },
+    hongKong: { x: 890, y: 506, labelX: 890, labelY: 556, label: "Hong Kong", anchor: "middle" },
     canada: { x: -188, y: 330, labelX: -172, labelY: 322, label: "Canada", anchor: "start" },
-    usa: { x: -186, y: 760, labelX: -202, labelY: 752, label: "USA", anchor: "end" },
+    usa: { x: -186, y: 760, labelX: -170, labelY: 792, label: "USA", anchor: "start" },
   },
   internalNodes: [
     { key: "northHub", x: 356, y: 360, tier: "major" },
@@ -187,24 +184,24 @@ const exportDesktopLayout = {
     { key: "south-border", path: "M356 736 C370 776 382 814 392 850" },
   ],
   routes: [
-    { key: "dubai", scene: 3, type: "primary", path: "M280 605 C208 588 116 552 20 525" },
+    { key: "canada", scene: 3, type: "secondary", path: "M280 605 C104 462 -56 372 -188 330" },
     { key: "usa", scene: 4, type: "secondary", path: "M280 605 C96 672 -52 736 -186 760" },
-    { key: "london", scene: 5, type: "secondary", path: "M280 605 C188 476 42 286 -122 198" },
+    { key: "dubai", scene: 5, type: "primary", path: "M280 605 C208 588 116 552 20 525" },
     { key: "hongKong", scene: 6, type: "primary", path: "M280 605 C458 588 676 562 888 506" },
     { key: "singapore", scene: 7, type: "primary", path: "M280 605 C444 620 634 666 792 726" },
-    { key: "canada", scene: 8, type: "secondary", path: "M280 605 C104 462 -56 372 -188 330" },
+    { key: "london", scene: 8, type: "secondary", path: "M280 605 C188 476 42 286 -122 198" },
   ],
 } as const;
 
 const exportMobileLayout = {
   nodes: {
-    mumbai: { x: 282, y: 632, labelX: 338, labelY: 700, label: "Mumbai" },
-    dubai: { x: 94, y: 606, labelX: 90, labelY: 628, label: "Dubai", anchor: "start" },
-    london: { x: 84, y: 266, labelX: 84, labelY: 236, label: "London", anchor: "start" },
-    singapore: { x: 674, y: 744, labelX: 688, labelY: 786, label: "Singapore", anchor: "start" },
-    hongKong: { x: 758, y: 566, labelX: 734, labelY: 598, label: "Hong Kong", anchor: "start" },
-    canada: { x: 90, y: 426, labelX: 78, labelY: 402, label: "Canada", anchor: "start" },
-    usa: { x: 96, y: 786, labelX: 94, labelY: 824, label: "USA", anchor: "start" },
+    mumbai: { x: 282, y: 632, labelX: 338, labelY: 694, label: "Mumbai" },
+    dubai: { x: 220, y: 644, labelX: 198, labelY: 676, label: "Dubai", anchor: "end" },
+    london: { x: 306, y: 372, labelX: 338, labelY: 338, label: "London", anchor: "middle" },
+    singapore: { x: 560, y: 684, labelX: 586, labelY: 706, label: "Singapore", anchor: "start" },
+    hongKong: { x: 588, y: 512, labelX: 588, labelY: 566, label: "Hong Kong", anchor: "middle" },
+    canada: { x: 210, y: 488, labelX: 198, labelY: 474, label: "Canada", anchor: "end" },
+    usa: { x: 306, y: 744, labelX: 306, labelY: 796, label: "USA", anchor: "middle" },
   },
   internalNodes: [
     { key: "northHub", x: 370, y: 352, tier: "major" },
@@ -223,27 +220,14 @@ const exportMobileLayout = {
     { key: "south-border", path: "M356 736 C370 776 382 814 392 850" },
   ],
   routes: [
-    { key: "dubai", scene: 3, type: "primary", path: "M282 632 C236 624 168 616 94 606" },
-    { key: "usa", scene: 4, type: "secondary", path: "M282 632 C206 724 160 772 96 786" },
-    { key: "london", scene: 5, type: "secondary", path: "M282 632 C232 508 172 346 84 266" },
-    { key: "hongKong", scene: 6, type: "primary", path: "M282 632 C420 626 574 604 758 566" },
-    { key: "singapore", scene: 7, type: "primary", path: "M282 632 C392 676 518 726 674 744" },
-    { key: "canada", scene: 8, type: "secondary", path: "M282 632 C206 536 154 456 90 426" },
+    { key: "canada", scene: 3, type: "secondary", path: "M282 632 C256 584 230 534 210 488" },
+    { key: "usa", scene: 4, type: "secondary", path: "M282 632 C286 676 296 712 306 744" },
+    { key: "dubai", scene: 5, type: "primary", path: "M282 632 C262 640 240 648 220 644" },
+    { key: "hongKong", scene: 6, type: "primary", path: "M282 632 C358 618 460 576 588 512" },
+    { key: "singapore", scene: 7, type: "primary", path: "M282 632 C346 662 428 684 560 684" },
+    { key: "london", scene: 8, type: "secondary", path: "M282 632 C288 552 300 456 306 372" },
   ],
 } as const;
-
-const heroGlitters = [
-  { left: "12%", top: "22%", size: 2, duration: 8.2, delay: 0.2, driftX: 6, driftY: -10, maxOpacity: 0.26 },
-  { left: "19%", top: "36%", size: 1.5, duration: 9.1, delay: 1.1, driftX: -5, driftY: -8, maxOpacity: 0.2 },
-  { left: "28%", top: "18%", size: 1.5, duration: 10.4, delay: 0.6, driftX: 4, driftY: -7, maxOpacity: 0.18 },
-  { left: "34%", top: "30%", size: 2, duration: 9.8, delay: 1.8, driftX: -6, driftY: -9, maxOpacity: 0.24 },
-  { left: "44%", top: "16%", size: 1.5, duration: 11.1, delay: 0.4, driftX: 5, driftY: -8, maxOpacity: 0.18 },
-  { left: "52%", top: "28%", size: 2, duration: 8.7, delay: 2.1, driftX: -4, driftY: -10, maxOpacity: 0.22 },
-  { left: "62%", top: "20%", size: 1.5, duration: 10.8, delay: 1.5, driftX: 6, driftY: -7, maxOpacity: 0.16 },
-  { left: "72%", top: "34%", size: 2, duration: 9.4, delay: 0.9, driftX: -5, driftY: -9, maxOpacity: 0.2 },
-  { left: "81%", top: "24%", size: 1.5, duration: 11.6, delay: 2.4, driftX: 4, driftY: -8, maxOpacity: 0.16 },
-  { left: "88%", top: "38%", size: 2, duration: 8.9, delay: 1.2, driftX: -4, driftY: -10, maxOpacity: 0.22 },
-] as const;
 
 function getCircularOffset(index: number, activeIndex: number, total: number) {
   let diff = index - activeIndex;
@@ -252,11 +236,20 @@ function getCircularOffset(index: number, activeIndex: number, total: number) {
   return diff;
 }
 
+function getDiamondWhatsAppLink(shapeName: string) {
+  const shapeLabel = shapeName === "Heart" ? "Heart Shape" : shapeName;
+  const message = `Hello DP Jewels,\n\nI am interested in ${shapeLabel} diamonds.\n\nPlease share available specifications and details.`;
+  return `https://wa.me/918356810826?text=${encodeURIComponent(message)}`;
+}
+
 export default function ShowroomExperience() {
   const [activeDiamondIndex, setActiveDiamondIndex] = useState(0);
   const [activeExportScene, setActiveExportScene] = useState(0);
   const [isMobileView, setIsMobileView] = useState(false);
   const [dotsCanRun, setDotsCanRun] = useState(false);
+  const [loadedDiamondImages, setLoadedDiamondImages] = useState<Record<string, boolean>>({});
+  const [showFinalNetworkStatement, setShowFinalNetworkStatement] = useState(false);
+  const [hideExportLabel, setHideExportLabel] = useState(false);
   const exportSceneRef = useRef(0);
   const externalDotAnimRefs = useRef<Array<SVGAnimationElement | null>>([]);
   const internalDotAnimRefs = useRef<Array<SVGAnimationElement | null>>([]);
@@ -270,23 +263,16 @@ export default function ShowroomExperience() {
   const whyRef = useRef<HTMLElement>(null);
   const whyPinRef = useRef<HTMLDivElement>(null);
   const whyProofRefs = useRef<Array<HTMLElement | null>>([]);
-  const whyMobilePinRef = useRef<HTMLDivElement>(null);
-  const whyMobileProofRefs = useRef<Array<HTMLElement | null>>([]);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
   const heroY = useTransform(scrollYProgress, [0, 1], [0, -26]);
   const heroScale = useTransform(scrollYProgress, [0, 1], [1.02, 1.06]);
-  const heroOverlayOpacity = useTransform(scrollYProgress, [0, 1], [0.92, 1]);
-  const { scrollYProgress: aboutProgress } = useScroll({ target: aboutRef, offset: ["start end", "end start"] });
   const { scrollYProgress: diamondsProgress } = useScroll({ target: diamondsRef, offset: ["start end", "end start"] });
   const { scrollYProgress: presenceProgress } = useScroll({ target: presenceRef, offset: ["start start", "end end"] });
   const { scrollYProgress: bdbProgress } = useScroll({ target: bdbRef, offset: ["start end", "end start"] });
   const { scrollYProgress: certProgress } = useScroll({ target: certRef, offset: ["start end", "end start"] });
-  const aboutDrift = useTransform(aboutProgress, [0, 1], [0, -10]);
   const diamondsDrift = useTransform(diamondsProgress, [0, 1], [12, -12]);
   const bdbDrift = useTransform(bdbProgress, [0, 1], [9, -9]);
   const certDrift = useTransform(certProgress, [0, 1], [8, -8]);
-  const bdbImageParallaxY = useTransform(bdbProgress, [0, 1], [10, -10]);
-  const bdbImageParallaxScale = useTransform(bdbProgress, [0, 1], [1.04, 1.02]);
   const exportLayout = isMobileView ? exportMobileLayout : exportDesktopLayout;
   const exportNodes = exportLayout.nodes;
   const exportInternalNodes = exportLayout.internalNodes;
@@ -311,52 +297,68 @@ export default function ShowroomExperience() {
   const exportCameraX = useSpring(exportCameraXRaw, { stiffness: 42, damping: 30, mass: 0.82 });
   const exportCameraY = useSpring(exportCameraYRaw, { stiffness: 42, damping: 30, mass: 0.82 });
   const exportCameraScale = useSpring(exportCameraScaleRaw, { stiffness: 40, damping: 32, mass: 0.86 });
-  const routeDubaiProgress = useSpring(useTransform(presenceProgress, isMobileView ? [0.2, 0.29] : [0.24, 0.32], [0, 1]), { stiffness: 54, damping: 24, mass: 0.6 });
+  const routeCanadaProgress = useSpring(useTransform(presenceProgress, isMobileView ? [0.2, 0.29] : [0.24, 0.32], [0, 1]), { stiffness: 54, damping: 24, mass: 0.6 });
   const routeUsaProgress = useSpring(useTransform(presenceProgress, isMobileView ? [0.5, 0.59] : [0.34, 0.42], [0, 1]), { stiffness: 54, damping: 24, mass: 0.6 });
-  const routeLondonProgress = useSpring(useTransform(presenceProgress, isMobileView ? [0.26, 0.35] : [0.44, 0.52], [0, 1]), { stiffness: 54, damping: 24, mass: 0.6 });
+  const routeDubaiProgress = useSpring(useTransform(presenceProgress, isMobileView ? [0.26, 0.35] : [0.44, 0.52], [0, 1]), { stiffness: 54, damping: 24, mass: 0.6 });
   const routeHongKongProgress = useSpring(useTransform(presenceProgress, isMobileView ? [0.38, 0.47] : [0.54, 0.62], [0, 1]), { stiffness: 54, damping: 24, mass: 0.6 });
   const routeSingaporeProgress = useSpring(useTransform(presenceProgress, isMobileView ? [0.32, 0.41] : [0.64, 0.72], [0, 1]), { stiffness: 54, damping: 24, mass: 0.6 });
-  const routeCanadaProgress = useSpring(useTransform(presenceProgress, isMobileView ? [0.44, 0.53] : [0.74, 0.82], [0, 1]), { stiffness: 54, damping: 24, mass: 0.6 });
-  const routeDubaiOpacity = useTransform(presenceProgress, isMobileView ? [0.19, 0.24] : [0.23, 0.28], [0, 0.9]);
+  const routeLondonProgress = useSpring(useTransform(presenceProgress, isMobileView ? [0.44, 0.53] : [0.74, 0.82], [0, 1]), { stiffness: 54, damping: 24, mass: 0.6 });
+  const routeCanadaOpacity = useTransform(presenceProgress, isMobileView ? [0.19, 0.24] : [0.23, 0.28], [0, 0.9]);
   const routeUsaOpacity = useTransform(presenceProgress, isMobileView ? [0.49, 0.54] : [0.33, 0.38], [0, 0.8]);
-  const routeLondonOpacity = useTransform(presenceProgress, isMobileView ? [0.25, 0.3] : [0.43, 0.48], [0, 0.82]);
+  const routeDubaiOpacity = useTransform(presenceProgress, isMobileView ? [0.25, 0.3] : [0.43, 0.48], [0, 0.82]);
   const routeHongKongOpacity = useTransform(presenceProgress, isMobileView ? [0.37, 0.42] : [0.53, 0.58], [0, 0.9]);
   const routeSingaporeOpacity = useTransform(presenceProgress, isMobileView ? [0.31, 0.36] : [0.63, 0.68], [0, 0.9]);
-  const routeCanadaOpacity = useTransform(presenceProgress, isMobileView ? [0.43, 0.48] : [0.73, 0.78], [0, 0.8]);
+  const routeLondonOpacity = useTransform(presenceProgress, isMobileView ? [0.43, 0.48] : [0.73, 0.78], [0, 0.8]);
   const routeMotion = {
-    dubai: { progress: routeDubaiProgress, opacity: routeDubaiOpacity },
-    london: { progress: routeLondonProgress, opacity: routeLondonOpacity },
+    canada: { progress: routeCanadaProgress, opacity: routeCanadaOpacity },
     singapore: { progress: routeSingaporeProgress, opacity: routeSingaporeOpacity },
     hongKong: { progress: routeHongKongProgress, opacity: routeHongKongOpacity },
-    canada: { progress: routeCanadaProgress, opacity: routeCanadaOpacity },
+    dubai: { progress: routeDubaiProgress, opacity: routeDubaiOpacity },
     usa: { progress: routeUsaProgress, opacity: routeUsaOpacity },
+    london: { progress: routeLondonProgress, opacity: routeLondonOpacity },
   };
-  const effectiveExportScene = isMobileView ? exportStoryScenes.length - 1 : activeExportScene;
-  const activeScene = exportStoryScenes[effectiveExportScene];
-  const mobilePresenceScene = {
-    title: "Global Presence",
-    body: "Connecting India's diamond industry to global markets.",
+  const effectiveExportScene = activeExportScene;
+  const panelCountries = [
+    { key: "canada", label: "CANADA" },
+    { key: "usa", label: "USA" },
+    { key: "dubai", label: "DUBAI" },
+    { key: "hongKong", label: "HONG KONG" },
+    { key: "singapore", label: "SINGAPORE" },
+    { key: "london", label: "LONDON" },
+  ] as const;
+  const panelDisplayLabel: Record<(typeof panelCountries)[number]["key"], string> = {
+    canada: "Canada",
+    usa: "USA",
+    dubai: "Dubai",
+    hongKong: "Hong Kong",
+    singapore: "Singapore",
+    london: "London",
   };
+  const panelSequenceEnabled = effectiveExportScene >= 3;
+  const revealedPanelCountries = panelSequenceEnabled
+    ? panelCountries.slice(0, Math.min(panelCountries.length, Math.max(0, effectiveExportScene - 2)))
+    : [];
 
   useMotionValueEvent(presenceProgress, "change", (latest) => {
-    if (isMobileView) return;
-    const nextScene = Math.max(0, Math.min(8, Math.floor(latest * 10)));
+    const thresholds = isMobileView
+      ? { canada: 0.2, usa: 0.5, dubai: 0.26, hongKong: 0.38, singapore: 0.32, london: 0.4 }
+      : { canada: 0.24, usa: 0.34, dubai: 0.44, hongKong: 0.54, singapore: 0.64, london: 0.66 };
+    const nextScene =
+      latest >= thresholds.london ? 8 :
+        latest >= thresholds.singapore ? 7 :
+          latest >= thresholds.hongKong ? 6 :
+            latest >= thresholds.dubai ? 5 :
+              latest >= thresholds.usa ? 4 :
+                latest >= thresholds.canada ? 3 : 0;
     if (nextScene === exportSceneRef.current) return;
     exportSceneRef.current = nextScene;
     setActiveExportScene(nextScene);
   });
   useMotionValueEvent(presenceProgress, "change", (latest) => {
-    const threshold = isMobileView ? 0.9 : 0.86;
     const sequenceReady = exportSceneRef.current >= 8;
-    const shouldRun = latest >= threshold && sequenceReady;
+    const shouldRun = sequenceReady;
     setDotsCanRun((prev) => (prev === shouldRun ? prev : shouldRun));
   });
-  useEffect(() => {
-    if (isMobileView) {
-      setActiveExportScene(exportStoryScenes.length - 1);
-      exportSceneRef.current = exportStoryScenes.length - 1;
-    }
-  }, [isMobileView]);
   useEffect(() => {
     dotStartTimersRef.current.forEach((timerId) => window.clearTimeout(timerId));
     dotStartTimersRef.current = [];
@@ -404,29 +406,33 @@ export default function ShowroomExperience() {
     if (!whyRef.current) {
       return;
     }
+    if (window.matchMedia("(max-width: 768px)").matches) {
+      return;
+    }
 
     const ctx = gsap.context(() => {
-      const pinTarget = isMobileView ? whyMobilePinRef.current : whyPinRef.current;
-      const proofPool = isMobileView ? whyMobileProofRefs.current : whyProofRefs.current;
+      const pinTarget = whyPinRef.current;
+      const proofPool = whyProofRefs.current;
       if (!pinTarget) return;
       const proofLayers = proofPool.filter((node): node is HTMLElement => Boolean(node));
       if (!proofLayers.length) return;
 
       gsap.set(proofLayers, {
         opacity: 0,
-        scale: 1.02,
+        y: 26,
+        scale: 1,
         transformOrigin: "50% 50%",
         willChange: "transform,opacity",
         pointerEvents: "none",
       });
-      gsap.set(proofLayers[0], { opacity: 1, scale: 1 });
+      gsap.set(proofLayers[0], { opacity: 1, y: 0, scale: 1 });
 
       const tl = gsap.timeline({
         scrollTrigger: {
-          trigger: isMobileView ? pinTarget : whyRef.current,
+          trigger: whyRef.current,
           start: "top top",
-          end: isMobileView ? "+=760" : "+=560",
-          scrub: isMobileView ? 0.35 : 0.8,
+          end: "+=860",
+          scrub: 1.2,
           pin: pinTarget,
           pinSpacing: true,
           anticipatePin: 1,
@@ -434,23 +440,20 @@ export default function ShowroomExperience() {
         },
       });
 
-      const holdDuration = isMobileView ? 0.52 : 0.8;
-      const swapDuration = isMobileView ? 0.22 : 0.35;
-      const finalHoldDuration = isMobileView ? 0.9 : 0.8;
+      const holdDuration = 0.94;
+      const swapDuration = 0.8;
+      const finalHoldDuration = 0.94;
 
-      tl.to(proofLayers[0], { opacity: 1, scale: 1, duration: holdDuration })
-        .to(proofLayers[0], { opacity: 0, scale: 0.98, duration: swapDuration })
-        .to(proofLayers[1], { opacity: 1, scale: 1, duration: swapDuration }, "<")
-        .to(proofLayers[1], { opacity: 1, scale: 1, duration: holdDuration })
-        .to(proofLayers[1], { opacity: 0, scale: 0.98, duration: swapDuration })
-        .to(proofLayers[2], { opacity: 1, scale: 1, duration: swapDuration }, "<")
-        .to(proofLayers[2], { opacity: 1, scale: 1, duration: holdDuration })
-        .to(proofLayers[2], { opacity: 0, scale: 0.98, duration: swapDuration })
-        .to(proofLayers[3], { opacity: 1, scale: 1, duration: swapDuration }, "<")
-        .to(proofLayers[3], { opacity: 1, scale: 1, duration: holdDuration })
-        .to(proofLayers[3], { opacity: 0, scale: 0.98, duration: swapDuration })
-        .to(proofLayers[4], { opacity: 1, scale: 1, duration: swapDuration }, "<")
-        .to(proofLayers[4], { opacity: 1, scale: 1, duration: finalHoldDuration });
+      tl.to(proofLayers[0], { opacity: 1, y: 0, duration: holdDuration })
+        .to(proofLayers[0], { opacity: 0, y: -30, duration: swapDuration })
+        .to(proofLayers[1], { opacity: 1, y: 0, duration: swapDuration }, "<")
+        .to(proofLayers[1], { opacity: 1, y: 0, duration: holdDuration })
+        .to(proofLayers[1], { opacity: 0, y: -30, duration: swapDuration })
+        .to(proofLayers[2], { opacity: 1, y: 0, duration: swapDuration }, "<")
+        .to(proofLayers[2], { opacity: 1, y: 0, duration: holdDuration })
+        .to(proofLayers[2], { opacity: 0, y: -30, duration: swapDuration })
+        .to(proofLayers[3], { opacity: 1, y: 0, duration: swapDuration }, "<")
+        .to(proofLayers[3], { opacity: 1, y: 0, duration: finalHoldDuration });
 
       ScrollTrigger.refresh();
     }, whyRef);
@@ -458,16 +461,47 @@ export default function ShowroomExperience() {
     const onLoadRefresh = () => ScrollTrigger.refresh();
     window.addEventListener("load", onLoadRefresh);
 
-    return () => {
-      ctx.revert();
-      window.removeEventListener("load", onLoadRefresh);
-      ScrollTrigger.getAll().forEach((trigger) => {
-        if (trigger.vars.trigger === whyRef.current || trigger.vars.pin === whyPinRef.current || trigger.vars.pin === whyMobilePinRef.current) {
+      return () => {
+        ctx.revert();
+        window.removeEventListener("load", onLoadRefresh);
+        ScrollTrigger.getAll().forEach((trigger) => {
+        if (trigger.vars.trigger === whyRef.current || trigger.vars.pin === whyPinRef.current) {
           trigger.kill();
         }
       });
     };
-  }, [isMobileView]);
+  }, []);
+  useEffect(() => {
+    const resetState = () => {
+      setShowFinalNetworkStatement(false);
+      setHideExportLabel(false);
+    };
+
+    if (!panelSequenceEnabled) {
+      resetState();
+      return;
+    }
+
+    if (effectiveExportScene <= 7) {
+      resetState();
+      return;
+    }
+
+    // Scene 8 (London): extended hold, then clear country + label, then show final statement.
+    setShowFinalNetworkStatement(false);
+    setHideExportLabel(false);
+    const timers: number[] = [];
+    timers.push(window.setTimeout(() => {
+      setHideExportLabel(true);
+    }, 2800));
+    timers.push(window.setTimeout(() => {
+      setShowFinalNetworkStatement(true);
+    }, 3420));
+
+    return () => {
+      timers.forEach((id) => window.clearTimeout(id));
+    };
+  }, [panelSequenceEnabled, effectiveExportScene]);
   const heroContentStagger = {
     hidden: {},
     show: {
@@ -484,6 +518,55 @@ export default function ShowroomExperience() {
   const activeDiamond = diamondItems[activeDiamondIndex];
   const goPrevDiamond = () => setActiveDiamondIndex((prev) => (prev - 1 + diamondItems.length) % diamondItems.length);
   const goNextDiamond = () => setActiveDiamondIndex((prev) => (prev + 1) % diamondItems.length);
+  const markDiamondLoaded = (src: string) => {
+    setLoadedDiamondImages((prev) => (prev[src] ? prev : { ...prev, [src]: true }));
+  };
+  const isDiamondLoaded = (src: string) => Boolean(loadedDiamondImages[src]);
+
+  useEffect(() => {
+    const preloadImage = (src: string) => {
+      const img = new Image();
+      img.onload = () => markDiamondLoaded(src);
+      img.onerror = () => {
+        // Avoid retry loops; keep state stable if a preload fails.
+      };
+      img.src = src;
+    };
+
+    const total = diamondItems.length;
+    const prevIndex = (activeDiamondIndex - 1 + total) % total;
+    const nextIndex = (activeDiamondIndex + 1) % total;
+    const prioritySources = [diamondItems[activeDiamondIndex].image, diamondItems[prevIndex].image, diamondItems[nextIndex].image];
+    const prioritySet = new Set(prioritySources);
+
+    prioritySources.forEach(preloadImage);
+
+    const remainingSources = diamondItems.map((item) => item.image).filter((src) => !prioritySet.has(src));
+    const idleRunner = () => {
+      remainingSources.forEach(preloadImage);
+    };
+
+    const idleWindow = window as Window & {
+      requestIdleCallback?: (callback: IdleRequestCallback) => number;
+      cancelIdleCallback?: (handle: number) => void;
+    };
+
+    let idleId: number | null = null;
+    let timeoutId: number | null = null;
+
+    if (idleWindow.requestIdleCallback) {
+      idleId = idleWindow.requestIdleCallback(() => idleRunner());
+    } else {
+      timeoutId = window.setTimeout(idleRunner, 240);
+    }
+
+    return () => {
+      if (idleId !== null && idleWindow.cancelIdleCallback) idleWindow.cancelIdleCallback(idleId);
+      if (timeoutId !== null) window.clearTimeout(timeoutId);
+    };
+    // Run once on mount for section lifecycle preloading.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="atmospheric-shell text-[#111827]">
@@ -491,95 +574,86 @@ export default function ShowroomExperience() {
         ref={heroRef}
         id="home"
         data-theme="dark"
-        className="relative flex h-[100svh] h-[100dvh] h-screen min-h-[100svh] min-h-[100vh] items-center overflow-hidden bg-[#040816]"
+        className="hero relative flex h-[100svh] h-[100dvh] h-screen min-h-[100svh] min-h-[100vh] items-center overflow-hidden bg-[#040816]"
       >
-        <motion.img src={bgImage} alt="Premium jewellery background" className="absolute inset-0 h-full w-full object-cover object-[58%_44%] saturate-[0.88] contrast-[1.08] brightness-[0.7] md:object-center" style={{ y: heroY, scale: heroScale }} loading="eager" fetchPriority="high" decoding="async" />
-        <motion.div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(4,8,22,0.44)_0%,rgba(4,8,22,0.62)_38%,rgba(4,8,22,0.8)_100%)]" style={{ opacity: heroOverlayOpacity }} animate={{ opacity: [0.9, 1, 0.92] }} transition={{ duration: 12, repeat: Number.POSITIVE_INFINITY, ease: EASE_SECONDARY }} />
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_52%_46%,rgba(112,132,168,0.08)_0%,rgba(4,8,22,0)_46%)]" />
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,rgba(0,0,0,0)_38%,rgba(0,0,0,0.26)_100%)]" />
-        <div className="pointer-events-none absolute inset-0">
-          {heroGlitters.map((glitter, idx) => (
-            <motion.span
-              key={`hero-glitter-${idx}`}
-              className="absolute rounded-full bg-white"
-              style={{
-                left: glitter.left,
-                top: glitter.top,
-                width: glitter.size,
-                height: glitter.size,
-                opacity: 0,
-              }}
-              animate={{
-                x: [0, glitter.driftX, 0],
-                y: [0, glitter.driftY, 0],
-                opacity: [0, glitter.maxOpacity, 0],
-              }}
-              transition={{
-                duration: glitter.duration,
-                repeat: Number.POSITIVE_INFINITY,
-                ease: EASE_SECONDARY,
-                delay: glitter.delay,
-              }}
-            />
-          ))}
-        </div>
-        <div className="relative mx-auto flex h-[100svh] h-[100dvh] h-screen min-h-[100svh] min-h-[100vh] w-[min(1220px,94%)] items-center py-0">
+        <motion.img
+          src={isMobileView ? mobileHeroImage : bgImage}
+          alt="Premium jewellery background"
+          className="absolute inset-0 h-full w-full object-cover object-center md:object-[62%_38%]"
+          style={isMobileView ? undefined : { y: heroY, scale: heroScale }}
+          loading="eager"
+          fetchPriority="high"
+          decoding="async"
+        />
+        {!isMobileView && <div className="pointer-events-none absolute bottom-[15%] right-[13%] h-[88px] w-[210px] rounded-[999px] bg-[rgba(0,0,0,0.22)] blur-[18px] md:bottom-[14%] md:right-[15%] md:h-[112px] md:w-[280px]" />}
+        <a
+          href="#diamonds"
+          aria-label="Scroll to Diamond Shapes section"
+          className="absolute right-[8%] top-[33%] z-[3] block h-[54%] w-[42%] rounded-[42%] md:right-[10%] md:top-[26%] md:h-[58%] md:w-[39%]"
+        />
+        <div className="relative mx-auto flex h-[100svh] h-[100dvh] h-screen min-h-[100svh] min-h-[100vh] w-[min(1220px,94%)] items-start py-[27svh] md:items-center md:py-0">
+          <motion.div variants={heroItem} className="absolute right-1 top-6 z-[5] md:right-0 md:top-10">
+            <a href="#diamonds" className="lux-hover-lift lux-interactive inline-flex rounded-sm border border-white/45 bg-white/10 px-3.5 py-1.5 text-[11px] font-medium tracking-[0.1em] text-white backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-[#f3e8d2] hover:bg-white/95 hover:text-[#111827] hover:shadow-[0_0_20px_rgba(243,232,210,0.28)] md:px-[1.28rem] md:py-[0.64rem] md:text-[13px]">EXPLORE DIAMONDS</a>
+          </motion.div>
           <motion.div variants={heroContentStagger} initial="hidden" animate="show" className="max-w-[700px] text-white">
-            <motion.h1 variants={heroItem} className="font-serif text-[2.85rem] leading-[1.02] md:text-[5rem]">Diamond Traders, Importers & Exporters</motion.h1>
-            <motion.p variants={heroItem} className="mt-6 max-w-[34rem] text-[1.12rem] leading-[1.78] text-[#e9edf5] md:mt-7 md:text-[1.22rem] md:font-medium">
-              Trusted sourcing from Bharat Diamond Bourse with 25+ years of precision, transparency, and global export focus.
-            </motion.p>
-            <motion.div variants={heroItem} className="mt-10">
-              <a href="#diamonds" className="lux-hover-lift lux-interactive inline-flex rounded-sm border border-white/45 bg-white/10 px-6 py-3 text-[15px] font-medium tracking-[0.1em] text-white backdrop-blur-sm transition-all duration-700 hover:border-white/70 hover:bg-white/95 hover:text-[#111827] hover:shadow-[0_14px_30px_rgba(0,0,0,0.24)]">EXPLORE DIAMONDS</a>
-            </motion.div>
+            <motion.h1 variants={heroItem} className="font-serif text-[2.85rem] leading-[1.02] md:text-[5rem]">
+              Diamond Traders,
+              <br />
+              Importers &
+              <br />
+              Exporters
+            </motion.h1>
           </motion.div>
         </div>
       </section>
 
-      <motion.section ref={aboutRef} id="about" data-theme="light" style={{ y: isMobileView ? 0 : aboutDrift }} className="relative -mt-3 bg-[#FAF7F2] py-[4.1rem] md:-mt-4 md:py-[5.4rem]" {...sectionReveal}>
+      <motion.section ref={aboutRef} id="about" data-theme="light" className="about-section relative -mt-2 bg-[#F7F4EE] py-[3.2rem] md:-mt-3 md:py-[3.4rem]" {...sectionReveal}>
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_14%,rgba(112,132,168,0.08)_0%,rgba(112,132,168,0)_36%)]" />
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_82%_88%,rgba(212,190,150,0.07)_0%,rgba(212,190,150,0)_32%)]" />
         <div className="pointer-events-none absolute left-0 top-[22%] hidden h-px w-[16%] bg-[linear-gradient(90deg,rgba(148,163,184,0.4),transparent)] md:block" />
-        <motion.div className="mx-auto grid w-full max-w-[1440px] gap-11 px-5 md:px-8 md:pl-20 lg:grid-cols-[1.08fr_0.92fr] lg:items-start lg:pl-24" variants={staggerContainer} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}>
-          <motion.article className="lg:pt-3" variants={staggerItem}>
-            <motion.p className="text-[13px] tracking-[0.2em] text-[#3f4b5d] md:text-[13px] md:tracking-[0.22em]" variants={staggerItem}>ABOUT D.P. JEWELS</motion.p>
-            <motion.h2 className="mt-4 max-w-[14ch] font-serif text-[2.65rem] leading-[1.04] md:text-[3.7rem]" variants={staggerItem}>Built on Trust, Since 1999</motion.h2>
-            <motion.p className="mt-5 max-w-[62ch] text-[1.08rem] leading-[1.84] text-[#2c3a4c] md:mt-6 md:text-[1.08rem] md:leading-[1.9] md:font-medium" variants={staggerItem}>
-              With 25+ years of experience, D.P. Jewels operates from Bharat Diamond Bourse, Mumbai, serving India and international buyers through transparent dealings, refined sourcing, and consistent export execution.
+        <motion.div
+          className="mx-auto w-full max-w-[1320px] px-5 text-center md:px-8"
+          variants={isMobileView ? undefined : staggerContainer}
+          initial={isMobileView ? { opacity: 0, y: 12 } : "hidden"}
+          whileInView={isMobileView ? { opacity: 1, y: 0 } : "show"}
+          viewport={{ once: true, amount: isMobileView ? 0.12 : 0.2 }}
+          transition={isMobileView ? { duration: 0.6, ease: SOFT_EASE } : undefined}
+        >
+          <motion.article className="mx-auto w-full max-w-[820px] lg:pt-2" variants={staggerItem}>
+            <motion.p className="text-[13px] tracking-[0.18em] text-[#3f4b5d]" variants={staggerItem}>ABOUT D.P. JEWELS</motion.p>
+            <motion.h2 className="mt-4 mx-auto max-w-[14ch] font-serif text-[2.4rem] leading-[1.04] md:text-[3.3rem]" variants={staggerItem}>Built on trust, since 1999.</motion.h2>
+            <motion.p className="mt-6 mx-auto max-w-[62ch] text-[1.08rem] leading-[1.9] text-[#2c3a4c] md:mt-7 md:text-[1.08rem] md:leading-[1.95] md:font-medium" variants={staggerItem}>
+              Operating from Bharat Diamond Bourse, Mumbai.
+              <br />
+              25+ years serving domestic and international diamond markets.
             </motion.p>
           </motion.article>
-          <motion.div className="space-y-8 md:space-y-9 lg:pt-5" variants={staggerContainer}>
+          <motion.div className="mt-8 grid grid-cols-2 gap-4 md:mt-10 md:grid-cols-4 md:gap-5 lg:gap-6" variants={staggerContainer}>
             {aboutMetrics.map((metric, idx) => (
               <motion.article
                 key={metric.label}
-                className={`${metric.offsetClass} border-t border-[#cfd8e4] pt-5 shadow-[0_8px_24px_rgba(148,163,184,0.06)]`}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                className={`p-3 text-center md:flex md:min-h-[132px] md:flex-col md:justify-between md:p-4 ${idx > 0 ? "md:border-l md:border-[#d4dce8]/72" : ""}`}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
                 viewport={{ once: true, amount: 0.4 }}
-                transition={{ duration: 0.85, delay: idx * 0.08, ease: SOFT_EASE }}
+                transition={{ duration: 0.58, delay: idx * 0.05, ease: SOFT_EASE }}
               >
-                <p className="font-serif text-[2.65rem] leading-[1] text-[#0f1726] md:text-[3.45rem]">{metric.value}</p>
-                <p className="mt-3 text-[13px] font-medium tracking-[0.14em] text-[#3f4b5d]">{metric.label}</p>
+                <p className="font-serif text-[2rem] leading-[1] text-[#0f1726] md:text-[2.52rem]">{metric.value}</p>
+                <p className="mt-2 text-[11px] font-medium tracking-[0.1em] text-[#3f4b5d] md:mt-4 md:text-[12px] md:tracking-[0.12em]">{metric.label}</p>
               </motion.article>
             ))}
           </motion.div>
         </motion.div>
       </motion.section>
 
-      <motion.section ref={diamondsRef} id="diamonds" data-theme="dark" style={{ y: isMobileView ? 0 : diamondsDrift }} className="relative -mt-2 min-h-[88svh] overflow-hidden bg-[linear-gradient(180deg,#061024_0%,#040816_48%,#030611_100%)] py-[2.4rem] md:-mt-3 md:min-h-[90vh] md:py-[2.8rem]" {...sectionReveal}>
+      <motion.section ref={diamondsRef} id="diamonds" data-theme="dark" style={{ y: isMobileView ? 0 : diamondsDrift }} className="relative -mt-2 min-h-[100svh] overflow-hidden bg-[linear-gradient(180deg,#061024_0%,#040816_48%,#030611_100%)] py-[1.9rem] md:-mt-3 md:min-h-[100vh] md:py-[2.2rem]" {...sectionReveal}>
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_56%,rgba(224,233,245,0.09)_0%,rgba(224,233,245,0)_44%)]" />
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_14%_28%,rgba(206,218,238,0.07)_0%,rgba(206,218,238,0)_30%)]" />
         <div className="pointer-events-none absolute inset-0 hidden opacity-[0.1] [background-image:radial-gradient(rgba(255,255,255,0.26)_0.35px,transparent_0.35px)] [background-size:3px_3px] md:block" />
-        <div className="mx-auto w-full max-w-[1440px] px-5 md:px-8 lg:pl-8">
-          <p className="text-[13px] tracking-[0.2em] text-[#c3ccda] md:text-[13px] md:tracking-[0.22em]">DIAMONDS</p>
-          <h2 className="mt-4 font-serif text-[2.6rem] text-[#f7f2e8] md:mt-3 md:text-[3.75rem]">Diamond Shapes & Selections</h2>
-          <p className="mt-4 max-w-2xl text-[1.02rem] leading-[1.75] tracking-[0.02em] text-[#d4dbe6] md:mt-3 md:text-[1.08rem] md:font-medium">
-            Natural & Lab Grown Diamonds
-            <br />
-            Precision sourced from Bharat Diamond Bourse
-          </p>
+        <div className="mx-auto w-full max-w-[1320px] px-5 md:px-8">
+          <h2 className="mt-2 text-center font-serif text-[2.6rem] text-[#f7f2e8] md:mt-2 md:text-[3.75rem]">Diamond Shapes & Selections</h2>
 
-          <div className="relative mt-[2.1rem] hidden h-[410px] overflow-hidden md:block">
+          <div className="relative mt-[1.3rem] hidden h-[410px] overflow-hidden md:block">
             <button
               type="button"
               aria-label="Previous diamond"
@@ -626,10 +700,11 @@ export default function ShowroomExperience() {
                     <motion.img
                       src={shape.image}
                       alt={`${shape.name} diamond`}
-                      className={`relative h-full w-full object-contain object-center transition-all duration-[1100ms] ${isActive ? "scale-[1.12]" : "scale-[0.95]"} ${shape.normalizeClass}`}
+                      className={`relative h-full w-full object-contain object-center transition-all duration-[1100ms] ${isActive ? "scale-[1.12] brightness-[1.05]" : "scale-[0.95] brightness-100"} ${shape.normalizeClass} ${isDiamondLoaded(shape.image) ? "opacity-100" : "opacity-0"}`}
                       animate={isActive ? { rotateY: [0, 1.2, 0], rotateX: [0, -0.8, 0] } : { rotateY: 0, rotateX: 0 }}
                       transition={{ duration: 14, repeat: Number.POSITIVE_INFINITY, ease: EASE_SECONDARY }}
-                      loading={isActive ? "eager" : "lazy"}
+                      loading="eager"
+                      onLoad={() => markDiamondLoaded(shape.image)}
                       decoding="async"
                     />
                   </motion.div>
@@ -638,7 +713,7 @@ export default function ShowroomExperience() {
             })}
           </div>
 
-          <div className="mt-6 flex min-h-[300px] items-center justify-center md:hidden">
+          <div className="mt-4 flex min-h-[300px] items-center justify-center md:hidden">
             <motion.div
               drag="x"
               dragConstraints={{ left: 0, right: 0 }}
@@ -662,8 +737,9 @@ export default function ShowroomExperience() {
                     <img
                       src={shape.image}
                       alt={`${shape.name} diamond`}
-                      className={`h-full w-full object-contain object-center transition-all duration-700 scale-[1.08] ${shape.normalizeClass}`}
+                      className={`h-full w-full object-contain object-center transition-all duration-700 scale-[1.08] ${shape.normalizeClass} ${isDiamondLoaded(shape.image) ? "opacity-100" : "opacity-0"}`}
                       loading="eager"
+                      onLoad={() => markDiamondLoaded(shape.image)}
                       decoding="async"
                     />
                   </div>
@@ -686,10 +762,23 @@ export default function ShowroomExperience() {
               ))}
             </div>
             <div className="mt-1">
-                <h3 className="text-center font-serif text-[2.2rem] tracking-[0.08em] text-[#f6f1e8] md:text-[2.52rem]">{activeDiamond.name}</h3>
+              <AnimatePresence mode="wait">
+                <motion.h3
+                  key={activeDiamond.name}
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.23, ease: EASE_SECONDARY }}
+                  className="text-center font-serif text-[2.2rem] tracking-[0.08em] text-[#f6f1e8] md:text-[2.52rem]"
+                >
+                  {activeDiamond.name}
+                </motion.h3>
+              </AnimatePresence>
               <div className="mt-2 flex justify-center">
                 <a
-                  href={WHATSAPP_LINK}
+                  href={getDiamondWhatsAppLink(activeDiamond.name)}
+                  target="_blank"
+                  rel="noreferrer"
                   className="lux-hover-lift lux-interactive rounded-full border border-[#cfd8e4]/65 px-5 py-1.5 text-[13px] font-medium tracking-[0.12em] text-[#f3eee5] transition-all duration-500 hover:bg-[#f3eee5] hover:text-[#111827]"
                 >
                   ENQUIRE
@@ -700,18 +789,88 @@ export default function ShowroomExperience() {
         </div>
       </motion.section>
 
-      <motion.section ref={presenceRef} data-theme="light" className="relative -mt-3 h-auto bg-[linear-gradient(180deg,#ffffff_0%,#faf7f2_46%,#f6f1e8_100%)] md:h-[332vh]" {...sectionReveal}>
+      <motion.section ref={presenceRef} data-theme="light" className="relative -mt-3 h-auto bg-[linear-gradient(180deg,#F7F4EE_0%,#F5F2EB_46%,#F3EFE7_100%)] md:h-[412vh]" {...sectionReveal}>
         <div className="relative flex items-center overflow-visible py-0 md:sticky md:top-0 md:min-h-screen md:min-h-[100svh] md:py-0">
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_48%_48%,rgba(197,164,109,0.12)_0%,rgba(197,164,109,0.045)_32%,rgba(250,247,242,0)_68%)]" />
           <div className="pointer-events-none absolute inset-0 opacity-[0.035] [background-image:radial-gradient(rgba(70,58,42,0.38)_0.45px,transparent_0.45px)] [background-size:4px_4px]" />
           <div className="pointer-events-none absolute right-0 top-[18%] hidden h-px w-[14%] bg-[linear-gradient(270deg,rgba(197,164,109,0.38),transparent)] md:block" />
 
-          <div className="relative mx-auto grid w-full max-w-[1680px] items-center gap-1 px-1 md:gap-6 md:px-5 lg:grid-cols-[minmax(0,0.74fr)_minmax(320px,0.26fr)] lg:gap-6">
-            <motion.div className="relative order-2 mx-auto h-[min(86svh,900px)] w-[92vw] max-w-[92vw] overflow-hidden md:h-[min(96vh,1260px)] md:w-full md:max-w-[1480px] md:overflow-visible lg:order-1 lg:h-[min(98vh,1320px)] lg:max-w-none" style={{ opacity: isMobileView ? 1 : exportMapOpacity }}>
-              <img src={indiaExportStory} alt="" aria-hidden className="sr-only" loading="lazy" decoding="async" />
-              <div className="pointer-events-none absolute left-1/2 top-1/2 h-[86%] w-[86%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(255,251,243,0.82)_0%,rgba(255,251,243,0.26)_50%,rgba(255,251,243,0)_80%)]" />
-              <div className="pointer-events-none absolute inset-[4%] bg-[radial-gradient(circle_at_52%_52%,rgba(255,255,255,0.5)_0%,rgba(255,255,255,0.12)_56%,rgba(255,255,255,0)_100%)]" />
-              <motion.svg viewBox="-250 -10 1280 1055" preserveAspectRatio="xMidYMid meet" className="absolute left-1/2 top-1/2 h-[140%] w-[140%] -translate-x-1/2 -translate-y-1/2 md:left-0 md:top-0 md:h-full md:w-full md:translate-x-0 md:translate-y-0" role="img" aria-label="DP Jewels export network from Mumbai, India">
+          {isMobileView ? (
+            <div className="relative mx-auto w-full max-w-[430px] px-4 pt-3">
+              <div className="relative mx-auto h-[62svh] w-full">
+                <div className="absolute left-1/2 top-[48%] h-[58svh] w-[92vw] max-w-[404px] -translate-x-1/2 -translate-y-1/2">
+                  <svg viewBox="0 0 1000 1000" className="h-full w-full" role="img" aria-label="India export routes">
+                    <image href={indiaMapClean} x="0" y="0" width="1000" height="1000" preserveAspectRatio="xMidYMid meet" />
+                    {(() => {
+                      // Single shared coordinate space for map, routes, nodes, hub, and label.
+                    const mumbai = { x: 250, y: 610 };
+                    const destinations = {
+                      london: { x: 520, y: 100 },
+                      usa: { x: 95, y: 300 },
+                      dubai: { x: 115, y: 690 },
+                      hongKong: { x: 760, y: 300 },
+                      singapore: { x: 760, y: 690 },
+                    } as const;
+                    const routes = [
+                        { key: "london", d: "M250 610 C330 460 430 250 520 100", begin: "0s", end: destinations.london },
+                        { key: "usa", d: "M250 610 C200 500 145 390 95 300", begin: "0s", end: destinations.usa },
+                        { key: "dubai", d: "M250 610 C205 630 155 660 115 690", begin: "0s", end: destinations.dubai },
+                        { key: "hongKong", d: "M250 610 C410 500 600 380 760 300", begin: "0s", end: destinations.hongKong },
+                        { key: "singapore", d: "M250 610 C420 620 600 660 760 690", begin: "0s", end: destinations.singapore },
+                      ] as const;
+
+                      return (
+                        <>
+                          {routes.map((route) => (
+                            <g key={route.key}>
+                              <path d={route.d} fill="none" stroke="rgba(209,175,109,0.92)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+                              <circle cx={route.end.x} cy={route.end.y} r="6.5" fill="#d1af6d" />
+                              <circle r="5.5" fill="#c89a3c" opacity="1">
+                                <animateMotion begin={route.begin} dur="3.2s" repeatCount="indefinite" path={route.d} />
+                              </circle>
+                            </g>
+                          ))}
+                          <circle cx={mumbai.x} cy={mumbai.y} r="8" fill="#d1af6d">
+                            <animate attributeName="r" values="8;8.64;8" dur="2.5s" repeatCount="indefinite" />
+                          </circle>
+                          <text x="270" y="635" textAnchor="start" fontSize="26" fill="#6f604f" fontWeight="650" letterSpacing="0.2px" opacity="0.92" fontFamily="serif">
+                            Mumbai
+                          </text>
+                          <text x="545" y="108" textAnchor="start" fontSize="28" fill="#6f604f" fontWeight="650" letterSpacing="0.2px" opacity="1" fontFamily="serif">London</text>
+                          <text x="120" y="308" textAnchor="start" fontSize="28" fill="#6f604f" fontWeight="650" letterSpacing="0.2px" opacity="1" fontFamily="serif">USA</text>
+                          <text x="140" y="698" textAnchor="start" fontSize="28" fill="#6f604f" fontWeight="650" letterSpacing="0.2px" opacity="1" fontFamily="serif">Dubai</text>
+                          <text x="785" y="308" textAnchor="start" fontSize="28" fill="#6f604f" fontWeight="650" letterSpacing="0.2px" opacity="1" fontFamily="serif">Hong Kong</text>
+                          <text x="785" y="698" textAnchor="start" fontSize="28" fill="#6f604f" fontWeight="650" letterSpacing="0.2px" opacity="1" fontFamily="serif">Singapore</text>
+                        </>
+                      );
+                    })()}
+                  </svg>
+                </div>
+
+                <motion.div
+                  className="absolute inset-x-0 bottom-[4%] flex justify-center"
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 3.55, ease: EASE_SECONDARY }}
+                >
+                  <p className="text-center font-serif text-[1.42rem] leading-[1.18] tracking-[1.4px] font-medium text-[#463621]">
+                    EXPORTING
+                    <br />
+                    EXCELLENCE
+                    <br />
+                    WORLDWIDE
+                  </p>
+                </motion.div>
+              </div>
+            </div>
+          ) : (
+          <div className="relative mx-auto grid w-full max-w-[1320px] items-center gap-0 px-1 md:gap-2 md:px-5 lg:grid-cols-[minmax(0,0.74fr)_minmax(320px,0.26fr)] lg:gap-2">
+            <div className="order-2 mx-auto w-[96vw] max-w-[96vw] px-2 lg:order-1 md:w-full md:max-w-none md:px-3 lg:max-w-none">
+              <motion.div className="relative h-[min(64svh,620px)] overflow-visible md:h-[min(98vh,1320px)] md:overflow-visible lg:h-[min(98vh,1320px)]" style={{ opacity: isMobileView ? 1 : exportMapOpacity }}>
+                <img src={indiaExportStory} alt="" aria-hidden className="sr-only" loading="lazy" decoding="async" />
+                <div className="pointer-events-none absolute left-1/2 top-1/2 h-[86%] w-[86%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(255,251,243,0.82)_0%,rgba(255,251,243,0.26)_50%,rgba(255,251,243,0)_80%)]" />
+                <div className="pointer-events-none absolute inset-[4%] bg-[radial-gradient(circle_at_52%_52%,rgba(255,255,255,0.5)_0%,rgba(255,255,255,0.12)_56%,rgba(255,255,255,0)_100%)]" />
+                <motion.svg viewBox="-250 -10 1280 1055" preserveAspectRatio="xMidYMid meet" className="absolute left-1/2 top-1/2 h-[142%] w-[142%] -translate-x-1/2 -translate-y-1/2 md:left-0 md:top-0 md:h-full md:w-full md:translate-x-0 md:translate-y-0" role="img" aria-label="DP Jewels export network from Mumbai, India">
                 <defs>
                   <filter id="exportHubGlow" x="-220%" y="-220%" width="540%" height="540%">
                     <feGaussianBlur stdDeviation="6" result="blur" />
@@ -727,7 +886,7 @@ export default function ShowroomExperience() {
                 <motion.g
                   style={
                     isMobileView
-                      ? { x: -96, y: -22, scale: 1.1, transformOrigin: `${exportNodes.mumbai.x}px ${exportNodes.mumbai.y}px` }
+                      ? { x: -20, y: -8, scale: 1.34, transformOrigin: `${exportNodes.mumbai.x}px ${exportNodes.mumbai.y}px` }
                       : { x: exportCameraX, y: exportCameraY, scale: exportCameraScale, transformOrigin: `${exportNodes.mumbai.x}px ${exportNodes.mumbai.y}px` }
                   }
                 >
@@ -932,35 +1091,38 @@ export default function ShowroomExperience() {
                         )}
                         <motion.circle cx={route.node.x} cy={route.node.y} r={isMobileView ? 4 : 5.8} fill="#C5A46D" initial={false} animate={{ opacity: isVisible ? (route.type === "primary" ? 0.92 : 0.74) : 0, scale: isVisible ? 1 : 0.84 }} transition={{ duration: 0.68, ease: CINEMATIC_EASE }} />
                         {isMobileView ? (
-                          <text
+                          <motion.text
                             x={route.node.labelX}
                             y={route.node.labelY}
                             textAnchor={route.node.anchor}
-                            fontSize={28}
-                            fontWeight={600}
-                            letterSpacing="0.026em"
-                            fill="#584d3f"
+                            fontSize={21}
+                            fontWeight={560}
+                            letterSpacing="0.018em"
+                            fill="#5a4934"
                             paintOrder="stroke"
-                            stroke="rgba(255,251,243,0.8)"
-                            strokeWidth={1.1}
-                            opacity={0.75}
+                            stroke="rgba(255,251,243,0.66)"
+                            strokeWidth={0.84}
+                            initial={false}
+                            animate={{ opacity: isVisible ? 0.9 : 0, y: isVisible ? 0 : 6 }}
+                            transition={{ duration: 0.78, ease: EASE_SECONDARY }}
                           >
                             {route.node.label}
-                          </text>
+                          </motion.text>
                         ) : (
                           <motion.text
                             x={route.node.labelX}
                             y={route.node.labelY}
                             textAnchor={route.node.anchor}
-                            fontSize={24}
-                            fontWeight={500}
-                            letterSpacing="0.026em"
-                            fill="#6a5d4a"
+                            fontSize={22}
+                            fontWeight={560}
+                            letterSpacing="0.02em"
+                            fill="#5a4934"
                             paintOrder="stroke"
-                            stroke="rgba(255,251,243,0.38)"
-                            strokeWidth={0.7}
+                            stroke="rgba(255,251,243,0.4)"
+                            strokeWidth={0.66}
                             initial={false}
-                            animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 8 }}
+                            animate={{ y: isVisible ? 0 : 8 }}
+                            style={{ opacity: motionValues.opacity }}
                             transition={{ duration: 0.92, ease: EASE_SECONDARY }}
                           >
                             {route.node.label}
@@ -970,97 +1132,104 @@ export default function ShowroomExperience() {
                     );
                   })}
                 </motion.g>
-              </motion.svg>
-            </motion.div>
+                </motion.svg>
+              </motion.div>
+            </div>
 
-            <div className="order-1 mx-auto w-full max-w-[460px] px-5 pt-14 sm:px-6 md:px-0 md:pt-0 lg:order-2 lg:ml-0">
-              <p className="text-[13px] tracking-[0.16em] text-[#4f5967] md:text-[13px]">EXPORT NETWORK</p>
-              <div className="mt-5 h-px w-16 bg-[#C5A46D]/55" />
-              {isMobileView ? (
-                <motion.div initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.35 }} transition={{ duration: 0.9, ease: EASE_PRIMARY }}>
-                  <motion.h2 className="mt-6 font-serif text-[2.35rem] leading-[1.02] text-[#0f1726] md:mt-7 md:text-[3.8rem]" initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.9, ease: EASE_PRIMARY }}>
-                    {mobilePresenceScene.title}
-                  </motion.h2>
-                  <motion.p className="mt-4 max-w-md text-[1rem] leading-relaxed text-[#3e4958] md:mt-5 md:text-[1.06rem] md:font-medium" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.9, delay: 0.16, ease: EASE_PRIMARY }}>
-                    {mobilePresenceScene.body}
-                  </motion.p>
+            <div className="order-1 mx-auto w-full max-w-[440px] px-5 pb-1 pt-4 text-right sm:px-6 md:px-0 md:pb-0 md:pt-0 lg:order-2 lg:ml-auto lg:pl-5">
+              <motion.p
+                className="relative -top-2 text-[13px] tracking-[0.18em] text-[#4f5967]"
+                animate={{ opacity: hideExportLabel ? 0 : 1 }}
+                transition={{ duration: 0.52, ease: EASE_SECONDARY }}
+              >
+                EXPORT NETWORK
+              </motion.p>
+              <motion.div
+                className="relative -top-2 ml-auto mt-2 h-px w-16 bg-[#C5A46D]/55"
+                animate={{ opacity: hideExportLabel ? 0 : 1 }}
+                transition={{ duration: 0.52, ease: EASE_SECONDARY }}
+              />
+              <div className="relative mt-6 min-h-[248px] md:mt-4">
+                <motion.div
+                  className="absolute inset-0 flex flex-col items-end justify-start gap-3 pt-4 text-right md:gap-3.5 md:pt-0"
+                  animate={{ opacity: showFinalNetworkStatement || hideExportLabel ? 0 : 1 }}
+                  transition={{ duration: 0.58, ease: EASE_SECONDARY }}
+                >
+                  {revealedPanelCountries.map((country) => (
+                    <p
+                      key={country.key}
+                      className="font-serif text-[1.34rem] font-bold tracking-[0.05em] text-[#4a3823] md:text-[1.7rem]"
+                    >
+                      {panelDisplayLabel[country.key]}
+                    </p>
+                  ))}
                 </motion.div>
-              ) : (
-                <AnimatePresence mode="wait">
-                  <motion.div key={effectiveExportScene} initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={{ duration: 1.02, ease: EASE_SECONDARY }}>
-                    <motion.h2 className="mt-6 font-serif text-[2.35rem] leading-[1.02] text-[#0f1726] md:mt-7 md:text-[3.8rem]">{activeScene.title}</motion.h2>
-                    <motion.p className="mt-4 max-w-md text-[1rem] leading-relaxed text-[#3e4958] md:mt-5 md:text-[1.06rem] md:font-medium">{activeScene.body}</motion.p>
-                  </motion.div>
-                </AnimatePresence>
-              )}
-              <div className="mt-8 flex items-center gap-3">
-                {exportStoryScenes.map((_, index) => (
-                  <span key={`export-scene-${index}`} className={`h-px transition-all duration-700 ${index <= effectiveExportScene ? "w-8 bg-[#C5A46D]/75" : "w-4 bg-[#cbd5e1]"}`} />
-                ))}
+                <motion.p
+                  className="absolute inset-0 flex items-center justify-center text-center font-serif text-[1.7rem] font-bold tracking-[0.068em] text-[#463621] md:text-[2.28rem]"
+                  animate={{ opacity: showFinalNetworkStatement ? 1 : 0, y: showFinalNetworkStatement ? 0 : 10 }}
+                  transition={{ duration: 0.5, ease: EASE_SECONDARY }}
+                >
+                  EXPORTING EXCELLENCE WORLDWIDE
+                </motion.p>
               </div>
             </div>
           </div>
+          )}
         </div>
       </motion.section>
 
-      <motion.section ref={bdbRef} data-theme="light" style={{ y: isMobileView ? 0 : bdbDrift }} className="relative -mt-2 w-full overflow-hidden py-5 md:py-9" {...sectionReveal}>
-        <div className="relative w-full bg-[#f7f3ec] md:bg-[#050913]">
+      <motion.section ref={bdbRef} data-theme="light" style={{ y: isMobileView ? 0 : bdbDrift }} className="relative -mt-1 w-full overflow-hidden bg-[#f7f4ee] py-20 md:py-24" {...sectionReveal}>
+        <div className="relative mx-auto w-full max-w-[1660px] px-3 md:px-6">
           <motion.div
-            className="absolute inset-0 hidden bg-cover bg-center bg-no-repeat md:block"
-            style={{ backgroundImage: `url(${bdbImage})`, y: isMobileView ? 0 : bdbImageParallaxY, scale: isMobileView ? 1.02 : bdbImageParallaxScale }}
-            aria-hidden
-          />
-          {!isMobileView && (
-          <motion.div
-            aria-hidden
-            className="pointer-events-none absolute inset-0 hidden md:block bg-[radial-gradient(circle_at_68%_34%,rgba(255,255,255,0.1)_0%,rgba(255,255,255,0)_44%)]"
-            animate={{ opacity: [0.1, 0.16, 0.1] }}
-            transition={{ duration: 12, repeat: Number.POSITIVE_INFINITY, ease: EASE_SECONDARY }}
-          />
-          )}
-          <div className="relative mx-auto block w-full max-w-[2200px] md:hidden" />
-          <div className="relative hidden w-full md:block md:pt-[44%] lg:pt-[40%]" />
+            className="relative min-h-[88vh] overflow-hidden md:min-h-[96vh]"
+            initial={{ opacity: 0, scale: 1.03 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true, amount: 0.28 }}
+            transition={{ duration: 1.08, ease: EASE_SECONDARY }}
+          >
+            <img
+              src={isMobileView ? bdbMobileImage : bdbImage}
+              alt="Bharat Diamond Bourse building"
+              width={2139}
+              height={1426}
+              className="absolute inset-0 h-full w-full scale-100 object-cover object-center md:scale-[1.05] md:object-[72%_50%]"
+              loading="lazy"
+              decoding="async"
+            />
+            <div className="pointer-events-none absolute inset-y-0 left-0 hidden w-[56%] bg-[linear-gradient(90deg,rgba(247,244,238,0.34)_0%,rgba(247,244,238,0.16)_56%,rgba(247,244,238,0)_100%)] md:block md:w-[52%]" />
 
-          <div className="pointer-events-none absolute inset-y-0 left-0 hidden w-[72%] bg-[linear-gradient(96deg,rgba(248,244,236,0.7)_0%,rgba(248,244,236,0.48)_26%,rgba(248,244,236,0.18)_48%,rgba(248,244,236,0)_72%)] md:block md:w-[62%]" />
-          <div className="pointer-events-none absolute inset-y-0 left-0 hidden w-[44%] bg-[linear-gradient(96deg,rgba(248,244,236,0.24)_0%,rgba(248,244,236,0.12)_42%,rgba(248,244,236,0)_100%)] md:block md:w-[36%]" />
-
-          <div className="absolute inset-0 hidden items-center md:flex">
-            <div className="mx-auto w-full max-w-[1440px] px-5 md:px-8">
+            <div className="relative z-[1] flex h-full items-end justify-center pb-20 md:items-center md:justify-start md:pb-0">
               <motion.article
-                className="w-full max-w-[620px] py-6 md:py-8"
-                variants={staggerItem}
-                initial="hidden"
-                whileInView="show"
-                viewport={{ once: true, amount: 0.4 }}
+                className="max-w-[700px] px-5 text-center md:ml-36 md:px-10 md:text-left lg:ml-40"
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.38 }}
+                transition={{ duration: 0.82, ease: EASE_SECONDARY }}
               >
-                <p className="text-[13px] tracking-[0.14em] text-[#9a7a36] [text-shadow:0_1px_2px_rgba(248,244,236,0.4)]">TRUST & LOCATION</p>
-                <h2 className="mt-4 max-w-[14ch] font-serif text-[2rem] leading-[1.06] text-[#111827] [text-shadow:0_2px_12px_rgba(248,244,236,0.45)] md:text-5xl">Based at Bharat Diamond Bourse</h2>
-                <p className="mt-6 max-w-[58ch] text-[1.06rem] leading-[1.8] text-[#27364a] md:text-[1.14rem] [text-shadow:0_1px_8px_rgba(248,244,236,0.38)] md:font-medium">
-                  Operating from Bharat Diamond Bourse, Bandra Kurla Complex, D.P. Jewels is positioned at the heart of India&apos;s diamond trade, serving buyers with trust, precision, and long-standing industry experience.
-                </p>
+                <div className="mx-auto w-full max-w-[280px] md:mx-0 md:max-w-none">
+                <p className="text-[12px] font-medium tracking-[3px] text-[#9a7a36]">TRUST & LOCATION</p>
+                <h2 className="mt-4 font-serif text-[clamp(28px,5vw,38px)] leading-[1.08] font-medium text-[#1f2430] md:mt-7 md:max-w-[17ch] md:text-[3.35rem]">
+                  {isMobileView ? "Based at Bharat Diamond Bourse" : (
+                    <>
+                      Based at Bharat
+                      <br />
+                      Diamond Bourse
+                    </>
+                  )}
+                </h2>
+                <motion.p
+                  className="mt-4 max-w-[280px] text-[16px] leading-[1.7] text-[#384250] mx-auto md:mt-9 md:mx-0 md:max-w-[40ch] md:text-[1.16rem]"
+                  initial={{ opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.4 }}
+                  transition={{ duration: 0.82, delay: 0.1, ease: EASE_SECONDARY }}
+                >
+                  Operating from India&apos;s premier diamond trading hub.
+                </motion.p>
+                </div>
               </motion.article>
             </div>
-          </div>
-          <div className="mx-auto w-full max-w-[1440px] px-0 pb-0 pt-2 md:hidden">
-            <article className="w-full max-w-[620px] px-5 py-3 sm:px-6">
-              <p className="text-[13px] tracking-[0.14em] text-[#9a7a36]">TRUST & LOCATION</p>
-              <h2 className="mt-4 max-w-[14ch] font-serif text-[2rem] leading-[1.06] text-[#111827]">Based at Bharat Diamond Bourse</h2>
-              <p className="mt-6 max-w-[58ch] text-[1.06rem] leading-[1.8] text-[#27364a] md:text-[1.12rem]">
-                Operating from Bharat Diamond Bourse, Bandra Kurla Complex, D.P. Jewels is positioned at the heart of India&apos;s diamond trade, serving buyers with trust, precision, and long-standing industry experience.
-              </p>
-            </article>
-            <div className="mt-5 flex justify-center overflow-hidden">
-              <img
-                src={bdbImage}
-                alt="Bharat Diamond Bourse cinematic artwork"
-                width={2139}
-                height={1426}
-                className="h-auto w-[100vw] max-w-[100vw] object-contain object-center"
-                loading="lazy"
-                decoding="async"
-              />
-            </div>
-          </div>
+          </motion.div>
         </div>
       </motion.section>
 
@@ -1068,30 +1237,30 @@ export default function ShowroomExperience() {
         ref={certRef}
         data-theme="light"
         style={{ y: isMobileView ? 0 : certDrift }}
-        className="relative -mt-1 overflow-hidden bg-[linear-gradient(180deg,#f7f3ec_0%,#f5f1ea_52%,#efe9df_100%)] py-[3.8rem] text-[#2c2a27] md:py-[4.8rem]"
+        className="relative -mt-1 overflow-hidden bg-[linear-gradient(180deg,#f7f3ec_0%,#f5f1ea_52%,#efe9df_100%)] py-[3.5rem] text-[#2c2a27] md:py-[4.1rem]"
         {...sectionReveal}
       >
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_14%_20%,rgba(255,255,255,0.56)_0%,rgba(255,255,255,0)_38%)]" />
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_78%_76%,rgba(202,176,122,0.16)_0%,rgba(202,176,122,0)_36%)]" />
         <div className="pointer-events-none absolute inset-0 opacity-[0.2] [background-image:radial-gradient(rgba(74,66,54,0.1)_0.42px,transparent_0.42px)] [background-size:2.8px_2.8px]" />
 
-        <div className="relative mx-auto w-full max-w-[1440px] px-5 md:px-8">
-          <div className="ml-auto w-full max-w-[70ch] text-right md:w-[64%] md:mr-[6%]">
+        <div className="relative mx-auto w-full max-w-[1320px] px-5 md:px-8">
+          <div className="mx-auto w-full max-w-[70ch] text-center">
           <p className="text-[13px] tracking-[0.18em] text-[#4f473d] md:font-medium">INSTITUTIONAL CREDIBILITY</p>
-          <p className="mt-4 ml-auto max-w-[58ch] font-serif text-[2.45rem] leading-[1.06] text-[#342f29] md:text-[3.65rem]">
+          <p className="mt-4 mx-auto max-w-[58ch] font-serif text-[2.45rem] leading-[1.06] text-[#342f29] md:text-[3.65rem]">
             Recognized Across International Diamond Markets.
           </p>
-          <div className="mt-5 flex flex-wrap items-center justify-end gap-x-6 gap-y-2">
+          <div className="mt-4 flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
             <span className="text-[13px] tracking-[0.1em] text-[#7e6941] md:font-medium">GLOBAL INSTITUTIONAL ALIGNMENT</span>
           </div>
           </div>
 
-          <div className="relative mt-8 md:mt-10">
+          <div className="relative mt-6 md:mt-8">
             <div className="mx-auto grid max-w-[1280px] grid-cols-2 gap-4 border-y border-[#d9cdb6]/62 py-7 md:grid-cols-4 md:gap-6 md:py-9">
               {certifications.map((item, idx) => (
               <motion.article
                 key={item.code}
-                className="group relative flex h-full flex-col rounded-[1.2rem] border border-[#ddcfb5]/58 bg-[linear-gradient(180deg,rgba(255,252,246,0.7)_0%,rgba(247,241,232,0.56)_100%)] px-3 py-5 text-center shadow-[0_10px_24px_rgba(136,113,73,0.06)] transition-all duration-500 hover:-translate-y-0.5 hover:shadow-[0_14px_30px_rgba(136,113,73,0.1)] md:px-5 md:py-6"
+                className="group relative flex h-full flex-col rounded-[1.2rem] border border-[#ddcfb5]/58 bg-[linear-gradient(180deg,rgba(255,252,246,0.7)_0%,rgba(247,241,232,0.56)_100%)] px-3 py-5 text-center shadow-[0_10px_24px_rgba(136,113,73,0.06)] transition-all duration-500 hover:scale-[1.045] hover:border-[#e8d6b6] hover:shadow-[0_14px_32px_rgba(136,113,73,0.11)] md:px-5 md:py-6"
                 initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.3 }}
@@ -1110,44 +1279,25 @@ export default function ShowroomExperience() {
               </motion.article>
             ))}
             </div>
-            <p className="mt-5 ml-auto w-full max-w-[52ch] text-right text-[13px] tracking-[0.12em] text-[#655d52] md:font-medium">VERIFIED BY LEADING GLOBAL GEM & TRADE INSTITUTIONS</p>
+            <p className="mx-auto mt-5 w-full max-w-[52ch] text-center text-[13px] tracking-[0.12em] text-[#655d52] md:font-medium">VERIFIED BY LEADING GLOBAL GEM & TRADE INSTITUTIONS</p>
           </div>
         </div>
       </motion.section>
 
-      <motion.section ref={whyRef} data-theme="light" className="relative -mt-1 overflow-visible bg-[linear-gradient(180deg,#f8f4ec_0%,#f5f1e8_52%,#f1ebe0_100%)] text-[#2f2a24] md:h-auto" {...sectionReveal}>
-        <div ref={whyMobilePinRef} className="relative h-[100svh] min-h-[100svh] md:hidden">
-          <p className="pointer-events-none absolute left-1/2 top-[12%] z-[2] -translate-x-1/2 whitespace-nowrap text-[13px] tracking-[0.12em] text-[#6f624f]">WHY CHOOSE D.P. JEWELS</p>
-          <div className="absolute inset-0 z-[1] flex items-center justify-center px-4">
+      <motion.section ref={whyRef} data-theme="light" className="relative -mt-1 overflow-visible bg-[linear-gradient(180deg,#F7F4EE_0%,#F5F2EB_52%,#F3EFE7_100%)] text-[#2f2a24] md:h-auto" {...sectionReveal}>
+        <div ref={whyPinRef} className="relative h-[100svh] min-h-[100svh]">
+          <p className="pointer-events-none absolute left-1/2 top-[12%] z-[2] -translate-x-1/2 whitespace-nowrap text-[13px] tracking-[0.14em] text-[#6f624f]">WHY CHOOSE D.P. JEWELS</p>
+          <div className="absolute inset-0 z-[1] flex items-center justify-center px-5 md:px-8">
             {whyChoosePoints.map((point, idx) => (
               <article
-                key={`why-mobile-${point.num}`}
-                ref={(node) => { whyMobileProofRefs.current[idx] = node; }}
-                className="absolute inset-0 flex items-center justify-center text-center"
-              >
-                <div className="w-full max-w-[25rem]">
-                  {point.num ? <p className="mb-1 text-[13px] tracking-[0.14em] text-[#8d7a57]">{point.num}</p> : null}
-                  <h3 className="font-serif text-[2.5rem] font-medium leading-[1.05] text-[#2e2822]">{point.title}</h3>
-                  {point.desc ? <p className="mx-auto mt-2 max-w-[33ch] text-[1.08rem] leading-[1.74] text-[#564c40]">{point.desc}</p> : null}
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-
-        <div ref={whyPinRef} className="relative hidden h-screen min-h-[100svh] md:block">
-          <p className="pointer-events-none absolute left-1/2 top-[13%] z-[2] -translate-x-1/2 text-[14px] tracking-[0.16em] text-[#6f624f]">WHY CHOOSE D.P. JEWELS</p>
-          <div className="absolute left-1/2 top-1/2 z-[1] h-[22rem] w-full max-w-[58rem] -translate-x-1/2 -translate-y-1/2 px-8">
-            {whyChoosePoints.map((point, idx) => (
-              <article
-                key={`why-desktop-${point.num}`}
+                key={`why-slide-${point.num}`}
                 ref={(node) => { whyProofRefs.current[idx] = node; }}
                 className="absolute inset-0 flex items-center justify-center text-center"
               >
-                <div className="w-full">
-                  {point.num ? <p className="mb-4 text-[13px] tracking-[0.16em] text-[#8f7c5b]">{point.num}</p> : null}
-                  <h2 className="font-serif text-[4.6rem] leading-[1.02] text-[#29241f]">{point.title}</h2>
-                  {point.desc ? <p className="mx-auto mt-6 max-w-[42rem] text-[1.18rem] leading-[1.9] text-[#554b3f] md:font-medium">{point.desc}</p> : null}
+                <div className="w-full max-w-[52rem]">
+                  <p className="mb-2 text-[13px] tracking-[0.16em] text-[#8f7c5b]">{point.num}</p>
+                  <h2 className="font-serif text-[2.8rem] leading-[1.04] text-[#29241f] md:text-[4.4rem]">{point.title}</h2>
+                  <p className="mx-auto mt-4 max-w-[34ch] text-[1.02rem] leading-[1.72] text-[#554b3f] md:text-[1.18rem] md:leading-[1.86]">{point.desc}</p>
                 </div>
               </article>
             ))}
@@ -1157,7 +1307,9 @@ export default function ShowroomExperience() {
       </motion.section>
 
       <a href={WHATSAPP_LINK} target="_blank" rel="noreferrer" aria-label="WhatsApp Enquiry" className="floating-wa">
-        <MessageCircle size={21} />
+        <svg viewBox="0 0 24 24" width="21" height="21" aria-hidden="true" fill="currentColor">
+          <path d="M19.11 4.89A9.86 9.86 0 0 0 12.06 2C6.64 2 2.22 6.42 2.22 11.84c0 1.74.45 3.44 1.31 4.95L2 22l5.36-1.49a9.8 9.8 0 0 0 4.69 1.2h.01c5.42 0 9.84-4.42 9.84-9.84a9.78 9.78 0 0 0-2.79-6.98Zm-7.05 15.2h-.01a8.1 8.1 0 0 1-4.12-1.13l-.3-.18-3.18.88.85-3.1-.2-.32a8.13 8.13 0 0 1-1.24-4.4c0-4.48 3.64-8.13 8.12-8.13 2.17 0 4.2.84 5.73 2.38a8.05 8.05 0 0 1 2.39 5.74c0 4.48-3.65 8.13-8.14 8.13Zm4.46-6.1c-.24-.12-1.43-.7-1.65-.78-.22-.08-.38-.12-.54.12-.16.24-.62.78-.76.94-.14.16-.28.18-.52.06-.24-.12-1.02-.37-1.94-1.17-.72-.64-1.2-1.42-1.34-1.66-.14-.24-.01-.37.11-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.3-.74-1.79-.2-.47-.39-.41-.54-.42h-.46c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.68 2.57 4.08 3.6.57.25 1.02.4 1.37.52.58.18 1.1.15 1.51.09.46-.07 1.43-.58 1.63-1.14.2-.56.2-1.03.14-1.13-.06-.1-.22-.16-.46-.28Z" />
+        </svg>
       </a>
     </div>
   );

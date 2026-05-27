@@ -28,6 +28,10 @@ html {
   scroll-padding-top: 0;
 }
 
+#diamonds {
+  scroll-margin-top: 80px;
+}
+
 body {
   margin: 0;
   font-family: "Manrope", sans-serif;
@@ -50,7 +54,7 @@ body::before {
   inset: 0;
   pointer-events: none;
   z-index: 0;
-  opacity: 0.03;
+  opacity: 0.018;
   background-image:
     radial-gradient(rgba(70, 58, 42, 0.28) 0.45px, transparent 0.45px),
     radial-gradient(rgba(255, 255, 255, 0.22) 0.45px, transparent 0.45px);
@@ -114,6 +118,12 @@ body::before {
 }
 
 .hero-stage { min-height: 100vh; }
+
+.hero,
+.about-section {
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
 
 .hero-facet-overlay {
   position: absolute;
@@ -207,15 +217,15 @@ body::before {
   justify-content: center;
   z-index: 70;
   color: #f8f4ec;
-  background: linear-gradient(145deg, #1e293b, #0f172a);
+  background: #0f172a;
   border: 1px solid rgba(203, 213, 225, 0.5);
-  box-shadow: 0 10px 26px rgba(15, 23, 42, 0.28);
-  transition: transform 380ms var(--ease-cinematic), box-shadow 380ms var(--ease-cinematic);
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.34);
+  transition: transform 300ms var(--ease-cinematic), box-shadow 300ms var(--ease-cinematic);
 }
 
 .floating-wa:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.34);
+  transform: scale(1.05);
+  box-shadow: 0 16px 34px rgba(15, 23, 42, 0.38);
 }
 
 a, button {
@@ -237,6 +247,23 @@ a, button {
     transform var(--hover-duration) var(--ease-luxury),
     box-shadow var(--hover-duration) var(--ease-luxury);
   will-change: transform, box-shadow;
+}
+
+@media (max-width: 768px) {
+  #diamonds {
+    scroll-margin-top: 60px;
+  }
+
+  body::before,
+  .atmospheric-shell::before,
+  .atmospheric-shell::after {
+    animation: none;
+    opacity: 0;
+  }
+
+  .lux-interactive {
+    will-change: auto;
+  }
 }
 
 .lux-interactive:hover,
