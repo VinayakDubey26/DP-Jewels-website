@@ -607,27 +607,40 @@ export default function ShowroomExperience() {
         </div>
       </section>
 
-      <motion.section ref={aboutRef} id="about" data-theme="light" className="about-section relative -mt-2 bg-[#F7F4EE] py-[3.2rem] md:-mt-3 md:py-[3.4rem]" {...sectionReveal}>
+      <motion.section ref={aboutRef} id="about" data-theme="light" className="about-section relative -mt-2 bg-[#F7F4EE] py-[3.2rem] pt-[5.4rem] md:-mt-3 md:py-[3.4rem]" {...sectionReveal}>
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_14%,rgba(112,132,168,0.08)_0%,rgba(112,132,168,0)_36%)]" />
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_82%_88%,rgba(212,190,150,0.07)_0%,rgba(212,190,150,0)_32%)]" />
         <div className="pointer-events-none absolute left-0 top-[22%] hidden h-px w-[16%] bg-[linear-gradient(90deg,rgba(148,163,184,0.4),transparent)] md:block" />
         <motion.div
           className="mx-auto w-full max-w-[1320px] px-5 text-center md:px-8"
           variants={isMobileView ? undefined : staggerContainer}
-          initial={isMobileView ? { opacity: 0, y: 12 } : "hidden"}
-          whileInView={isMobileView ? { opacity: 1, y: 0 } : "show"}
+          initial={isMobileView ? undefined : "hidden"}
+          whileInView={isMobileView ? undefined : "show"}
           viewport={{ once: true, amount: isMobileView ? 0.12 : 0.2 }}
-          transition={isMobileView ? { duration: 0.6, ease: SOFT_EASE } : undefined}
+          transition={isMobileView ? undefined : undefined}
         >
-          <motion.article className="mx-auto w-full max-w-[820px] lg:pt-2" variants={staggerItem}>
-            <motion.p className="text-[13px] tracking-[0.18em] text-[#3f4b5d]" variants={staggerItem}>ABOUT D.P. JEWELS</motion.p>
-            <motion.h2 className="mt-4 mx-auto max-w-[14ch] font-serif text-[2.4rem] leading-[1.04] md:text-[3.3rem]" variants={staggerItem}>Built on trust, since 1999.</motion.h2>
-            <motion.p className="mt-6 mx-auto max-w-[62ch] text-[1.08rem] leading-[1.9] text-[#2c3a4c] md:mt-7 md:text-[1.08rem] md:leading-[1.95] md:font-medium" variants={staggerItem}>
-              Operating from Bharat Diamond Bourse, Mumbai.
-              <br />
-              25+ years serving domestic and international diamond markets.
-            </motion.p>
-          </motion.article>
+          {isMobileView ? (
+            <article className="about-mobile-content">
+              <p className="about-eyebrow text-[13px] tracking-[0.18em] text-[#3f4b5d]" data-about-eyebrow>ABOUT D.P. JEWELS</p>
+              <h2 className="font-serif text-[#111827]">
+                Built on trust,
+                <br />
+                since 1999.
+              </h2>
+              <p>Operating from Bharat Diamond Bourse, Mumbai.</p>
+              <p>25+ years serving domestic and international diamond markets.</p>
+            </article>
+          ) : (
+            <motion.article className="about-content mx-auto mb-12 w-full max-w-[820px] lg:pt-2" variants={staggerItem}>
+              <motion.p className="about-eyebrow text-[13px] tracking-[0.18em] text-[#3f4b5d]" data-about-eyebrow variants={staggerItem}>ABOUT D.P. JEWELS</motion.p>
+              <motion.h2 className="mt-4 mx-auto max-w-[14ch] font-serif text-[2.4rem] leading-[1.04] md:text-[3.3rem]" variants={staggerItem}>Built on trust, since 1999.</motion.h2>
+              <motion.p className="mt-6 mx-auto max-w-[62ch] text-[1.08rem] leading-[1.9] text-[#2c3a4c] md:mt-7 md:text-[1.08rem] md:leading-[1.95] md:font-medium" variants={staggerItem}>
+                Operating from Bharat Diamond Bourse, Mumbai.
+                <br />
+                25+ years serving domestic and international diamond markets.
+              </motion.p>
+            </motion.article>
+          )}
           <motion.div className="mt-8 grid grid-cols-2 gap-4 md:mt-10 md:grid-cols-4 md:gap-5 lg:gap-6" variants={staggerContainer}>
             {aboutMetrics.map((metric, idx) => (
               <motion.article
@@ -812,11 +825,11 @@ export default function ShowroomExperience() {
                       singapore: { x: 760, y: 690 },
                     } as const;
                     const routes = [
-                        { key: "london", d: "M250 610 C330 460 430 250 520 100", begin: "0s", end: destinations.london },
-                        { key: "usa", d: "M250 610 C200 500 145 390 95 300", begin: "0s", end: destinations.usa },
-                        { key: "dubai", d: "M250 610 C205 630 155 660 115 690", begin: "0s", end: destinations.dubai },
-                        { key: "hongKong", d: "M250 610 C410 500 600 380 760 300", begin: "0s", end: destinations.hongKong },
-                        { key: "singapore", d: "M250 610 C420 620 600 660 760 690", begin: "0s", end: destinations.singapore },
+                        { key: "london", d: "M250 610 C314 476 408 250 520 100", begin: "0s", end: destinations.london },
+                        { key: "usa", d: "M250 610 C192 520 138 404 95 300", begin: "0s", end: destinations.usa },
+                        { key: "dubai", d: "M250 610 C210 628 160 664 115 690", begin: "0s", end: destinations.dubai },
+                        { key: "hongKong", d: "M250 610 C420 520 604 374 760 300", begin: "0s", end: destinations.hongKong },
+                        { key: "singapore", d: "M250 610 C420 632 612 672 760 690", begin: "0s", end: destinations.singapore },
                       ] as const;
 
                       return (
@@ -848,7 +861,7 @@ export default function ShowroomExperience() {
                 </div>
 
                 <motion.div
-                  className="absolute inset-x-0 bottom-[4%] flex justify-center"
+                  className="absolute inset-x-0 bottom-[-28px] flex justify-center"
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 3.55, ease: EASE_SECONDARY }}
@@ -1285,6 +1298,27 @@ export default function ShowroomExperience() {
       </motion.section>
 
       <motion.section ref={whyRef} data-theme="light" className="relative -mt-1 overflow-visible bg-[linear-gradient(180deg,#F7F4EE_0%,#F5F2EB_52%,#F3EFE7_100%)] text-[#2f2a24] md:h-auto" {...sectionReveal}>
+        {isMobileView ? (
+          <div className="relative mx-auto w-full max-w-[840px] px-5 py-16">
+            <p className="text-center text-[13px] tracking-[0.14em] text-[#6f624f]">WHY CHOOSE D.P. JEWELS</p>
+            <div className="mt-8 space-y-9">
+              {whyChoosePoints.map((point, idx) => (
+                <motion.article
+                  key={`why-mobile-${point.num}`}
+                  className="text-center"
+                  initial={{ opacity: 0, y: 14 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.24 }}
+                  transition={{ duration: 0.5, delay: idx * 0.06, ease: SOFT_EASE }}
+                >
+                  <p className="mb-2 text-[13px] tracking-[0.16em] text-[#8f7c5b]">{point.num}</p>
+                  <h2 className="font-serif text-[2.1rem] leading-[1.05] text-[#29241f]">{point.title}</h2>
+                  <p className="mx-auto mt-3 max-w-[30ch] text-[0.98rem] leading-[1.72] text-[#554b3f]">{point.desc}</p>
+                </motion.article>
+              ))}
+            </div>
+          </div>
+        ) : (
         <div ref={whyPinRef} className="relative h-[100svh] min-h-[100svh]">
           <p className="pointer-events-none absolute left-1/2 top-[12%] z-[2] -translate-x-1/2 whitespace-nowrap text-[13px] tracking-[0.14em] text-[#6f624f]">WHY CHOOSE D.P. JEWELS</p>
           <div className="absolute inset-0 z-[1] flex items-center justify-center px-5 md:px-8">
@@ -1303,6 +1337,7 @@ export default function ShowroomExperience() {
             ))}
           </div>
         </div>
+        )}
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-[linear-gradient(180deg,rgba(241,235,224,0)_0%,rgba(7,16,36,0.18)_100%)]" />
       </motion.section>
 

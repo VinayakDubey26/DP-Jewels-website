@@ -254,6 +254,60 @@ a, button {
     scroll-margin-top: 60px;
   }
 
+  .about-eyebrow,
+  [data-about-eyebrow] {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    transform: none !important;
+    position: relative !important;
+    z-index: 5 !important;
+    margin-bottom: 18px;
+    text-align: center;
+    color: #9c7a3d !important;
+  }
+
+  .about-content {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+    position: relative !important;
+    padding-top: 72px;
+    margin-bottom: 48px !important;
+  }
+
+  .about-mobile-content {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+    position: relative !important;
+    height: auto !important;
+    overflow: visible !important;
+    text-align: center;
+    margin-bottom: 48px !important;
+    z-index: 2;
+    padding-top: 72px;
+  }
+
+  .about-mobile-content h2 {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    font-size: clamp(38px, 10vw, 56px);
+    line-height: 1.05;
+    margin: 20px auto;
+    color: #111827;
+    max-width: 14ch;
+  }
+
+  .about-mobile-content p {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+  }
+
   body::before,
   .atmospheric-shell::before,
   .atmospheric-shell::after {
