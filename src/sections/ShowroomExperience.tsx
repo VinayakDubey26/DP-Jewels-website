@@ -1,4 +1,4 @@
-import { MessageCircle } from "lucide-react";
+﻿import { MessageCircle } from "lucide-react";
 import { AnimatePresence, motion, useMotionValueEvent, useScroll, useSpring, useTransform } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
@@ -25,7 +25,8 @@ import igiLogo from "../assets/certifications/igi.svg";
 import gjepcLogo from "../assets/certifications/gjepc.svg";
 import gsiLogo from "../assets/certifications/gsi.svg";
 
-const WHATSAPP_LINK = "https://wa.me/918356810826?text=Hello%20D.P.%20Jewels%2C%20I%20am%20interested%20in%20a%20diamond%20enquiry.";
+const WHATSAPP_NUMBER = "918356810826";
+const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER}?text=Hello%20D.P.%20Jewels%2C%20I%20am%20interested%20in%20a%20diamond%20enquiry.`;
 const EASE_PRIMARY: [number, number, number, number] = [0.16, 1, 0.3, 1];
 const EASE_SECONDARY: [number, number, number, number] = [0.215, 0.61, 0.355, 1];
 const CINEMATIC_EASE = EASE_PRIMARY;
@@ -51,7 +52,7 @@ const staggerItem = {
 };
 
 const diamondItems = [
-  { name: "Round Brilliant", image: diamondRound, normalizeClass: "scale-[0.94]" },
+  { name: "Round", image: diamondRound, normalizeClass: "scale-[0.94]" },
   { name: "Oval", image: diamondOval, normalizeClass: "scale-[0.92]" },
   { name: "Pear", image: diamondPear, normalizeClass: "scale-[0.9]" },
   { name: "Asscher", image: diamondAsscher, normalizeClass: "scale-[0.93]" },
@@ -250,6 +251,15 @@ export default function ShowroomExperience() {
   const [loadedDiamondImages, setLoadedDiamondImages] = useState<Record<string, boolean>>({});
   const [showFinalNetworkStatement, setShowFinalNetworkStatement] = useState(false);
   const [hideExportLabel, setHideExportLabel] = useState(false);
+  const [enquiryForm, setEnquiryForm] = useState({
+    shape: "Round",
+    diamondType: "Any",
+    carat: "1-2 ct",
+    color: "Any",
+    clarity: "Any",
+    certificate: "Any",
+    name: "",
+  });
   const exportSceneRef = useRef(0);
   const externalDotAnimRefs = useRef<Array<SVGAnimationElement | null>>([]);
   const internalDotAnimRefs = useRef<Array<SVGAnimationElement | null>>([]);
@@ -261,6 +271,7 @@ export default function ShowroomExperience() {
   const bdbRef = useRef<HTMLElement>(null);
   const certRef = useRef<HTMLElement>(null);
   const whyRef = useRef<HTMLElement>(null);
+  const diamondEnquiryRef = useRef<HTMLElement>(null);
   const whyPinRef = useRef<HTMLDivElement>(null);
   const whyProofRefs = useRef<Array<HTMLElement | null>>([]);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
@@ -518,6 +529,46 @@ export default function ShowroomExperience() {
   const activeDiamond = diamondItems[activeDiamondIndex];
   const goPrevDiamond = () => setActiveDiamondIndex((prev) => (prev - 1 + diamondItems.length) % diamondItems.length);
   const goNextDiamond = () => setActiveDiamondIndex((prev) => (prev + 1) % diamondItems.length);
+  const scrollToDiamonds = () => {
+    const section = document.querySelector("#diamonds");
+    if (!section) {
+      console.error("Diamond section #diamonds not found");
+      return;
+    }
+
+    section.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
+  const handleEnquire = () => {
+    setEnquiryForm((prev) => ({ ...prev, shape: activeDiamond.name }));
+    document.getElementById("diamond-enquiry")?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
+  const handleEnquiryFormChange = (field: "shape" | "diamondType" | "carat" | "color" | "clarity" | "certificate" | "name", value: string) => {
+    setEnquiryForm((prev) => ({ ...prev, [field]: value }));
+  };
+  const submitEnquiryToWhatsApp = () => {
+    const message = `Hello D.P. Jewels,
+
+I am interested in a diamond with the following requirements:
+
+Shape: ${enquiryForm.shape}
+Type: ${enquiryForm.diamondType}
+Carat: ${enquiryForm.carat}
+Color: ${enquiryForm.color}
+Clarity: ${enquiryForm.clarity}
+Certificate: ${enquiryForm.certificate}
+Name: ${enquiryForm.name.trim() || "Not provided"}
+
+Please share available options.`;
+    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+    window.open(url, "_blank", "noopener,noreferrer");
+  };
+  const selectedEnquiryDiamond = diamondItems.find((item) => item.name === enquiryForm.shape) ?? activeDiamond;
   const markDiamondLoaded = (src: string) => {
     setLoadedDiamondImages((prev) => (prev[src] ? prev : { ...prev, [src]: true }));
   };
@@ -586,14 +637,9 @@ export default function ShowroomExperience() {
           decoding="async"
         />
         {!isMobileView && <div className="pointer-events-none absolute bottom-[15%] right-[13%] h-[88px] w-[210px] rounded-[999px] bg-[rgba(0,0,0,0.22)] blur-[18px] md:bottom-[14%] md:right-[15%] md:h-[112px] md:w-[280px]" />}
-        <a
-          href="#diamonds"
-          aria-label="Scroll to Diamond Shapes section"
-          className="absolute right-[8%] top-[33%] z-[3] block h-[54%] w-[42%] rounded-[42%] md:right-[10%] md:top-[26%] md:h-[58%] md:w-[39%]"
-        />
         <div className="relative mx-auto flex h-[100svh] h-[100dvh] h-screen min-h-[100svh] min-h-[100vh] w-[min(1220px,94%)] items-start py-[27svh] md:items-center md:py-0">
-          <motion.div variants={heroItem} className="absolute right-1 top-6 z-[5] md:right-0 md:top-10">
-            <a href="#diamonds" className="lux-hover-lift lux-interactive inline-flex rounded-sm border border-white/45 bg-white/10 px-3.5 py-1.5 text-[11px] font-medium tracking-[0.1em] text-white backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-[#f3e8d2] hover:bg-white/95 hover:text-[#111827] hover:shadow-[0_0_20px_rgba(243,232,210,0.28)] md:px-[1.28rem] md:py-[0.64rem] md:text-[13px]">EXPLORE DIAMONDS</a>
+          <motion.div variants={heroItem} className="hero-cta absolute right-1 top-6 z-[50] md:right-0 md:top-10">
+            <button type="button" onClick={scrollToDiamonds} className="lux-hover-lift lux-interactive relative z-[50] pointer-events-auto inline-flex rounded-sm border border-white/45 bg-white/10 px-3.5 py-1.5 text-[11px] font-medium tracking-[0.1em] text-white backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-[#f3e8d2] hover:bg-white/95 hover:text-[#111827] hover:shadow-[0_0_20px_rgba(243,232,210,0.28)] md:px-[1.28rem] md:py-[0.64rem] md:text-[13px]">EXPLORE DIAMONDS</button>
           </motion.div>
           <motion.div variants={heroContentStagger} initial="hidden" animate="show" className="max-w-[700px] text-white">
             <motion.h1 variants={heroItem} className="font-serif text-[2.85rem] leading-[1.02] md:text-[5rem]">
@@ -607,7 +653,7 @@ export default function ShowroomExperience() {
         </div>
       </section>
 
-      <motion.section ref={aboutRef} id="about" data-theme="light" className="about-section relative -mt-2 bg-[#F7F4EE] py-[3.2rem] pt-[5.4rem] md:-mt-3 md:py-[3.4rem]" {...sectionReveal}>
+      <motion.section ref={aboutRef} id="about" data-theme="light" className="about-section relative -mt-2 bg-[#F7F4EE] py-[3.2rem] pt-[2rem] md:-mt-3 md:py-[3.4rem]" {...sectionReveal}>
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_14%,rgba(112,132,168,0.08)_0%,rgba(112,132,168,0)_36%)]" />
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_82%_88%,rgba(212,190,150,0.07)_0%,rgba(212,190,150,0)_32%)]" />
         <div className="pointer-events-none absolute left-0 top-[22%] hidden h-px w-[16%] bg-[linear-gradient(90deg,rgba(148,163,184,0.4),transparent)] md:block" />
@@ -788,30 +834,41 @@ export default function ShowroomExperience() {
                 </motion.h3>
               </AnimatePresence>
               <div className="mt-2 flex justify-center">
-                <a
-                  href={getDiamondWhatsAppLink(activeDiamond.name)}
-                  target="_blank"
-                  rel="noreferrer"
+                <button
+                  type="button"
+                  onClick={handleEnquire}
                   className="lux-hover-lift lux-interactive rounded-full border border-[#cfd8e4]/65 px-5 py-1.5 text-[13px] font-medium tracking-[0.12em] text-[#f3eee5] transition-all duration-500 hover:bg-[#f3eee5] hover:text-[#111827]"
                 >
                   ENQUIRE
-                </a>
+                </button>
               </div>
             </div>
           </div>
         </div>
       </motion.section>
 
-      <motion.section ref={presenceRef} data-theme="light" className="relative -mt-3 h-auto bg-[linear-gradient(180deg,#F7F4EE_0%,#F5F2EB_46%,#F3EFE7_100%)] md:h-[412vh]" {...sectionReveal}>
+      <motion.section ref={presenceRef} data-theme="light" className="relative -mt-3 h-auto min-h-[90svh] bg-[linear-gradient(180deg,#F7F4EE_0%,#F5F2EB_46%,#F3EFE7_100%)] md:h-[340vh] md:min-h-0" {...sectionReveal}>
         <div className="relative flex items-center overflow-visible py-0 md:sticky md:top-0 md:min-h-screen md:min-h-[100svh] md:py-0">
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_48%_48%,rgba(197,164,109,0.12)_0%,rgba(197,164,109,0.045)_32%,rgba(250,247,242,0)_68%)]" />
           <div className="pointer-events-none absolute inset-0 opacity-[0.035] [background-image:radial-gradient(rgba(70,58,42,0.38)_0.45px,transparent_0.45px)] [background-size:4px_4px]" />
           <div className="pointer-events-none absolute right-0 top-[18%] hidden h-px w-[14%] bg-[linear-gradient(270deg,rgba(197,164,109,0.38),transparent)] md:block" />
 
           {isMobileView ? (
-            <div className="relative mx-auto w-full max-w-[430px] px-4 pt-3">
-              <div className="relative mx-auto h-[62svh] w-full">
-                <div className="absolute left-1/2 top-[48%] h-[58svh] w-[92vw] max-w-[404px] -translate-x-1/2 -translate-y-1/2">
+            <div className="relative mx-auto w-full max-w-[430px] px-4 pt-14 pb-8">
+              <div className="mb-9 flex justify-center">
+                <p className="text-center font-serif text-[1.42rem] leading-[1.24] tracking-[1.4px] font-medium text-[#463621]">
+                  EXPORTING
+                  <br />
+                  EXCELLENCE
+                  <br />
+                  WORLDWIDE
+                </p>
+              </div>
+              <div className="relative mx-auto h-[64svh] w-full overflow-visible">
+                <div
+                  className="absolute left-1/2 top-[42%] h-[64svh] w-[90vw] max-w-[392px]"
+                  style={{ transform: "translate(-50%, -50%) translateY(34px) scaleX(1.12) scaleY(1.28)" }}
+                >
                   <svg viewBox="0 0 1000 1000" className="h-full w-full" role="img" aria-label="India export routes">
                     <image href={indiaMapClean} x="0" y="0" width="1000" height="1000" preserveAspectRatio="xMidYMid meet" />
                     {(() => {
@@ -819,24 +876,24 @@ export default function ShowroomExperience() {
                     const mumbai = { x: 250, y: 610 };
                     const destinations = {
                       london: { x: 520, y: 100 },
-                      usa: { x: 95, y: 300 },
-                      dubai: { x: 115, y: 690 },
+                      usa: { x: 72, y: 270 },
+                      dubai: { x: 90, y: 700 },
                       hongKong: { x: 760, y: 300 },
                       singapore: { x: 760, y: 690 },
                     } as const;
                     const routes = [
-                        { key: "london", d: "M250 610 C314 476 408 250 520 100", begin: "0s", end: destinations.london },
-                        { key: "usa", d: "M250 610 C192 520 138 404 95 300", begin: "0s", end: destinations.usa },
-                        { key: "dubai", d: "M250 610 C210 628 160 664 115 690", begin: "0s", end: destinations.dubai },
-                        { key: "hongKong", d: "M250 610 C420 520 604 374 760 300", begin: "0s", end: destinations.hongKong },
-                        { key: "singapore", d: "M250 610 C420 632 612 672 760 690", begin: "0s", end: destinations.singapore },
+                        { key: "london", d: "M250 610 Q420 330 520 100", begin: "0s", end: destinations.london },
+                        { key: "usa", d: "M250 610 Q120 470 72 270", begin: "0s", end: destinations.usa },
+                        { key: "dubai", d: "M250 610 Q160 650 90 700", begin: "0s", end: destinations.dubai },
+                        { key: "hongKong", d: "M250 610 Q520 300 760 300", begin: "0s", end: destinations.hongKong },
+                        { key: "singapore", d: "M250 610 Q500 720 760 690", begin: "0s", end: destinations.singapore },
                       ] as const;
 
                       return (
                         <>
                           {routes.map((route) => (
                             <g key={route.key}>
-                              <path d={route.d} fill="none" stroke="rgba(209,175,109,0.92)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+                              <path d={route.d} fill="none" stroke="rgba(209,175,109,0.9)" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" style={{ filter: "drop-shadow(0 1px 0 rgba(255,255,255,0.25))" }} />
                               <circle cx={route.end.x} cy={route.end.y} r="6.5" fill="#d1af6d" />
                               <circle r="5.5" fill="#c89a3c" opacity="1">
                                 <animateMotion begin={route.begin} dur="3.2s" repeatCount="indefinite" path={route.d} />
@@ -846,34 +903,19 @@ export default function ShowroomExperience() {
                           <circle cx={mumbai.x} cy={mumbai.y} r="8" fill="#d1af6d">
                             <animate attributeName="r" values="8;8.64;8" dur="2.5s" repeatCount="indefinite" />
                           </circle>
-                          <text x="270" y="635" textAnchor="start" fontSize="26" fill="#6f604f" fontWeight="650" letterSpacing="0.2px" opacity="0.92" fontFamily="serif">
+                          <text x="270" y="655" textAnchor="start" fontSize="24" fill="#6f604f" fontWeight="650" letterSpacing="0.2px" opacity="1" fontFamily="serif">
                             Mumbai
                           </text>
                           <text x="545" y="108" textAnchor="start" fontSize="28" fill="#6f604f" fontWeight="650" letterSpacing="0.2px" opacity="1" fontFamily="serif">London</text>
-                          <text x="120" y="308" textAnchor="start" fontSize="28" fill="#6f604f" fontWeight="650" letterSpacing="0.2px" opacity="1" fontFamily="serif">USA</text>
-                          <text x="140" y="698" textAnchor="start" fontSize="28" fill="#6f604f" fontWeight="650" letterSpacing="0.2px" opacity="1" fontFamily="serif">Dubai</text>
-                          <text x="785" y="308" textAnchor="start" fontSize="28" fill="#6f604f" fontWeight="650" letterSpacing="0.2px" opacity="1" fontFamily="serif">Hong Kong</text>
+                          <text x="96" y="278" textAnchor="start" fontSize="28" fill="#6f604f" fontWeight="650" letterSpacing="0.2px" opacity="1" fontFamily="serif">USA</text>
+                          <text x="115" y="708" textAnchor="start" fontSize="28" fill="#6f604f" fontWeight="650" letterSpacing="0.2px" opacity="1" fontFamily="serif">Dubai</text>
+                          <text x="785" y="288" textAnchor="start" fontSize="28" fill="#6f604f" fontWeight="650" letterSpacing="0.2px" opacity="1" fontFamily="serif">Hong Kong</text>
                           <text x="785" y="698" textAnchor="start" fontSize="28" fill="#6f604f" fontWeight="650" letterSpacing="0.2px" opacity="1" fontFamily="serif">Singapore</text>
                         </>
                       );
                     })()}
                   </svg>
                 </div>
-
-                <motion.div
-                  className="absolute inset-x-0 bottom-[-28px] flex justify-center"
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 3.55, ease: EASE_SECONDARY }}
-                >
-                  <p className="text-center font-serif text-[1.42rem] leading-[1.18] tracking-[1.4px] font-medium text-[#463621]">
-                    EXPORTING
-                    <br />
-                    EXCELLENCE
-                    <br />
-                    WORLDWIDE
-                  </p>
-                </motion.div>
               </div>
             </div>
           ) : (
@@ -1191,7 +1233,7 @@ export default function ShowroomExperience() {
         </div>
       </motion.section>
 
-      <motion.section ref={bdbRef} data-theme="light" style={{ y: isMobileView ? 0 : bdbDrift }} className="relative -mt-1 w-full overflow-hidden bg-[#f7f4ee] py-20 md:py-24" {...sectionReveal}>
+      <motion.section ref={bdbRef} data-theme="light" style={{ y: isMobileView ? 0 : bdbDrift }} className="relative -mt-4 w-full overflow-hidden bg-[#f7f4ee] py-12 md:py-14" {...sectionReveal}>
         <div className="relative mx-auto w-full max-w-[1660px] px-3 md:px-6">
           <motion.div
             className="relative min-h-[88vh] overflow-hidden md:min-h-[96vh]"
@@ -1250,7 +1292,7 @@ export default function ShowroomExperience() {
         ref={certRef}
         data-theme="light"
         style={{ y: isMobileView ? 0 : certDrift }}
-        className="relative -mt-1 overflow-hidden bg-[linear-gradient(180deg,#f7f3ec_0%,#f5f1ea_52%,#efe9df_100%)] py-[3.5rem] text-[#2c2a27] md:py-[4.1rem]"
+        className="relative -mt-1 overflow-hidden bg-[linear-gradient(180deg,#f7f3ec_0%,#f5f1ea_52%,#efe9df_100%)] py-[2.6rem] text-[#2c2a27] md:py-[3rem]"
         {...sectionReveal}
       >
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_14%_20%,rgba(255,255,255,0.56)_0%,rgba(255,255,255,0)_38%)]" />
@@ -1299,7 +1341,7 @@ export default function ShowroomExperience() {
 
       <motion.section ref={whyRef} data-theme="light" className="relative -mt-1 overflow-visible bg-[linear-gradient(180deg,#F7F4EE_0%,#F5F2EB_52%,#F3EFE7_100%)] text-[#2f2a24] md:h-auto" {...sectionReveal}>
         {isMobileView ? (
-          <div className="relative mx-auto w-full max-w-[840px] px-5 py-16">
+          <div className="relative mx-auto w-full max-w-[840px] px-5 py-12">
             <p className="text-center text-[13px] tracking-[0.14em] text-[#6f624f]">WHY CHOOSE D.P. JEWELS</p>
             <div className="mt-8 space-y-9">
               {whyChoosePoints.map((point, idx) => (
@@ -1339,6 +1381,106 @@ export default function ShowroomExperience() {
         </div>
         )}
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-[linear-gradient(180deg,rgba(241,235,224,0)_0%,rgba(7,16,36,0.18)_100%)]" />
+      </motion.section>
+
+      <motion.section
+        id="diamond-enquiry"
+        ref={diamondEnquiryRef}
+        data-theme="light"
+        className="relative -mt-1 overflow-hidden bg-[linear-gradient(180deg,#F7F4EE_0%,#F5F2EB_56%,#F3EFE7_100%)] py-[2.8rem] md:py-[3.2rem]"
+        {...sectionReveal}
+      >
+        <div className="relative mx-auto w-full max-w-[1320px] px-5 md:px-8">
+          <div className="mx-auto w-full max-w-[720px] rounded-[18px] border border-[rgba(184,148,77,0.35)] bg-[#F7F4EE] p-5 text-[#07101f] shadow-[0_24px_60px_rgba(4,8,22,0.16)] md:p-7">
+            <p className="text-[11px] tracking-[0.2em] text-[#b8944d] md:text-[12px]">DIAMOND ENQUIRY</p>
+            <h3 className="mt-2 font-serif text-[2rem] leading-[1.05] text-[#07101f] md:text-[2.35rem]">Share Your Requirements</h3>
+
+            <div className="mt-5 flex items-center gap-3 border-y border-[#d9c8a4]/70 py-3">
+              <img
+                src={selectedEnquiryDiamond.image}
+                alt={`${selectedEnquiryDiamond.name} diamond preview`}
+                className={`h-14 w-14 object-contain ${selectedEnquiryDiamond.normalizeClass}`}
+                loading="eager"
+                decoding="async"
+              />
+              <div>
+                <p className="text-[11px] tracking-[0.14em] text-[#b8944d]">SELECTED DIAMOND</p>
+                <p className="font-serif text-[1.3rem] leading-[1.05] text-[#07101f]">{selectedEnquiryDiamond.name}</p>
+              </div>
+            </div>
+
+            <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2">
+              <label className="text-[12px] font-medium tracking-[0.08em] text-[#3b4656]">
+                Diamond Shape
+                <select value={enquiryForm.shape} onChange={(e) => handleEnquiryFormChange("shape", e.target.value)} className="mt-2 w-full rounded-md border border-[#d2c5ad] bg-white px-3 py-2 text-[14px] text-[#1f2937] focus:border-[#b8944d] focus:outline-none">
+                  {diamondItems.map((item) => (
+                    <option key={`shape-option-${item.name}`} value={item.name}>
+                      {item.name}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <label className="text-[12px] font-medium tracking-[0.08em] text-[#3b4656]">
+                Diamond Type
+                <select value={enquiryForm.diamondType} onChange={(e) => handleEnquiryFormChange("diamondType", e.target.value)} className="mt-2 w-full rounded-md border border-[#d2c5ad] bg-white px-3 py-2 text-[14px] text-[#1f2937] focus:border-[#b8944d] focus:outline-none">
+                  <option>Natural Diamond</option>
+                  <option>Lab Grown Diamond</option>
+                  <option>Any</option>
+                </select>
+              </label>
+              <label className="text-[12px] font-medium tracking-[0.08em] text-[#3b4656]">
+                Carat
+                <select value={enquiryForm.carat} onChange={(e) => handleEnquiryFormChange("carat", e.target.value)} className="mt-2 w-full rounded-md border border-[#d2c5ad] bg-white px-3 py-2 text-[14px] text-[#1f2937] focus:border-[#b8944d] focus:outline-none">
+                  <option>Below 1 ct</option>
+                  <option>1–2 ct</option>
+                  <option>2–3 ct</option>
+                  <option>3 ct+</option>
+                </select>
+              </label>
+              <label className="text-[12px] font-medium tracking-[0.08em] text-[#3b4656]">
+                Color
+                <select value={enquiryForm.color} onChange={(e) => handleEnquiryFormChange("color", e.target.value)} className="mt-2 w-full rounded-md border border-[#d2c5ad] bg-white px-3 py-2 text-[14px] text-[#1f2937] focus:border-[#b8944d] focus:outline-none">
+                  <option>D–F</option>
+                  <option>G–H</option>
+                  <option>I+</option>
+                  <option>Any</option>
+                </select>
+              </label>
+              <label className="text-[12px] font-medium tracking-[0.08em] text-[#3b4656]">
+                Clarity
+                <select value={enquiryForm.clarity} onChange={(e) => handleEnquiryFormChange("clarity", e.target.value)} className="mt-2 w-full rounded-md border border-[#d2c5ad] bg-white px-3 py-2 text-[14px] text-[#1f2937] focus:border-[#b8944d] focus:outline-none">
+                  <option>IF/VVS</option>
+                  <option>VS</option>
+                  <option>SI</option>
+                  <option>Any</option>
+                </select>
+              </label>
+              <label className="text-[12px] font-medium tracking-[0.08em] text-[#3b4656]">
+                Certificate
+                <select value={enquiryForm.certificate} onChange={(e) => handleEnquiryFormChange("certificate", e.target.value)} className="mt-2 w-full rounded-md border border-[#d2c5ad] bg-white px-3 py-2 text-[14px] text-[#1f2937] focus:border-[#b8944d] focus:outline-none">
+                  <option>GIA</option>
+                  <option>IGI</option>
+                  <option>Any</option>
+                </select>
+              </label>
+              <label className="text-[12px] font-medium tracking-[0.08em] text-[#3b4656] md:col-span-2">
+                Name
+                <input value={enquiryForm.name} onChange={(e) => handleEnquiryFormChange("name", e.target.value)} placeholder="Enter your name" className="mt-2 w-full rounded-md border border-[#d2c5ad] bg-white px-3 py-2 text-[14px] text-[#1f2937] focus:border-[#b8944d] focus:outline-none" />
+              </label>
+            </div>
+
+            <button
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                submitEnquiryToWhatsApp();
+              }}
+              className="mt-6 w-full rounded-full border border-[#b8944d]/25 bg-[#07101f] px-5 py-3 text-[12px] font-medium tracking-[0.14em] text-[#F7F4EE] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#10203b] hover:text-[#f6ead2]"
+            >
+              SEND ENQUIRY ON WHATSAPP
+            </button>
+          </div>
+        </div>
       </motion.section>
 
       <a href={WHATSAPP_LINK} target="_blank" rel="noreferrer" aria-label="WhatsApp Enquiry" className="floating-wa">

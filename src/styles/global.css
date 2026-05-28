@@ -288,7 +288,7 @@ a, button {
     text-align: center;
     margin-bottom: 48px !important;
     z-index: 2;
-    padding-top: 72px;
+    padding-top: 24px;
   }
 
   .about-mobile-content h2 {
