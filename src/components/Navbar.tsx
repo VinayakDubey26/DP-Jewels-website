@@ -101,9 +101,9 @@ export default function Navbar() {
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1.02, ease: EASE_PRIMARY, delay: 0.04 }}
-        className="fixed inset-x-0 top-[18px] z-[110] md:top-[-10px]"
+        className="pointer-events-none fixed inset-x-0 top-[18px] z-[110] md:top-[-10px]"
       >
-        <nav className="mx-auto flex h-[52px] w-full max-w-[1440px] items-center px-4 md:h-[104px] md:max-w-none md:px-2 lg:px-3">
+        <nav className="pointer-events-none mx-auto flex h-[52px] w-full max-w-[1440px] items-center px-4 md:h-[104px] md:max-w-none md:px-2 lg:px-3">
           <motion.div
             className="flex w-full items-center justify-end md:hidden"
             initial={false}
@@ -149,7 +149,7 @@ export default function Navbar() {
 
       <motion.a
         href="#home"
-        className="pointer-events-auto fixed inset-x-0 top-[14px] z-[109] flex justify-start pl-4 md:top-[10px] md:pl-8 lg:pl-12"
+        className="pointer-events-auto fixed left-4 top-[14px] z-[109] inline-flex w-auto max-w-fit md:left-8 md:top-[10px] lg:left-12"
         initial={false}
         animate={{ opacity: isHeroActive ? 1 : 0 }}
         transition={{ duration: 0.42, ease: EASE_SECONDARY }}

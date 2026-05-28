@@ -14,12 +14,14 @@ export default function LoadingScreen({ done }: { done: boolean }) {
     return () => media.removeEventListener("change", update);
   }, []);
 
+  if (done) return null;
+
   return (
     <motion.div
       initial={{ opacity: 1 }}
-      animate={{ opacity: done ? 0 : 1 }}
+      animate={{ opacity: 1 }}
       transition={{ duration: isMobileView ? 0.62 : 0.68, ease: EASE_SECONDARY }}
-      className={`fixed inset-0 z-[100] flex translate-z-0 items-center justify-center bg-white [will-change:opacity,transform] ${done ? "pointer-events-none" : ""}`}
+      className="fixed inset-0 z-[100] flex translate-z-0 items-center justify-center bg-white pointer-events-auto [will-change:opacity,transform]"
     >
       <motion.img
         src="/logo-black.png"

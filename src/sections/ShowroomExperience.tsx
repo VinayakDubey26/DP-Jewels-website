@@ -1,6 +1,6 @@
 ﻿import { MessageCircle } from "lucide-react";
 import { AnimatePresence, motion, useMotionValueEvent, useScroll, useSpring, useTransform } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type MouseEvent } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import bgImage from "../assets/bg.jpg";
@@ -529,10 +529,16 @@ export default function ShowroomExperience() {
   const activeDiamond = diamondItems[activeDiamondIndex];
   const goPrevDiamond = () => setActiveDiamondIndex((prev) => (prev - 1 + diamondItems.length) % diamondItems.length);
   const goNextDiamond = () => setActiveDiamondIndex((prev) => (prev + 1) % diamondItems.length);
-  const scrollToDiamonds = () => {
-    const section = document.querySelector("#diamonds");
+  const scrollToDiamonds = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    console.log("Explore Diamonds clicked");
+
+    const section = document.getElementById("diamonds");
+
     if (!section) {
-      console.error("Diamond section #diamonds not found");
+      console.error("Diamond section with id='diamonds' not found");
       return;
     }
 
@@ -619,6 +625,7 @@ Please share available options.`;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+
   return (
     <div className="atmospheric-shell text-[#111827]">
       <section
@@ -630,17 +637,23 @@ Please share available options.`;
         <motion.img
           src={isMobileView ? mobileHeroImage : bgImage}
           alt="Premium jewellery background"
-          className="absolute inset-0 h-full w-full object-cover object-center md:object-[62%_38%]"
+          className="pointer-events-none absolute inset-0 h-full w-full object-cover object-center md:object-[62%_38%]"
           style={isMobileView ? undefined : { y: heroY, scale: heroScale }}
           loading="eager"
           fetchPriority="high"
           decoding="async"
         />
         {!isMobileView && <div className="pointer-events-none absolute bottom-[15%] right-[13%] h-[88px] w-[210px] rounded-[999px] bg-[rgba(0,0,0,0.22)] blur-[18px] md:bottom-[14%] md:right-[15%] md:h-[112px] md:w-[280px]" />}
+        <div className="absolute right-4 top-6 z-[1000] pointer-events-auto md:right-16 md:top-10">
+          <button
+            type="button"
+            onClick={scrollToDiamonds}
+            className="lux-hover-lift lux-interactive relative z-[1001] pointer-events-auto cursor-pointer inline-flex rounded-sm border border-white/45 bg-white/10 px-3.5 py-1.5 text-[11px] font-medium tracking-[0.1em] text-white backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-[#f3e8d2] hover:bg-white/95 hover:text-[#111827] hover:shadow-[0_0_20px_rgba(243,232,210,0.28)] md:px-[1.28rem] md:py-[0.64rem] md:text-[13px]"
+          >
+            EXPLORE DIAMONDS
+          </button>
+        </div>
         <div className="relative mx-auto flex h-[100svh] h-[100dvh] h-screen min-h-[100svh] min-h-[100vh] w-[min(1220px,94%)] items-start py-[27svh] md:items-center md:py-0">
-          <motion.div variants={heroItem} className="hero-cta absolute right-1 top-6 z-[50] md:right-0 md:top-10">
-            <button type="button" onClick={scrollToDiamonds} className="lux-hover-lift lux-interactive relative z-[50] pointer-events-auto inline-flex rounded-sm border border-white/45 bg-white/10 px-3.5 py-1.5 text-[11px] font-medium tracking-[0.1em] text-white backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-[#f3e8d2] hover:bg-white/95 hover:text-[#111827] hover:shadow-[0_0_20px_rgba(243,232,210,0.28)] md:px-[1.28rem] md:py-[0.64rem] md:text-[13px]">EXPLORE DIAMONDS</button>
-          </motion.div>
           <motion.div variants={heroContentStagger} initial="hidden" animate="show" className="max-w-[700px] text-white">
             <motion.h1 variants={heroItem} className="font-serif text-[2.85rem] leading-[1.02] md:text-[5rem]">
               Diamond Traders,
