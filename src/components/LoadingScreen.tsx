@@ -25,7 +25,7 @@ export default function LoadingScreen({ done }: { done: boolean }) {
     >
       <motion.img
         src="/logo-black.png"
-        alt="D.P. Jewels"
+        alt="D.P. Jewels diamond sourcing logo"
         className="h-auto w-[min(600px,86vw)] translate-z-0 object-contain [will-change:opacity,transform]"
         initial={{ opacity: 0, scale: isMobileView ? 0.985 : 0.96 }}
         animate={{ opacity: 1, scale: 1 }}

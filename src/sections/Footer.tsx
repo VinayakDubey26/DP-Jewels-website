@@ -11,7 +11,7 @@ export default function Footer() {
       <div className="relative mx-auto w-full max-w-[1320px]">
         <div className="grid items-start gap-11 md:grid-cols-2 md:gap-12">
           <div className="flex flex-col items-center justify-center text-center">
-            <img src="/logo-white.png" alt="D.P. Jewels" width={292} height={94} loading="lazy" decoding="async" className="h-[90px] w-auto object-contain opacity-95 md:h-[104px]" />
+            <img src="/logo-white.png" alt="D.P. Jewels diamond sourcing logo" width={292} height={94} loading="lazy" decoding="async" className="h-[90px] w-auto object-contain opacity-95 md:h-[104px]" />
           </div>
 
           <div className="grid gap-10 text-center md:grid-cols-[1fr_auto] md:items-start md:gap-10 md:text-left">

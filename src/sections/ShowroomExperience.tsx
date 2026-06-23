@@ -636,7 +636,7 @@ Please share available options.`;
       >
         <motion.img
           src={isMobileView ? mobileHeroImage : bgImage}
-          alt="Premium jewellery background"
+          alt="Natural loose diamonds sourced by D.P. Jewels"
           className="pointer-events-none absolute inset-0 h-full w-full object-cover object-center md:object-[62%_38%]"
           style={isMobileView ? undefined : { y: heroY, scale: heroScale }}
           loading="eager"
@@ -656,9 +656,9 @@ Please share available options.`;
         <div className="relative mx-auto flex h-[100svh] h-[100dvh] h-screen min-h-[100svh] min-h-[100vh] w-[min(1220px,94%)] items-start py-[27svh] md:items-center md:py-0">
           <motion.div variants={heroContentStagger} initial="hidden" animate="show" className="max-w-[700px] text-white">
             <motion.h1 variants={heroItem} className="font-serif text-[2.85rem] leading-[1.02] md:text-[5rem]">
-              Diamond Traders,
+              Diamond Traders,{" "}
               <br />
-              Importers &
+              Importers &{" "}
               <br />
               Exporters
             </motion.h1>
@@ -666,7 +666,7 @@ Please share available options.`;
         </div>
       </section>
 
-      <motion.section ref={aboutRef} id="about" data-theme="light" className="about-section relative -mt-2 bg-[#F7F4EE] py-[3.2rem] pt-[2rem] md:-mt-3 md:py-[3.4rem]" {...sectionReveal}>
+      <motion.section ref={aboutRef} id="about" data-theme="light" className="about-section relative -mt-2 bg-[#FAF8F5] py-[3.2rem] pt-[2rem] md:-mt-3 md:py-[3.4rem]" {...sectionReveal}>
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_14%,rgba(112,132,168,0.08)_0%,rgba(112,132,168,0)_36%)]" />
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_82%_88%,rgba(212,190,150,0.07)_0%,rgba(212,190,150,0)_32%)]" />
         <div className="pointer-events-none absolute left-0 top-[22%] hidden h-px w-[16%] bg-[linear-gradient(90deg,rgba(148,163,184,0.4),transparent)] md:block" />
@@ -771,7 +771,7 @@ Please share available options.`;
                   >
                     <motion.img
                       src={shape.image}
-                      alt={`${shape.name} diamond`}
+                      alt={`${shape.name} natural loose diamond`}
                       className={`relative h-full w-full object-contain object-center transition-all duration-[1100ms] ${isActive ? "scale-[1.12] brightness-[1.05]" : "scale-[0.95] brightness-100"} ${shape.normalizeClass} ${isDiamondLoaded(shape.image) ? "opacity-100" : "opacity-0"}`}
                       animate={isActive ? { rotateY: [0, 1.2, 0], rotateX: [0, -0.8, 0] } : { rotateY: 0, rotateX: 0 }}
                       transition={{ duration: 14, repeat: Number.POSITIVE_INFINITY, ease: EASE_SECONDARY }}
@@ -808,7 +808,7 @@ Please share available options.`;
                   <div className="relative flex h-[220px] w-[220px] items-center justify-center md:h-[280px] md:w-[280px]">
                     <img
                       src={shape.image}
-                      alt={`${shape.name} diamond`}
+                      alt={`${shape.name} natural loose diamond`}
                       className={`h-full w-full object-contain object-center transition-all duration-700 scale-[1.08] ${shape.normalizeClass} ${isDiamondLoaded(shape.image) ? "opacity-100" : "opacity-0"}`}
                       loading="eager"
                       onLoad={() => markDiamondLoaded(shape.image)}
@@ -860,9 +860,9 @@ Please share available options.`;
         </div>
       </motion.section>
 
-      <motion.section ref={presenceRef} data-theme="light" className="relative -mt-3 h-auto min-h-[90svh] bg-[linear-gradient(180deg,#F7F4EE_0%,#F5F2EB_46%,#F3EFE7_100%)] md:h-[340vh] md:min-h-0" {...sectionReveal}>
+      <motion.section ref={presenceRef} data-theme="light" className="relative -mt-3 h-auto min-h-[90svh] bg-[linear-gradient(180deg,#FAF8F5_0%,#F7F4F0_46%,#F2EEE8_100%)] md:h-[340vh] md:min-h-0" {...sectionReveal}>
         <div className="relative flex items-center overflow-visible py-0 md:sticky md:top-0 md:min-h-screen md:min-h-[100svh] md:py-0">
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_48%_48%,rgba(197,164,109,0.12)_0%,rgba(197,164,109,0.045)_32%,rgba(250,247,242,0)_68%)]" />
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_48%_48%,rgba(197,164,109,0.1)_0%,rgba(197,164,109,0.036)_32%,rgba(250,248,245,0)_68%)]" />
           <div className="pointer-events-none absolute inset-0 opacity-[0.035] [background-image:radial-gradient(rgba(70,58,42,0.38)_0.45px,transparent_0.45px)] [background-size:4px_4px]" />
           <div className="pointer-events-none absolute right-0 top-[18%] hidden h-px w-[14%] bg-[linear-gradient(270deg,rgba(197,164,109,0.38),transparent)] md:block" />
 
@@ -936,7 +936,7 @@ Please share available options.`;
             <div className="order-2 mx-auto w-[96vw] max-w-[96vw] px-2 lg:order-1 md:w-full md:max-w-none md:px-3 lg:max-w-none">
               <motion.div className="relative h-[min(64svh,620px)] overflow-visible md:h-[min(98vh,1320px)] md:overflow-visible lg:h-[min(98vh,1320px)]" style={{ opacity: isMobileView ? 1 : exportMapOpacity }}>
                 <img src={indiaExportStory} alt="" aria-hidden className="sr-only" loading="lazy" decoding="async" />
-                <div className="pointer-events-none absolute left-1/2 top-1/2 h-[86%] w-[86%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(255,251,243,0.82)_0%,rgba(255,251,243,0.26)_50%,rgba(255,251,243,0)_80%)]" />
+                <div className="pointer-events-none absolute left-1/2 top-1/2 h-[86%] w-[86%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(255,253,249,0.82)_0%,rgba(255,253,249,0.24)_50%,rgba(255,253,249,0)_80%)]" />
                 <div className="pointer-events-none absolute inset-[4%] bg-[radial-gradient(circle_at_52%_52%,rgba(255,255,255,0.5)_0%,rgba(255,255,255,0.12)_56%,rgba(255,255,255,0)_100%)]" />
                 <motion.svg viewBox="-250 -10 1280 1055" preserveAspectRatio="xMidYMid meet" className="absolute left-1/2 top-1/2 h-[142%] w-[142%] -translate-x-1/2 -translate-y-1/2 md:left-0 md:top-0 md:h-full md:w-full md:translate-x-0 md:translate-y-0" role="img" aria-label="DP Jewels export network from Mumbai, India">
                 <defs>
@@ -1168,7 +1168,7 @@ Please share available options.`;
                             letterSpacing="0.018em"
                             fill="#5a4934"
                             paintOrder="stroke"
-                            stroke="rgba(255,251,243,0.66)"
+                            stroke="rgba(255,253,249,0.66)"
                             strokeWidth={0.84}
                             initial={false}
                             animate={{ opacity: isVisible ? 0.9 : 0, y: isVisible ? 0 : 6 }}
@@ -1186,7 +1186,7 @@ Please share available options.`;
                             letterSpacing="0.02em"
                             fill="#5a4934"
                             paintOrder="stroke"
-                            stroke="rgba(255,251,243,0.4)"
+                            stroke="rgba(255,253,249,0.4)"
                             strokeWidth={0.66}
                             initial={false}
                             animate={{ y: isVisible ? 0 : 8 }}
@@ -1246,7 +1246,7 @@ Please share available options.`;
         </div>
       </motion.section>
 
-      <motion.section ref={bdbRef} data-theme="light" style={{ y: isMobileView ? 0 : bdbDrift }} className="relative -mt-4 w-full overflow-hidden bg-[#f7f4ee] py-12 md:py-14" {...sectionReveal}>
+      <motion.section ref={bdbRef} data-theme="light" style={{ y: isMobileView ? 0 : bdbDrift }} className="relative -mt-4 w-full overflow-hidden bg-[#FAF8F5] py-12 md:py-14" {...sectionReveal}>
         <div className="relative mx-auto w-full max-w-[1660px] px-3 md:px-6">
           <motion.div
             className="relative min-h-[88vh] overflow-hidden md:min-h-[96vh]"
@@ -1257,14 +1257,14 @@ Please share available options.`;
           >
             <img
               src={isMobileView ? bdbMobileImage : bdbImage}
-              alt="Bharat Diamond Bourse building"
+              alt="Bharat Diamond Bourse in Mumbai, home of D.P. Jewels diamond sourcing"
               width={2139}
               height={1426}
               className="absolute inset-0 h-full w-full scale-100 object-cover object-center md:scale-[1.05] md:object-[72%_50%]"
               loading="lazy"
               decoding="async"
             />
-            <div className="pointer-events-none absolute inset-y-0 left-0 hidden w-[56%] bg-[linear-gradient(90deg,rgba(247,244,238,0.34)_0%,rgba(247,244,238,0.16)_56%,rgba(247,244,238,0)_100%)] md:block md:w-[52%]" />
+            <div className="pointer-events-none absolute inset-y-0 left-0 hidden w-[56%] bg-[linear-gradient(90deg,rgba(250,248,245,0.34)_0%,rgba(250,248,245,0.16)_56%,rgba(250,248,245,0)_100%)] md:block md:w-[52%]" />
 
             <div className="relative z-[1] flex h-full items-end justify-center pb-20 md:items-center md:justify-start md:pb-0">
               <motion.article
@@ -1279,7 +1279,7 @@ Please share available options.`;
                 <h2 className="mt-4 font-serif text-[clamp(28px,5vw,38px)] leading-[1.08] font-medium text-[#1f2430] md:mt-7 md:max-w-[17ch] md:text-[3.35rem]">
                   {isMobileView ? "Based at Bharat Diamond Bourse" : (
                     <>
-                      Based at Bharat
+                      Based at Bharat{" "}
                       <br />
                       Diamond Bourse
                     </>
@@ -1305,7 +1305,7 @@ Please share available options.`;
         ref={certRef}
         data-theme="light"
         style={{ y: isMobileView ? 0 : certDrift }}
-        className="relative -mt-1 overflow-hidden bg-[linear-gradient(180deg,#f7f3ec_0%,#f5f1ea_52%,#efe9df_100%)] py-[2.6rem] text-[#2c2a27] md:py-[3rem]"
+        className="relative -mt-1 overflow-hidden bg-[linear-gradient(180deg,#FAF8F5_0%,#F7F4F0_52%,#F1EDE7_100%)] py-[2.6rem] text-[#2c2a27] md:py-[3rem]"
         {...sectionReveal}
       >
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_14%_20%,rgba(255,255,255,0.56)_0%,rgba(255,255,255,0)_38%)]" />
@@ -1315,20 +1315,20 @@ Please share available options.`;
         <div className="relative mx-auto w-full max-w-[1320px] px-5 md:px-8">
           <div className="mx-auto w-full max-w-[70ch] text-center">
           <p className="text-[13px] tracking-[0.18em] text-[#4f473d] md:font-medium">INSTITUTIONAL CREDIBILITY</p>
-          <p className="mt-4 mx-auto max-w-[58ch] font-serif text-[2.45rem] leading-[1.06] text-[#342f29] md:text-[3.65rem]">
+          <h2 className="mt-4 mx-auto max-w-[58ch] font-serif text-[2.45rem] leading-[1.06] text-[#342f29] md:text-[3.65rem]">
             Recognized Across International Diamond Markets.
-          </p>
+          </h2>
           <div className="mt-4 flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
             <span className="text-[13px] tracking-[0.1em] text-[#7e6941] md:font-medium">GLOBAL INSTITUTIONAL ALIGNMENT</span>
           </div>
           </div>
 
           <div className="relative mt-6 md:mt-8">
-            <div className="mx-auto grid max-w-[1280px] grid-cols-2 gap-4 border-y border-[#d9cdb6]/62 py-7 md:grid-cols-4 md:gap-6 md:py-9">
+            <div className="mx-auto grid max-w-[1280px] grid-cols-2 gap-4 border-y border-[#d8cebd]/66 py-7 md:grid-cols-4 md:gap-6 md:py-9">
               {certifications.map((item, idx) => (
               <motion.article
                 key={item.code}
-                className="group relative flex h-full flex-col rounded-[1.2rem] border border-[#ddcfb5]/58 bg-[linear-gradient(180deg,rgba(255,252,246,0.7)_0%,rgba(247,241,232,0.56)_100%)] px-3 py-5 text-center shadow-[0_10px_24px_rgba(136,113,73,0.06)] transition-all duration-500 hover:scale-[1.045] hover:border-[#e8d6b6] hover:shadow-[0_14px_32px_rgba(136,113,73,0.11)] md:px-5 md:py-6"
+                className="group relative flex h-full flex-col rounded-[1.2rem] border border-[#d8cebd]/62 bg-[linear-gradient(180deg,rgba(255,255,255,0.88)_0%,rgba(250,248,245,0.66)_100%)] px-3 py-5 text-center shadow-[0_10px_24px_rgba(136,113,73,0.055)] transition-all duration-500 hover:scale-[1.045] hover:border-[#e3d2b3] hover:shadow-[0_14px_32px_rgba(136,113,73,0.1)] md:px-5 md:py-6"
                 initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.3 }}
@@ -1337,7 +1337,7 @@ Please share available options.`;
                 <div className="flex min-h-[72px] items-center justify-center md:min-h-[88px]">
                   <img
                     src={item.logo}
-                    alt={`${item.code} certification logo`}
+                    alt={`${item.code} diamond certification logo`}
                     className="h-[4.5rem] w-auto max-w-[82%] object-contain opacity-[0.99] transition-opacity duration-500 group-hover:opacity-100 md:h-[5.3rem]"
                     loading="lazy"
                     decoding="async"
@@ -1352,10 +1352,10 @@ Please share available options.`;
         </div>
       </motion.section>
 
-      <motion.section ref={whyRef} data-theme="light" className="relative -mt-1 overflow-visible bg-[linear-gradient(180deg,#F7F4EE_0%,#F5F2EB_52%,#F3EFE7_100%)] text-[#2f2a24] md:h-auto" {...sectionReveal}>
+      <motion.section ref={whyRef} data-theme="light" className="relative -mt-1 overflow-visible bg-[linear-gradient(180deg,#FAF8F5_0%,#F7F4F0_52%,#F2EEE8_100%)] text-[#2f2a24] md:h-auto" {...sectionReveal}>
         {isMobileView ? (
           <div className="relative mx-auto w-full max-w-[840px] px-5 py-12">
-            <p className="text-center text-[13px] tracking-[0.14em] text-[#6f624f]">WHY CHOOSE D.P. JEWELS</p>
+            <h2 className="text-center text-[13px] tracking-[0.14em] text-[#6f624f]">WHY CHOOSE D.P. JEWELS</h2>
             <div className="mt-8 space-y-9">
               {whyChoosePoints.map((point, idx) => (
                 <motion.article
@@ -1367,7 +1367,7 @@ Please share available options.`;
                   transition={{ duration: 0.5, delay: idx * 0.06, ease: SOFT_EASE }}
                 >
                   <p className="mb-2 text-[13px] tracking-[0.16em] text-[#8f7c5b]">{point.num}</p>
-                  <h2 className="font-serif text-[2.1rem] leading-[1.05] text-[#29241f]">{point.title}</h2>
+                  <h3 className="font-serif text-[2.1rem] leading-[1.05] text-[#29241f]">{point.title}</h3>
                   <p className="mx-auto mt-3 max-w-[30ch] text-[0.98rem] leading-[1.72] text-[#554b3f]">{point.desc}</p>
                 </motion.article>
               ))}
@@ -1375,7 +1375,7 @@ Please share available options.`;
           </div>
         ) : (
         <div ref={whyPinRef} className="relative h-[100svh] min-h-[100svh]">
-          <p className="pointer-events-none absolute left-1/2 top-[12%] z-[2] -translate-x-1/2 whitespace-nowrap text-[13px] tracking-[0.14em] text-[#6f624f]">WHY CHOOSE D.P. JEWELS</p>
+          <h2 className="pointer-events-none absolute left-1/2 top-[12%] z-[2] -translate-x-1/2 whitespace-nowrap text-[13px] tracking-[0.14em] text-[#6f624f]">WHY CHOOSE D.P. JEWELS</h2>
           <div className="absolute inset-0 z-[1] flex items-center justify-center px-5 md:px-8">
             {whyChoosePoints.map((point, idx) => (
               <article
@@ -1385,7 +1385,7 @@ Please share available options.`;
               >
                 <div className="w-full max-w-[52rem]">
                   <p className="mb-2 text-[13px] tracking-[0.16em] text-[#8f7c5b]">{point.num}</p>
-                  <h2 className="font-serif text-[2.8rem] leading-[1.04] text-[#29241f] md:text-[4.4rem]">{point.title}</h2>
+                  <h3 className="font-serif text-[2.8rem] leading-[1.04] text-[#29241f] md:text-[4.4rem]">{point.title}</h3>
                   <p className="mx-auto mt-4 max-w-[34ch] text-[1.02rem] leading-[1.72] text-[#554b3f] md:text-[1.18rem] md:leading-[1.86]">{point.desc}</p>
                 </div>
               </article>
@@ -1393,25 +1393,25 @@ Please share available options.`;
           </div>
         </div>
         )}
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-[linear-gradient(180deg,rgba(241,235,224,0)_0%,rgba(7,16,36,0.18)_100%)]" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-[linear-gradient(180deg,rgba(242,238,232,0)_0%,rgba(7,16,36,0.18)_100%)]" />
       </motion.section>
 
       <motion.section
         id="diamond-enquiry"
         ref={diamondEnquiryRef}
         data-theme="light"
-        className="relative -mt-1 overflow-hidden bg-[linear-gradient(180deg,#F7F4EE_0%,#F5F2EB_56%,#F3EFE7_100%)] py-[2.8rem] md:py-[3.2rem]"
+        className="relative -mt-1 overflow-hidden bg-[linear-gradient(180deg,#FAF8F5_0%,#F7F4F0_56%,#F2EEE8_100%)] py-[2.8rem] md:py-[3.2rem]"
         {...sectionReveal}
       >
         <div className="relative mx-auto w-full max-w-[1320px] px-5 md:px-8">
-          <div className="mx-auto w-full max-w-[720px] rounded-[18px] border border-[rgba(184,148,77,0.35)] bg-[#F7F4EE] p-5 text-[#07101f] shadow-[0_24px_60px_rgba(4,8,22,0.16)] md:p-7">
+          <div className="mx-auto w-full max-w-[720px] rounded-[18px] border border-[rgba(184,148,77,0.35)] bg-[#FFFFFF] p-5 text-[#07101f] shadow-[0_24px_60px_rgba(4,8,22,0.14)] md:p-7">
             <p className="text-[11px] tracking-[0.2em] text-[#b8944d] md:text-[12px]">DIAMOND ENQUIRY</p>
-            <h3 className="mt-2 font-serif text-[2rem] leading-[1.05] text-[#07101f] md:text-[2.35rem]">Share Your Requirements</h3>
+            <h2 className="mt-2 font-serif text-[2rem] leading-[1.05] text-[#07101f] md:text-[2.35rem]">Share Your Requirements</h2>
 
             <div className="mt-5 flex items-center gap-3 border-y border-[#d9c8a4]/70 py-3">
               <img
                 src={selectedEnquiryDiamond.image}
-                alt={`${selectedEnquiryDiamond.name} diamond preview`}
+                alt={`${selectedEnquiryDiamond.name} natural loose diamond enquiry preview`}
                 className={`h-14 w-14 object-contain ${selectedEnquiryDiamond.normalizeClass}`}
                 loading="eager"
                 decoding="async"
@@ -1488,7 +1488,7 @@ Please share available options.`;
                 e.preventDefault();
                 submitEnquiryToWhatsApp();
               }}
-              className="mt-6 w-full rounded-full border border-[#b8944d]/25 bg-[#07101f] px-5 py-3 text-[12px] font-medium tracking-[0.14em] text-[#F7F4EE] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#10203b] hover:text-[#f6ead2]"
+              className="mt-6 w-full rounded-full border border-[#b8944d]/25 bg-[#07101f] px-5 py-3 text-[12px] font-medium tracking-[0.14em] text-[#FAF8F5] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#10203b] hover:text-[#f6ead2]"
             >
               SEND ENQUIRY ON WHATSAPP
             </button>

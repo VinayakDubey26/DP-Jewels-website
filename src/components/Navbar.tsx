@@ -114,7 +114,7 @@ export default function Navbar() {
             <motion.img
               key={`mobile-${logoTheme}`}
               src={SMALL_LOGO_BY_THEME[logoTheme]}
-              alt="DP Jewels Logo"
+              alt="D.P. Jewels diamond sourcing logo"
               fetchPriority="high"
               decoding="async"
               initial={{ opacity: 0.4 }}
@@ -134,7 +134,7 @@ export default function Navbar() {
             <motion.img
               key={logoTheme}
               src={SMALL_LOGO_BY_THEME[logoTheme]}
-              alt="DP Jewels Logo"
+              alt="D.P. Jewels diamond sourcing logo"
               fetchPriority="high"
               decoding="async"
               initial={{ opacity: 0.4 }}
@@ -158,7 +158,7 @@ export default function Navbar() {
       >
         <img
           src={FULL_HERO_LOGO_SRC}
-          alt="DP Jewels Logo"
+          alt="D.P. Jewels diamond sourcing logo"
           fetchPriority="high"
           decoding="async"
           className="w-[136px] object-contain sm:w-[142px] md:w-[166px] lg:w-[188px]"

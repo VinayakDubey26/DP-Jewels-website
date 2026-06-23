@@ -2,16 +2,16 @@
 @import "tailwindcss";
 
 :root {
-  --bg-main: #f6f1e8;
-  --bg-section: #faf7f2;
-  --bg-soft: #f3eee6;
+  --bg-main: #faf8f5;
+  --bg-section: #f7f4f0;
+  --bg-soft: #f2eee8;
   --panel-bg: #ffffff;
   --panel-border: #d6dee8;
   --text-main: #111827;
   --text-muted: #475569;
   --accent-soft: #1e293b;
   --accent-line: #cbd5e1;
-  --surface-nav: rgba(250, 247, 242, 0.88);
+  --surface-nav: rgba(250, 248, 245, 0.88);
   --ease-cinematic: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-luxury: cubic-bezier(0.23, 1, 0.32, 1);
   --motion-fast: 420ms;
@@ -186,7 +186,7 @@ body::before {
   padding: 0.72rem 1.3rem;
   font-size: 0.82rem;
   letter-spacing: 0.08em;
-  background: linear-gradient(120deg, #ffffff, #f8f4ec);
+  background: linear-gradient(120deg, #ffffff, #faf8f5);
   color: #1e293b;
   position: relative;
   overflow: hidden;
