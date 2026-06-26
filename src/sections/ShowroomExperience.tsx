@@ -1,4 +1,4 @@
-﻿import { MessageCircle } from "lucide-react";
+import { MessageCircle } from "lucide-react";
 import { AnimatePresence, motion, useMotionValueEvent, useScroll, useSpring, useTransform } from "framer-motion";
 import { useEffect, useRef, useState, type MouseEvent } from "react";
 import gsap from "gsap";
@@ -700,7 +700,43 @@ Please share available options.`;
               </motion.p>
             </motion.article>
           )}
-          <motion.div className="mt-8 grid grid-cols-2 gap-4 md:mt-10 md:grid-cols-4 md:gap-5 lg:gap-6" variants={staggerContainer}>
+          {/* Mobile Metrics Carousel */}
+          <div className="flex md:hidden w-full overflow-x-auto snap-x snap-mandatory scroll-smooth no-scrollbar gap-4 px-[11vw] pb-6 mt-8" style={{ WebkitOverflowScrolling: "touch" }}>
+            {aboutMetrics.map((metric, idx) => {
+              let displayValue = "";
+              let displayLabel = "";
+              if (metric.value === "25+") {
+                displayValue = "25+ Years";
+                displayLabel = "Experience";
+              } else if (metric.value === "200,000+") {
+                displayValue = "200,000+ Carats";
+                displayLabel = "Sold";
+              } else if (metric.value === "10+") {
+                displayValue = "10+ Markets";
+                displayLabel = "Across India";
+              } else if (metric.value === "100%") {
+                displayValue = "100%";
+                displayLabel = "Export Focus";
+              }
+
+              return (
+                <article
+                  key={metric.label}
+                  className="w-[78vw] shrink-0 snap-center flex flex-col justify-between p-8 rounded-[1.5rem] bg-[#FCF9F5] border border-[#d8cebd]/40 shadow-[0_12px_28px_rgba(136,113,73,0.055)] h-[180px] relative overflow-hidden text-left"
+                >
+                  <div className="absolute top-0 left-0 w-2 h-full bg-[#C5A46D]" />
+                  <div>
+                    <span className="text-[10px] tracking-[0.2em] uppercase text-[#9B7540] font-bold">ESTABLISHED TRUST</span>
+                    <p className="font-serif text-[2.05rem] leading-[1.1] text-[#111827] mt-1.5 font-medium">{displayValue}</p>
+                  </div>
+                  <p className="text-[13px] font-medium tracking-[0.05em] text-[#3f4b5d]">{displayLabel}</p>
+                </article>
+              );
+            })}
+          </div>
+
+          {/* Desktop Metrics Grid */}
+          <motion.div className="mt-8 hidden md:grid grid-cols-2 gap-4 md:mt-10 md:grid-cols-4 md:gap-5 lg:gap-6" variants={staggerContainer}>
             {aboutMetrics.map((metric, idx) => (
               <motion.article
                 key={metric.label}
@@ -723,7 +759,7 @@ Please share available options.`;
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_14%_28%,rgba(206,218,238,0.07)_0%,rgba(206,218,238,0)_30%)]" />
         <div className="pointer-events-none absolute inset-0 hidden opacity-[0.1] [background-image:radial-gradient(rgba(255,255,255,0.26)_0.35px,transparent_0.35px)] [background-size:3px_3px] md:block" />
         <div className="mx-auto w-full max-w-[1320px] px-5 md:px-8">
-          <h2 className="mt-2 text-center font-serif text-[2.6rem] text-[#f7f2e8] md:mt-2 md:text-[3.75rem]">Diamond Shapes & Selections</h2>
+          <h2 className="mt-6 text-center font-serif text-[2.85rem] text-[#f7f2e8] md:mt-2 md:text-[3.75rem]">Diamond Shapes & Selections</h2>
 
           <div className="relative mt-[1.3rem] hidden h-[410px] overflow-hidden md:block">
             <button
@@ -860,7 +896,7 @@ Please share available options.`;
         </div>
       </motion.section>
 
-      <motion.section ref={presenceRef} data-theme="light" className="relative -mt-3 h-auto min-h-[90svh] bg-[linear-gradient(180deg,#FAF8F5_0%,#F7F4F0_46%,#F2EEE8_100%)] md:h-[340vh] md:min-h-0" {...sectionReveal}>
+      <motion.section ref={presenceRef} data-theme="light" className="relative -mt-3 h-auto min-h-[90svh] bg-[#FAF8F5] md:bg-[linear-gradient(180deg,#FAF8F5_0%,#F7F4F0_46%,#F2EEE8_100%)] md:h-[340vh] md:min-h-0" {...sectionReveal}>
         <div className="relative flex items-center overflow-visible py-0 md:sticky md:top-0 md:min-h-screen md:min-h-[100svh] md:py-0">
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_48%_48%,rgba(197,164,109,0.1)_0%,rgba(197,164,109,0.036)_32%,rgba(250,248,245,0)_68%)]" />
           <div className="pointer-events-none absolute inset-0 opacity-[0.035] [background-image:radial-gradient(rgba(70,58,42,0.38)_0.45px,transparent_0.45px)] [background-size:4px_4px]" />
@@ -1305,7 +1341,7 @@ Please share available options.`;
         ref={certRef}
         data-theme="light"
         style={{ y: isMobileView ? 0 : certDrift }}
-        className="relative -mt-1 overflow-hidden bg-[linear-gradient(180deg,#FAF8F5_0%,#F7F4F0_52%,#F1EDE7_100%)] py-[2.6rem] text-[#2c2a27] md:py-[3rem]"
+        className="relative -mt-1 overflow-hidden bg-[#FAF8F5] md:bg-[linear-gradient(180deg,#FAF8F5_0%,#F7F4F0_52%,#F1EDE7_100%)] py-[2.6rem] text-[#2c2a27] md:py-[3rem]"
         {...sectionReveal}
       >
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_14%_20%,rgba(255,255,255,0.56)_0%,rgba(255,255,255,0)_38%)]" />
@@ -1315,7 +1351,7 @@ Please share available options.`;
         <div className="relative mx-auto w-full max-w-[1320px] px-5 md:px-8">
           <div className="mx-auto w-full max-w-[70ch] text-center">
           <p className="text-[13px] tracking-[0.18em] text-[#4f473d] md:font-medium">INSTITUTIONAL CREDIBILITY</p>
-          <h2 className="mt-4 mx-auto max-w-[58ch] font-serif text-[2.45rem] leading-[1.06] text-[#342f29] md:text-[3.65rem]">
+          <h2 className="mt-6 mx-auto max-w-[58ch] font-serif text-[2.7rem] leading-[1.06] text-[#342f29] md:text-[3.65rem]">
             Recognized Across International Diamond Markets.
           </h2>
           <div className="mt-4 flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
@@ -1324,7 +1360,33 @@ Please share available options.`;
           </div>
 
           <div className="relative mt-6 md:mt-8">
-            <div className="mx-auto grid max-w-[1280px] grid-cols-2 gap-4 border-y border-[#d8cebd]/66 py-7 md:grid-cols-4 md:gap-6 md:py-9">
+            {/* Mobile Certifications Carousel */}
+            <div className="flex md:hidden w-full overflow-x-auto snap-x snap-mandatory scroll-smooth no-scrollbar gap-4 px-[11vw] pb-6 border-y border-[#d8cebd]/66 py-7" style={{ WebkitOverflowScrolling: "touch" }}>
+              {certifications.map((item, idx) => (
+                <motion.article
+                  key={item.code}
+                  className="w-[78vw] shrink-0 snap-center flex flex-col justify-between rounded-[1.5rem] border border-[#d8cebd]/62 bg-[linear-gradient(180deg,#FFFFFF_0%,#FAF8F5_100%)] p-6 text-center shadow-[0_12px_28px_rgba(136,113,73,0.06)] h-[220px]"
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{ duration: 0.58, delay: idx * 0.05, ease: SOFT_EASE }}
+                >
+                  <div className="flex flex-1 items-center justify-center">
+                    <img
+                      src={item.logo}
+                      alt={`${item.code} diamond certification logo`}
+                      className="h-[4.2rem] w-auto max-w-[85%] object-contain"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </div>
+                  <p className="mt-4 text-[13px] leading-[1.6] text-[#6e6356]">{item.description}</p>
+                </motion.article>
+              ))}
+            </div>
+
+            {/* Desktop Certifications Grid */}
+            <div className="mx-auto hidden md:grid max-w-[1280px] grid-cols-2 gap-4 border-y border-[#d8cebd]/66 py-7 md:grid-cols-4 md:gap-6 md:py-9">
               {certifications.map((item, idx) => (
               <motion.article
                 key={item.code}
@@ -1352,7 +1414,7 @@ Please share available options.`;
         </div>
       </motion.section>
 
-      <motion.section ref={whyRef} data-theme="light" className="relative -mt-1 overflow-visible bg-[linear-gradient(180deg,#FAF8F5_0%,#F7F4F0_52%,#F2EEE8_100%)] text-[#2f2a24] md:h-auto" {...sectionReveal}>
+      <motion.section ref={whyRef} data-theme="light" className="relative -mt-1 overflow-visible bg-[#FAF8F5] md:bg-[linear-gradient(180deg,#FAF8F5_0%,#F7F4F0_52%,#F2EEE8_100%)] text-[#2f2a24] md:h-auto" {...sectionReveal}>
         {isMobileView ? (
           <div className="relative mx-auto w-full max-w-[840px] px-5 py-12">
             <h2 className="text-center text-[13px] tracking-[0.14em] text-[#6f624f]">WHY CHOOSE D.P. JEWELS</h2>
@@ -1400,13 +1462,13 @@ Please share available options.`;
         id="diamond-enquiry"
         ref={diamondEnquiryRef}
         data-theme="light"
-        className="relative -mt-1 overflow-hidden bg-[linear-gradient(180deg,#FAF8F5_0%,#F7F4F0_56%,#F2EEE8_100%)] py-[2.8rem] md:py-[3.2rem]"
+        className="relative -mt-1 overflow-hidden bg-[#FAF8F5] md:bg-[linear-gradient(180deg,#FAF8F5_0%,#F7F4F0_56%,#F2EEE8_100%)] py-[2.8rem] md:py-[3.2rem]"
         {...sectionReveal}
       >
         <div className="relative mx-auto w-full max-w-[1320px] px-5 md:px-8">
           <div className="mx-auto w-full max-w-[720px] rounded-[18px] border border-[rgba(184,148,77,0.35)] bg-[#FFFFFF] p-5 text-[#07101f] shadow-[0_24px_60px_rgba(4,8,22,0.14)] md:p-7">
             <p className="text-[11px] tracking-[0.2em] text-[#b8944d] md:text-[12px]">DIAMOND ENQUIRY</p>
-            <h2 className="mt-2 font-serif text-[2rem] leading-[1.05] text-[#07101f] md:text-[2.35rem]">Share Your Requirements</h2>
+            <h2 className="mt-4 font-serif text-[2.2rem] leading-[1.05] text-[#07101f] md:text-[2.35rem]">Share Your Requirements</h2>
 
             <div className="mt-5 flex items-center gap-3 border-y border-[#d9c8a4]/70 py-3">
               <img

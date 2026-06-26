@@ -1,11 +1,18 @@
-﻿@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@400;500;600&display=swap");
 @import "tailwindcss";
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
 
 :root {
   --bg-main: #faf8f5;
   --bg-section: #f7f4f0;
   --bg-soft: #f2eee8;
-  --panel-bg: #ffffff;
   --panel-border: #d6dee8;
   --text-main: #111827;
   --text-muted: #475569;
@@ -295,9 +302,9 @@ a, button {
     display: block !important;
     opacity: 1 !important;
     visibility: visible !important;
-    font-size: clamp(38px, 10vw, 56px);
+    font-size: clamp(42px, 10vw, 56px);
     line-height: 1.05;
-    margin: 20px auto;
+    margin: 26px auto 20px;
     color: #111827;
     max-width: 14ch;
   }
