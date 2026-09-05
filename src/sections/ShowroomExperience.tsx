@@ -1302,34 +1302,33 @@ Please share available options.`;
             />
             <div className="pointer-events-none absolute inset-y-0 left-0 hidden w-[56%] bg-[linear-gradient(90deg,rgba(250,248,245,0.34)_0%,rgba(250,248,245,0.16)_56%,rgba(250,248,245,0)_100%)] md:block md:w-[52%]" />
 
-            <div className="relative z-[1] flex h-full items-end justify-center pb-20 md:items-center md:justify-start md:pb-0">
+            <div className="relative z-[1] flex min-h-[88vh] md:min-h-[96vh] items-start pt-24 pb-12 px-6 justify-start md:items-center md:pt-0 md:pb-0 md:px-0">
               <motion.article
-                className="max-w-[700px] px-5 text-center md:ml-36 md:px-10 md:text-left lg:ml-40"
+                className="max-w-[700px] text-left md:ml-36 lg:ml-40 relative"
                 initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.38 }}
                 transition={{ duration: 0.82, ease: EASE_SECONDARY }}
               >
-                <div className="mx-auto w-full max-w-[280px] md:mx-0 md:max-w-none">
-                <p className="text-[12px] font-medium tracking-[3px] text-[#9a7a36]">TRUST & LOCATION</p>
-                <h2 className="mt-4 font-serif text-[clamp(28px,5vw,38px)] leading-[1.08] font-medium text-[#1f2430] md:mt-7 md:max-w-[17ch] md:text-[3.35rem]">
-                  {isMobileView ? "Based at Bharat Diamond Bourse" : (
-                    <>
-                      Based at Bharat{" "}
-                      <br />
-                      Diamond Bourse
-                    </>
-                  )}
-                </h2>
-                <motion.p
-                  className="mt-4 max-w-[280px] text-[16px] leading-[1.7] text-[#384250] mx-auto md:mt-9 md:mx-0 md:max-w-[40ch] md:text-[1.16rem]"
-                  initial={{ opacity: 0, y: 12 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.4 }}
-                  transition={{ duration: 0.82, delay: 0.1, ease: EASE_SECONDARY }}
-                >
-                  Operating from India&apos;s premier diamond trading hub.
-                </motion.p>
+                {/* Soft ivory veil readability overlay with blur and no card border */}
+                <div className="absolute -inset-10 -z-10 rounded-full bg-[#FAF8F5]/45 blur-[40px] pointer-events-none" />
+
+                <div className="w-full max-w-[320px] sm:max-w-[420px] md:max-w-[480px] text-left">
+                  <p className="text-[11px] font-semibold tracking-[3px] text-[#9B7540]/80">TRUST & LOCATION</p>
+                  <h2 className="mt-2.5 font-serif text-[1.85rem] leading-[1.15] text-[#1f2430] md:mt-3 md:text-[2.85rem]">
+                    Based at Bharat
+                    <br />
+                    Diamond Bourse
+                  </h2>
+                  <motion.p
+                    className="mt-3 text-[15px] leading-[1.65] text-[#384250] md:mt-4 md:text-[1.1rem]"
+                    initial={{ opacity: 0, y: 12 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.4 }}
+                    transition={{ duration: 0.82, delay: 0.1, ease: EASE_SECONDARY }}
+                  >
+                    Operating from India&apos;s premier diamond trading hub.
+                  </motion.p>
                 </div>
               </motion.article>
             </div>
