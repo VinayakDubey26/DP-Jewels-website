@@ -666,9 +666,9 @@ Please share available options.`;
         </div>
       </section>
 
-      <motion.section ref={aboutRef} id="about" data-theme="light" className="about-section relative -mt-2 bg-[#FAF8F5] py-[3.2rem] pt-[2rem] md:-mt-3 md:py-[3.4rem]" {...sectionReveal}>
+      <motion.section ref={aboutRef} id="about" data-theme="light" className="about-section relative -mt-2 bg-white py-[3.2rem] pt-[2rem] md:-mt-3 md:py-[3.4rem]" {...sectionReveal}>
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_14%,rgba(112,132,168,0.08)_0%,rgba(112,132,168,0)_36%)]" />
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_82%_88%,rgba(212,190,150,0.07)_0%,rgba(212,190,150,0)_32%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_82%_88%,rgba(148,163,184,0.07)_0%,rgba(148,163,184,0)_32%)]" />
         <div className="pointer-events-none absolute left-0 top-[22%] hidden h-px w-[16%] bg-[linear-gradient(90deg,rgba(148,163,184,0.4),transparent)] md:block" />
         <motion.div
           className="mx-auto w-full max-w-[1320px] px-5 text-center md:px-8"
@@ -722,7 +722,7 @@ Please share available options.`;
               return (
                 <article
                   key={metric.label}
-                  className="w-[78vw] shrink-0 snap-center flex flex-col justify-between p-8 rounded-[1.5rem] bg-[#FCF9F5] border border-[#d8cebd]/40 shadow-[0_12px_28px_rgba(136,113,73,0.055)] h-[180px] relative overflow-hidden text-left"
+                  className="w-[78vw] shrink-0 snap-center flex flex-col justify-between p-8 rounded-[1.5rem] bg-white border border-[#e2e8f0]/40 shadow-[0_12px_28px_rgba(15,23,42,0.055)] h-[180px] relative overflow-hidden text-left"
                 >
                   <div className="absolute top-0 left-0 w-2 h-full bg-[#C5A46D]" />
                   <div>
@@ -896,11 +896,11 @@ Please share available options.`;
         </div>
       </motion.section>
 
-      <motion.section ref={presenceRef} data-theme="light" className="relative -mt-3 h-auto min-h-[90svh] bg-[#FAF8F5] md:bg-[linear-gradient(180deg,#FAF8F5_0%,#F7F4F0_46%,#F2EEE8_100%)] md:h-[340vh] md:min-h-0" {...sectionReveal}>
+      <motion.section ref={presenceRef} data-theme="light" className="relative -mt-3 h-auto min-h-[90svh] bg-white md:bg-[linear-gradient(180deg,#FFFFFF_0%,#F8FAFC_46%,#EDF1F6_100%)] md:h-[340vh] md:min-h-0" {...sectionReveal}>
         <div className="relative flex items-center overflow-visible py-0 md:sticky md:top-0 md:min-h-screen md:min-h-[100svh] md:py-0">
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_48%_48%,rgba(197,164,109,0.1)_0%,rgba(197,164,109,0.036)_32%,rgba(250,248,245,0)_68%)]" />
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_48%_48%,rgba(148,163,184,0.1)_0%,rgba(148,163,184,0.036)_32%,rgba(255,255,255,0)_68%)]" />
           <div className="pointer-events-none absolute inset-0 opacity-[0.035] [background-image:radial-gradient(rgba(70,58,42,0.38)_0.45px,transparent_0.45px)] [background-size:4px_4px]" />
-          <div className="pointer-events-none absolute right-0 top-[18%] hidden h-px w-[14%] bg-[linear-gradient(270deg,rgba(197,164,109,0.38),transparent)] md:block" />
+          <div className="pointer-events-none absolute right-0 top-[18%] hidden h-px w-[14%] bg-[linear-gradient(270deg,rgba(148,163,184,0.38),transparent)] md:block" />
 
           {isMobileView ? (
             <div className="relative mx-auto w-full max-w-[430px] px-4 pt-14 pb-8">
@@ -972,7 +972,7 @@ Please share available options.`;
             <div className="order-2 mx-auto w-[96vw] max-w-[96vw] px-2 lg:order-1 md:w-full md:max-w-none md:px-3 lg:max-w-none">
               <motion.div className="relative h-[min(64svh,620px)] overflow-visible md:h-[min(98vh,1320px)] md:overflow-visible lg:h-[min(98vh,1320px)]" style={{ opacity: isMobileView ? 1 : exportMapOpacity }}>
                 <img src={indiaExportStory} alt="" aria-hidden className="sr-only" loading="lazy" decoding="async" />
-                <div className="pointer-events-none absolute left-1/2 top-1/2 h-[86%] w-[86%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(255,253,249,0.82)_0%,rgba(255,253,249,0.24)_50%,rgba(255,253,249,0)_80%)]" />
+                <div className="pointer-events-none absolute left-1/2 top-1/2 h-[86%] w-[86%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.82)_0%,rgba(255,255,255,0.24)_50%,rgba(255,255,255,0)_80%)]" />
                 <div className="pointer-events-none absolute inset-[4%] bg-[radial-gradient(circle_at_52%_52%,rgba(255,255,255,0.5)_0%,rgba(255,255,255,0.12)_56%,rgba(255,255,255,0)_100%)]" />
                 <motion.svg viewBox="-250 -10 1280 1055" preserveAspectRatio="xMidYMid meet" className="absolute left-1/2 top-1/2 h-[142%] w-[142%] -translate-x-1/2 -translate-y-1/2 md:left-0 md:top-0 md:h-full md:w-full md:translate-x-0 md:translate-y-0" role="img" aria-label="DP Jewels export network from Mumbai, India">
                 <defs>
@@ -1013,7 +1013,7 @@ Please share available options.`;
 
                   <motion.g style={{ opacity: isMobileView ? 1 : exportHubOpacity }}>
                     <motion.circle cx={exportNodes.mumbai.x} cy={exportNodes.mumbai.y} r={isMobileView ? 26 : 25} fill="#C5A46D" opacity="0.18" filter={isMobileView ? undefined : "url(#exportHubGlow)"} animate={isMobileView ? { scale: [1, 1.08, 1], opacity: [0.16, 0.23, 0.16] } : { scale: [1, 1.2, 1], opacity: [0.18, 0.3, 0.18] }} transition={{ duration: isMobileView ? 4.2 : 5.6, repeat: Number.POSITIVE_INFINITY, ease: EASE_SECONDARY }} />
-                    {isMobileView && <motion.circle cx={exportNodes.mumbai.x} cy={exportNodes.mumbai.y} r={18.8} fill="none" stroke="rgba(197,164,109,0.55)" strokeWidth={1.4} animate={{ scale: [1, 1.38], opacity: [0.48, 0.06] }} transition={{ duration: 4.6, repeat: Number.POSITIVE_INFINITY, ease: EASE_PRIMARY }} />}
+                    {isMobileView && <motion.circle cx={exportNodes.mumbai.x} cy={exportNodes.mumbai.y} r={18.8} fill="none" stroke="rgba(148,163,184,0.55)" strokeWidth={1.4} animate={{ scale: [1, 1.38], opacity: [0.48, 0.06] }} transition={{ duration: 4.6, repeat: Number.POSITIVE_INFINITY, ease: EASE_PRIMARY }} />}
                     {!isMobileView && <motion.circle cx={exportNodes.mumbai.x} cy={exportNodes.mumbai.y} r={19.4} fill="none" stroke="#C5A46D" strokeWidth={2.3} opacity="0.68" animate={{ scale: [1, 1.42], opacity: [0.56, 0.12] }} transition={{ duration: 5, repeat: Number.POSITIVE_INFINITY, ease: EASE_PRIMARY }} />}
                     <circle cx={exportNodes.mumbai.x} cy={exportNodes.mumbai.y} r={isMobileView ? 9.8 : 9.4} fill="#c4a166" filter={isMobileView ? undefined : "url(#exportHubGlow)"} />
                     <text x={exportNodes.mumbai.labelX} y={exportNodes.mumbai.labelY} textAnchor="start" fontSize={isMobileView ? 24 : 27} fontWeight={isMobileView ? 580 : 610} letterSpacing="0.032em" fill="#5b4f3f">
@@ -1046,7 +1046,7 @@ Please share available options.`;
                         d={route.path}
                         pathLength="1"
                         fill="none"
-                        stroke={isMobileView ? "rgba(197,164,109,0.66)" : "rgba(197,164,109,0.74)"}
+                        stroke={isMobileView ? "rgba(148,163,184,0.66)" : "rgba(148,163,184,0.74)"}
                         strokeWidth={isMobileView ? 1.25 : 1.44}
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -1204,7 +1204,7 @@ Please share available options.`;
                             letterSpacing="0.018em"
                             fill="#5a4934"
                             paintOrder="stroke"
-                            stroke="rgba(255,253,249,0.66)"
+                            stroke="rgba(255,255,255,0.66)"
                             strokeWidth={0.84}
                             initial={false}
                             animate={{ opacity: isVisible ? 0.9 : 0, y: isVisible ? 0 : 6 }}
@@ -1222,7 +1222,7 @@ Please share available options.`;
                             letterSpacing="0.02em"
                             fill="#5a4934"
                             paintOrder="stroke"
-                            stroke="rgba(255,253,249,0.4)"
+                            stroke="rgba(255,255,255,0.4)"
                             strokeWidth={0.66}
                             initial={false}
                             animate={{ y: isVisible ? 0 : 8 }}
@@ -1282,7 +1282,7 @@ Please share available options.`;
         </div>
       </motion.section>
 
-      <motion.section ref={bdbRef} data-theme="light" style={{ y: isMobileView ? 0 : bdbDrift }} className="relative -mt-4 w-full overflow-hidden bg-[#FAF8F5] py-12 md:py-14" {...sectionReveal}>
+      <motion.section ref={bdbRef} data-theme="light" style={{ y: isMobileView ? 0 : bdbDrift }} className="relative -mt-4 w-full overflow-hidden bg-white py-12 md:py-14" {...sectionReveal}>
         <div className="relative mx-auto w-full max-w-[1660px] px-3 md:px-6">
           <motion.div
             className="relative min-h-[88vh] overflow-hidden md:min-h-[96vh]"
@@ -1300,7 +1300,7 @@ Please share available options.`;
               loading="lazy"
               decoding="async"
             />
-            <div className="pointer-events-none absolute inset-y-0 left-0 hidden w-[56%] bg-[linear-gradient(90deg,rgba(250,248,245,0.34)_0%,rgba(250,248,245,0.16)_56%,rgba(250,248,245,0)_100%)] md:block md:w-[52%]" />
+            <div className="pointer-events-none absolute inset-y-0 left-0 hidden w-[56%] bg-[linear-gradient(90deg,rgba(255,255,255,0.34)_0%,rgba(255,255,255,0.16)_56%,rgba(255,255,255,0)_100%)] md:block md:w-[52%]" />
 
             <div className="relative z-[1] flex min-h-[88vh] md:min-h-[96vh] items-start pt-24 pb-12 px-6 justify-start md:items-center md:pt-0 md:pb-0 md:px-0">
               <motion.article
@@ -1311,7 +1311,7 @@ Please share available options.`;
                 transition={{ duration: 0.82, ease: EASE_SECONDARY }}
               >
                 {/* Soft ivory veil readability overlay with blur and no card border */}
-                <div className="absolute -inset-10 -z-10 rounded-full bg-[#FAF8F5]/45 blur-[40px] pointer-events-none" />
+                <div className="absolute -inset-10 -z-10 rounded-full bg-white/45 blur-[40px] pointer-events-none" />
 
                 <div className="w-full max-w-[320px] sm:max-w-[420px] md:max-w-[480px] text-left">
                   <p className="text-[11px] font-semibold tracking-[3px] text-[#9B7540]/80">TRUST & LOCATION</p>
@@ -1340,11 +1340,11 @@ Please share available options.`;
         ref={certRef}
         data-theme="light"
         style={{ y: isMobileView ? 0 : certDrift }}
-        className="relative -mt-1 overflow-hidden bg-[#FAF8F5] md:bg-[linear-gradient(180deg,#FAF8F5_0%,#F7F4F0_52%,#F1EDE7_100%)] py-[2.6rem] text-[#2c2a27] md:py-[3rem]"
+        className="relative -mt-1 overflow-hidden bg-white md:bg-[linear-gradient(180deg,#FFFFFF_0%,#F8FAFC_52%,#EDF1F6_100%)] py-[2.6rem] text-[#2c2a27] md:py-[3rem]"
         {...sectionReveal}
       >
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_14%_20%,rgba(255,255,255,0.56)_0%,rgba(255,255,255,0)_38%)]" />
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_78%_76%,rgba(202,176,122,0.16)_0%,rgba(202,176,122,0)_36%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_78%_76%,rgba(148,163,184,0.16)_0%,rgba(148,163,184,0)_36%)]" />
         <div className="pointer-events-none absolute inset-0 opacity-[0.2] [background-image:radial-gradient(rgba(74,66,54,0.1)_0.42px,transparent_0.42px)] [background-size:2.8px_2.8px]" />
 
         <div className="relative mx-auto w-full max-w-[1320px] px-5 md:px-8">
@@ -1360,11 +1360,11 @@ Please share available options.`;
 
           <div className="relative mt-6 md:mt-8">
             {/* Mobile Certifications Carousel */}
-            <div className="flex md:hidden w-full overflow-x-auto snap-x snap-mandatory scroll-smooth no-scrollbar gap-4 px-[11vw] pb-6 border-y border-[#d8cebd]/66 py-7" style={{ WebkitOverflowScrolling: "touch" }}>
+            <div className="flex md:hidden w-full overflow-x-auto snap-x snap-mandatory scroll-smooth no-scrollbar gap-4 px-[11vw] pb-6 border-y border-[#e2e8f0]/66 py-7" style={{ WebkitOverflowScrolling: "touch" }}>
               {certifications.map((item, idx) => (
                 <motion.article
                   key={item.code}
-                  className="w-[78vw] shrink-0 snap-center flex flex-col justify-between rounded-[1.5rem] border border-[#d8cebd]/62 bg-[linear-gradient(180deg,#FFFFFF_0%,#FAF8F5_100%)] p-6 text-center shadow-[0_12px_28px_rgba(136,113,73,0.06)] h-[220px]"
+                  className="w-[78vw] shrink-0 snap-center flex flex-col justify-between rounded-[1.5rem] border border-[#e2e8f0]/62 bg-[linear-gradient(180deg,#FFFFFF_0%,#FFFFFF_100%)] p-6 text-center shadow-[0_12px_28px_rgba(15,23,42,0.06)] h-[220px]"
                   initial={{ opacity: 0, y: 16 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.3 }}
@@ -1385,11 +1385,11 @@ Please share available options.`;
             </div>
 
             {/* Desktop Certifications Grid */}
-            <div className="mx-auto hidden md:grid max-w-[1280px] grid-cols-2 gap-4 border-y border-[#d8cebd]/66 py-7 md:grid-cols-4 md:gap-6 md:py-9">
+            <div className="mx-auto hidden md:grid max-w-[1280px] grid-cols-2 gap-4 border-y border-[#e2e8f0]/66 py-7 md:grid-cols-4 md:gap-6 md:py-9">
               {certifications.map((item, idx) => (
               <motion.article
                 key={item.code}
-                className="group relative flex h-full flex-col rounded-[1.2rem] border border-[#d8cebd]/62 bg-[linear-gradient(180deg,rgba(255,255,255,0.88)_0%,rgba(250,248,245,0.66)_100%)] px-3 py-5 text-center shadow-[0_10px_24px_rgba(136,113,73,0.055)] transition-all duration-500 hover:scale-[1.045] hover:border-[#e3d2b3] hover:shadow-[0_14px_32px_rgba(136,113,73,0.1)] md:px-5 md:py-6"
+                className="group relative flex h-full flex-col rounded-[1.2rem] border border-[#e2e8f0]/62 bg-[linear-gradient(180deg,rgba(255,255,255,0.88)_0%,rgba(255,255,255,0.66)_100%)] px-3 py-5 text-center shadow-[0_10px_24px_rgba(15,23,42,0.055)] transition-all duration-500 hover:scale-[1.045] hover:border-[#e3d2b3] hover:shadow-[0_14px_32px_rgba(15,23,42,0.1)] md:px-5 md:py-6"
                 initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.3 }}
@@ -1413,7 +1413,7 @@ Please share available options.`;
         </div>
       </motion.section>
 
-      <motion.section ref={whyRef} data-theme="light" className="relative -mt-1 overflow-visible bg-[#FAF8F5] md:bg-[linear-gradient(180deg,#FAF8F5_0%,#F7F4F0_52%,#F2EEE8_100%)] text-[#2f2a24] md:h-auto" {...sectionReveal}>
+      <motion.section ref={whyRef} data-theme="light" className="relative -mt-1 overflow-visible bg-white md:bg-[linear-gradient(180deg,#FFFFFF_0%,#F8FAFC_52%,#EDF1F6_100%)] text-[#2f2a24] md:h-auto" {...sectionReveal}>
         {isMobileView ? (
           <div className="relative mx-auto w-full max-w-[840px] px-5 py-12">
             <h2 className="text-center text-[13px] tracking-[0.14em] text-[#6f624f]">WHY CHOOSE D.P. JEWELS</h2>
@@ -1454,14 +1454,14 @@ Please share available options.`;
           </div>
         </div>
         )}
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-[linear-gradient(180deg,rgba(242,238,232,0)_0%,rgba(7,16,36,0.18)_100%)]" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-[linear-gradient(180deg,rgba(248,250,252,0)_0%,rgba(7,16,36,0.18)_100%)]" />
       </motion.section>
 
       <motion.section
         id="diamond-enquiry"
         ref={diamondEnquiryRef}
         data-theme="light"
-        className="relative -mt-1 overflow-hidden bg-[#FAF8F5] md:bg-[linear-gradient(180deg,#FAF8F5_0%,#F7F4F0_56%,#F2EEE8_100%)] py-[2.8rem] md:py-[3.2rem]"
+        className="relative -mt-1 overflow-hidden bg-white md:bg-[linear-gradient(180deg,#FFFFFF_0%,#F8FAFC_56%,#EDF1F6_100%)] py-[2.8rem] md:py-[3.2rem]"
         {...sectionReveal}
       >
         <div className="relative mx-auto w-full max-w-[1320px] px-5 md:px-8">
@@ -1469,7 +1469,7 @@ Please share available options.`;
             <p className="text-[11px] tracking-[0.2em] text-[#b8944d] md:text-[12px]">DIAMOND ENQUIRY</p>
             <h2 className="mt-4 font-serif text-[2.2rem] leading-[1.05] text-[#07101f] md:text-[2.35rem]">Share Your Requirements</h2>
 
-            <div className="mt-5 flex items-center gap-3 border-y border-[#d9c8a4]/70 py-3">
+            <div className="mt-5 flex items-center gap-3 border-y border-[#cbd5e1]/70 py-3">
               <img
                 src={selectedEnquiryDiamond.image}
                 alt={`${selectedEnquiryDiamond.name} natural loose diamond enquiry preview`}
@@ -1486,7 +1486,7 @@ Please share available options.`;
             <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2">
               <label className="text-[12px] font-medium tracking-[0.08em] text-[#3b4656]">
                 Diamond Shape
-                <select value={enquiryForm.shape} onChange={(e) => handleEnquiryFormChange("shape", e.target.value)} className="mt-2 w-full rounded-md border border-[#d2c5ad] bg-white px-3 py-2 text-[14px] text-[#1f2937] focus:border-[#b8944d] focus:outline-none">
+                <select value={enquiryForm.shape} onChange={(e) => handleEnquiryFormChange("shape", e.target.value)} className="mt-2 w-full rounded-md border border-[#cbd5e1] bg-white px-3 py-2 text-[14px] text-[#1f2937] focus:border-[#b8944d] focus:outline-none">
                   {diamondItems.map((item) => (
                     <option key={`shape-option-${item.name}`} value={item.name}>
                       {item.name}
@@ -1496,7 +1496,7 @@ Please share available options.`;
               </label>
               <label className="text-[12px] font-medium tracking-[0.08em] text-[#3b4656]">
                 Diamond Type
-                <select value={enquiryForm.diamondType} onChange={(e) => handleEnquiryFormChange("diamondType", e.target.value)} className="mt-2 w-full rounded-md border border-[#d2c5ad] bg-white px-3 py-2 text-[14px] text-[#1f2937] focus:border-[#b8944d] focus:outline-none">
+                <select value={enquiryForm.diamondType} onChange={(e) => handleEnquiryFormChange("diamondType", e.target.value)} className="mt-2 w-full rounded-md border border-[#cbd5e1] bg-white px-3 py-2 text-[14px] text-[#1f2937] focus:border-[#b8944d] focus:outline-none">
                   <option>Natural Diamond</option>
                   <option>Lab Grown Diamond</option>
                   <option>Any</option>
@@ -1504,7 +1504,7 @@ Please share available options.`;
               </label>
               <label className="text-[12px] font-medium tracking-[0.08em] text-[#3b4656]">
                 Carat
-                <select value={enquiryForm.carat} onChange={(e) => handleEnquiryFormChange("carat", e.target.value)} className="mt-2 w-full rounded-md border border-[#d2c5ad] bg-white px-3 py-2 text-[14px] text-[#1f2937] focus:border-[#b8944d] focus:outline-none">
+                <select value={enquiryForm.carat} onChange={(e) => handleEnquiryFormChange("carat", e.target.value)} className="mt-2 w-full rounded-md border border-[#cbd5e1] bg-white px-3 py-2 text-[14px] text-[#1f2937] focus:border-[#b8944d] focus:outline-none">
                   <option>Below 1 ct</option>
                   <option>1–2 ct</option>
                   <option>2–3 ct</option>
@@ -1513,7 +1513,7 @@ Please share available options.`;
               </label>
               <label className="text-[12px] font-medium tracking-[0.08em] text-[#3b4656]">
                 Color
-                <select value={enquiryForm.color} onChange={(e) => handleEnquiryFormChange("color", e.target.value)} className="mt-2 w-full rounded-md border border-[#d2c5ad] bg-white px-3 py-2 text-[14px] text-[#1f2937] focus:border-[#b8944d] focus:outline-none">
+                <select value={enquiryForm.color} onChange={(e) => handleEnquiryFormChange("color", e.target.value)} className="mt-2 w-full rounded-md border border-[#cbd5e1] bg-white px-3 py-2 text-[14px] text-[#1f2937] focus:border-[#b8944d] focus:outline-none">
                   <option>D–F</option>
                   <option>G–H</option>
                   <option>I+</option>
@@ -1522,7 +1522,7 @@ Please share available options.`;
               </label>
               <label className="text-[12px] font-medium tracking-[0.08em] text-[#3b4656]">
                 Clarity
-                <select value={enquiryForm.clarity} onChange={(e) => handleEnquiryFormChange("clarity", e.target.value)} className="mt-2 w-full rounded-md border border-[#d2c5ad] bg-white px-3 py-2 text-[14px] text-[#1f2937] focus:border-[#b8944d] focus:outline-none">
+                <select value={enquiryForm.clarity} onChange={(e) => handleEnquiryFormChange("clarity", e.target.value)} className="mt-2 w-full rounded-md border border-[#cbd5e1] bg-white px-3 py-2 text-[14px] text-[#1f2937] focus:border-[#b8944d] focus:outline-none">
                   <option>IF/VVS</option>
                   <option>VS</option>
                   <option>SI</option>
@@ -1531,7 +1531,7 @@ Please share available options.`;
               </label>
               <label className="text-[12px] font-medium tracking-[0.08em] text-[#3b4656]">
                 Certificate
-                <select value={enquiryForm.certificate} onChange={(e) => handleEnquiryFormChange("certificate", e.target.value)} className="mt-2 w-full rounded-md border border-[#d2c5ad] bg-white px-3 py-2 text-[14px] text-[#1f2937] focus:border-[#b8944d] focus:outline-none">
+                <select value={enquiryForm.certificate} onChange={(e) => handleEnquiryFormChange("certificate", e.target.value)} className="mt-2 w-full rounded-md border border-[#cbd5e1] bg-white px-3 py-2 text-[14px] text-[#1f2937] focus:border-[#b8944d] focus:outline-none">
                   <option>GIA</option>
                   <option>IGI</option>
                   <option>Any</option>
@@ -1539,7 +1539,7 @@ Please share available options.`;
               </label>
               <label className="text-[12px] font-medium tracking-[0.08em] text-[#3b4656] md:col-span-2">
                 Name
-                <input value={enquiryForm.name} onChange={(e) => handleEnquiryFormChange("name", e.target.value)} placeholder="Enter your name" className="mt-2 w-full rounded-md border border-[#d2c5ad] bg-white px-3 py-2 text-[14px] text-[#1f2937] focus:border-[#b8944d] focus:outline-none" />
+                <input value={enquiryForm.name} onChange={(e) => handleEnquiryFormChange("name", e.target.value)} placeholder="Enter your name" className="mt-2 w-full rounded-md border border-[#cbd5e1] bg-white px-3 py-2 text-[14px] text-[#1f2937] focus:border-[#b8944d] focus:outline-none" />
               </label>
             </div>
 
@@ -1549,7 +1549,7 @@ Please share available options.`;
                 e.preventDefault();
                 submitEnquiryToWhatsApp();
               }}
-              className="mt-6 w-full rounded-full border border-[#b8944d]/25 bg-[#07101f] px-5 py-3 text-[12px] font-medium tracking-[0.14em] text-[#FAF8F5] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#10203b] hover:text-[#f6ead2]"
+              className="mt-6 w-full rounded-full border border-[#b8944d]/25 bg-[#07101f] px-5 py-3 text-[12px] font-medium tracking-[0.14em] text-[#FFFFFF] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#10203b] hover:text-[#f6ead2]"
             >
               SEND ENQUIRY ON WHATSAPP
             </button>

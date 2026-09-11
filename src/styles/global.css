@@ -10,15 +10,15 @@
 }
 
 :root {
-  --bg-main: #faf8f5;
-  --bg-section: #f7f4f0;
-  --bg-soft: #f2eee8;
+  --bg-main: #ffffff;
+  --bg-section: #f8fafc;
+  --bg-soft: #eef2f7;
   --panel-border: #d6dee8;
   --text-main: #111827;
   --text-muted: #475569;
   --accent-soft: #1e293b;
   --accent-line: #cbd5e1;
-  --surface-nav: rgba(250, 248, 245, 0.88);
+  --surface-nav: rgba(255, 255, 255, 0.88);
   --ease-cinematic: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-luxury: cubic-bezier(0.23, 1, 0.32, 1);
   --motion-fast: 420ms;
@@ -27,7 +27,7 @@
   --ambient-motion: 24s;
   --hover-duration: 520ms;
   --hover-scale: 1.012;
-  --hover-glow: 0 10px 24px rgba(188, 158, 102, 0.16);
+  --hover-glow: 0 10px 24px rgba(148, 163, 184, 0.22);
 }
 
 html {
@@ -63,7 +63,7 @@ body::before {
   z-index: 0;
   opacity: 0.018;
   background-image:
-    radial-gradient(rgba(70, 58, 42, 0.28) 0.45px, transparent 0.45px),
+    radial-gradient(rgba(30, 41, 59, 0.28) 0.45px, transparent 0.45px),
     radial-gradient(rgba(255, 255, 255, 0.22) 0.45px, transparent 0.45px);
   background-size: 3px 3px, 4px 4px;
   background-position: 0 0, 1px 1px;
@@ -99,14 +99,14 @@ body::before {
 .atmospheric-shell::before {
   background:
     radial-gradient(circle at 18% 24%, rgba(255, 255, 255, 0.2), transparent 34%),
-    radial-gradient(circle at 80% 70%, rgba(196, 168, 110, 0.12), transparent 34%);
+    radial-gradient(circle at 80% 70%, rgba(148, 163, 184, 0.14), transparent 34%);
   animation: ambientDriftA calc(var(--ambient-motion) + 8s) ease-in-out infinite alternate;
 }
 
 .atmospheric-shell::after {
   background:
     radial-gradient(circle at 74% 18%, rgba(255, 255, 255, 0.1), transparent 30%),
-    radial-gradient(circle at 26% 84%, rgba(196, 168, 110, 0.1), transparent 32%);
+    radial-gradient(circle at 26% 84%, rgba(148, 163, 184, 0.12), transparent 32%);
   opacity: 0.13;
   animation: ambientDriftB calc(var(--ambient-motion) + 14s) ease-in-out infinite alternate;
 }
@@ -168,7 +168,7 @@ body::before {
 .premium-input-dark {
   background: rgba(248, 250, 252, 0.08);
   border-color: rgba(148, 163, 184, 0.45);
-  color: #f8f4ec;
+  color: #f8fafc;
 }
 
 .premium-input-dark:focus {
@@ -193,7 +193,7 @@ body::before {
   padding: 0.72rem 1.3rem;
   font-size: 0.82rem;
   letter-spacing: 0.08em;
-  background: linear-gradient(120deg, #ffffff, #faf8f5);
+  background: linear-gradient(120deg, #ffffff, #f8fafc);
   color: #1e293b;
   position: relative;
   overflow: hidden;
@@ -223,7 +223,7 @@ body::before {
   align-items: center;
   justify-content: center;
   z-index: 70;
-  color: #f8f4ec;
+  color: #f8fafc;
   background: #0f172a;
   border: 1px solid rgba(203, 213, 225, 0.5);
   box-shadow: 0 12px 30px rgba(15, 23, 42, 0.34);
@@ -364,7 +364,7 @@ a, button {
 
 .lux-hover-lift:hover {
   transform: translateY(-2px) scale(1.004);
-  box-shadow: 0 10px 20px rgba(188, 158, 102, 0.14);
+  box-shadow: 0 10px 20px rgba(148, 163, 184, 0.18);
 }
 
 .lux-arrow {
@@ -409,9 +409,9 @@ a, button {
   .atmospheric-shell::after { animation-duration: 36s; opacity: 0.08; }
   .atmospheric-shell::before { animation-duration: 36s; opacity: 0.09; }
   body::before { opacity: 0.02; }
-  .lux-hover-lift:hover { transform: translateY(-1px); box-shadow: 0 7px 14px rgba(188, 158, 102, 0.1); }
+  .lux-hover-lift:hover { transform: translateY(-1px); box-shadow: 0 7px 14px rgba(148, 163, 184, 0.16); }
   .lux-interactive:hover,
-  .lux-interactive:focus-visible { transform: translateY(-1px) scale(1.006); box-shadow: 0 7px 14px rgba(188, 158, 102, 0.12); }
+  .lux-interactive:focus-visible { transform: translateY(-1px) scale(1.006); box-shadow: 0 7px 14px rgba(148, 163, 184, 0.16); }
 }
 
 @media (prefers-reduced-motion: reduce) {
