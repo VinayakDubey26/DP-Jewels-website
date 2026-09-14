@@ -1461,40 +1461,46 @@ Please share available options.`;
         id="diamond-enquiry"
         ref={diamondEnquiryRef}
         data-theme="light"
-        className="relative overflow-hidden bg-white py-[3.4rem] md:py-[4.6rem]"
+        className="relative overflow-hidden bg-white py-[3.8rem] md:py-[5rem]"
         {...sectionReveal}
       >
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,rgba(148,163,184,0.22),transparent)]" />
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(148,163,184,0.07),transparent_52%)]" />
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,rgba(148,163,184,0.2),transparent)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(148,163,184,0.08),transparent_56%)]" />
+        <div className="pointer-events-none absolute inset-0 opacity-[0.03] [background-image:radial-gradient(rgba(15,23,42,0.45)_0.5px,transparent_0.5px)] [background-size:22px_22px]" />
         <div className="relative mx-auto w-full max-w-[1320px] px-5 md:px-8">
-          <div className="mx-auto w-full max-w-[780px]">
+          <div className="mx-auto w-full max-w-[1040px]">
             <div className="text-center">
-              <p className="text-[11px] tracking-[0.26em] text-[#8a7350]">DIAMOND ENQUIRY</p>
-              <h2 className="mt-3 font-serif text-[2.25rem] leading-[0.98] tracking-[-0.02em] text-[#0f172a] md:text-[2.85rem]">Share Your Requirements</h2>
-              <p className="mx-auto mt-3 max-w-[44ch] text-[14.5px] leading-[1.75] text-[#5a6577]">Tell us the cut, size and specs you need — we’ll curate matching stones from BDB within hours.</p>
+              <p className="text-[11px] tracking-[0.28em] text-[#8a7350]">DIAMOND ENQUIRY</p>
+              <h2 className="mt-3 font-serif text-[2.4rem] leading-[0.96] tracking-[-0.025em] text-[#0f172a] md:text-[3.05rem]">Share Your Requirements</h2>
+              <p className="mx-auto mt-4 max-w-[48ch] text-[15px] leading-[1.75] text-[#5a6577]">Tell us the cut, size and specs you need — we’ll curate matching stones from BDB within hours.</p>
+              <div className="mx-auto mt-6 h-px w-12 bg-[#C5A46D]/30" />
             </div>
 
-            <div className="mt-8 flex items-center gap-4 border-y border-[#eef2f7] bg-[#f8fafc]/70 px-4 py-4 md:px-5">
-              <div className="flex h-[64px] w-[64px] shrink-0 items-center justify-center rounded-2xl bg-white shadow-[0_2px_12px_rgba(15,23,42,0.06)] ring-1 ring-[#e2e8f0]">
+            <div className="mt-10 flex items-center gap-4 border-y border-[#eef2f7] bg-[#f8fafc]/70 px-5 py-5 md:px-6">
+              <div className="flex h-[68px] w-[68px] shrink-0 items-center justify-center rounded-2xl bg-white shadow-[0_2px_14px_rgba(15,23,42,0.07)] ring-1 ring-[#e2e8f0]">
                 <img
                   src={selectedEnquiryDiamond.image}
                   alt={`${selectedEnquiryDiamond.name} natural loose diamond enquiry preview`}
-                  className={`h-11 w-11 object-contain ${selectedEnquiryDiamond.normalizeClass}`}
+                  className={`h-12 w-12 object-contain ${selectedEnquiryDiamond.normalizeClass}`}
                   loading="eager"
                   decoding="async"
                 />
               </div>
               <div className="min-w-0 text-left">
                 <p className="text-[10px] tracking-[0.16em] text-[#9B7540]">SELECTED DIAMOND</p>
-                <p className="mt-1 font-serif text-[1.42rem] leading-none text-[#0f172a]">{selectedEnquiryDiamond.name}</p>
-                <p className="mt-1 text-[12px] leading-none text-[#64748b]">Specs below are editable — choose what you need</p>
+                <p className="mt-1 font-serif text-[1.5rem] leading-none text-[#0f172a]">{selectedEnquiryDiamond.name}</p>
+                <p className="mt-1.5 text-[13px] leading-none text-[#64748b]">Specs below are editable — choose what you need</p>
+              </div>
+              <div className="ml-auto hidden items-center gap-2 text-[11px] tracking-[0.08em] text-[#94a3b8] md:flex">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                BDB · Mumbai
               </div>
             </div>
 
-            <div className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-2">
-              <label className="text-left text-[11px] font-medium tracking-[0.1em] text-[#475569]">
+            <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-6">
+              <label className="text-left text-[11px] font-semibold tracking-[0.11em] text-[#475569]">
                 <span className="ml-1">Diamond Shape</span>
-                <select value={enquiryForm.shape} onChange={(e) => handleEnquiryFormChange("shape", e.target.value)} className="mt-2.5 w-full rounded-xl border border-[#e2e8f0] bg-[#f8fafc] px-3.5 py-3 text-[14px] font-normal tracking-normal text-[#1e293b] outline-none transition placeholder:text-[#94a3b8] focus:border-[#94a3b8] focus:bg-white focus:ring-4 focus:ring-[#e2e8f0]/60">
+                <select value={enquiryForm.shape} onChange={(e) => handleEnquiryFormChange("shape", e.target.value)} className="mt-3 w-full rounded-2xl border border-[#e2e8f0] bg-[#f8fafc] px-4 py-[15px] text-[15px] font-normal tracking-normal text-[#1e293b] shadow-[0_1px_2px_rgba(15,23,42,0.04)] outline-none transition placeholder:text-[#94a3b8] focus:border-[#94a3b8] focus:bg-white focus:ring-4 focus:ring-[#e2e8f0]/60">
                   {diamondItems.map((item) => (
                     <option key={`shape-option-${item.name}`} value={item.name}>
                       {item.name}
@@ -1502,52 +1508,52 @@ Please share available options.`;
                   ))}
                 </select>
               </label>
-              <label className="text-left text-[11px] font-medium tracking-[0.1em] text-[#475569]">
+              <label className="text-left text-[11px] font-semibold tracking-[0.11em] text-[#475569]">
                 <span className="ml-1">Diamond Type</span>
-                <select value={enquiryForm.diamondType} onChange={(e) => handleEnquiryFormChange("diamondType", e.target.value)} className="mt-2.5 w-full rounded-xl border border-[#e2e8f0] bg-[#f8fafc] px-3.5 py-3 text-[14px] font-normal tracking-normal text-[#1e293b] outline-none transition focus:border-[#94a3b8] focus:bg-white focus:ring-4 focus:ring-[#e2e8f0]/60">
+                <select value={enquiryForm.diamondType} onChange={(e) => handleEnquiryFormChange("diamondType", e.target.value)} className="mt-3 w-full rounded-2xl border border-[#e2e8f0] bg-[#f8fafc] px-4 py-[15px] text-[15px] font-normal tracking-normal text-[#1e293b] shadow-[0_1px_2px_rgba(15,23,42,0.04)] outline-none transition focus:border-[#94a3b8] focus:bg-white focus:ring-4 focus:ring-[#e2e8f0]/60">
                   <option>Natural Diamond</option>
                   <option>Lab Grown Diamond</option>
                   <option>Any</option>
                 </select>
               </label>
-              <label className="text-left text-[11px] font-medium tracking-[0.1em] text-[#475569]">
+              <label className="text-left text-[11px] font-semibold tracking-[0.11em] text-[#475569]">
                 <span className="ml-1">Carat</span>
-                <select value={enquiryForm.carat} onChange={(e) => handleEnquiryFormChange("carat", e.target.value)} className="mt-2.5 w-full rounded-xl border border-[#e2e8f0] bg-[#f8fafc] px-3.5 py-3 text-[14px] font-normal tracking-normal text-[#1e293b] outline-none transition focus:border-[#94a3b8] focus:bg-white focus:ring-4 focus:ring-[#e2e8f0]/60">
+                <select value={enquiryForm.carat} onChange={(e) => handleEnquiryFormChange("carat", e.target.value)} className="mt-3 w-full rounded-2xl border border-[#e2e8f0] bg-[#f8fafc] px-4 py-[15px] text-[15px] font-normal tracking-normal text-[#1e293b] shadow-[0_1px_2px_rgba(15,23,42,0.04)] outline-none transition focus:border-[#94a3b8] focus:bg-white focus:ring-4 focus:ring-[#e2e8f0]/60">
                   <option>Below 1 ct</option>
                   <option>1–2 ct</option>
                   <option>2–3 ct</option>
                   <option>3 ct+</option>
                 </select>
               </label>
-              <label className="text-left text-[11px] font-medium tracking-[0.1em] text-[#475569]">
+              <label className="text-left text-[11px] font-semibold tracking-[0.11em] text-[#475569]">
                 <span className="ml-1">Color</span>
-                <select value={enquiryForm.color} onChange={(e) => handleEnquiryFormChange("color", e.target.value)} className="mt-2.5 w-full rounded-xl border border-[#e2e8f0] bg-[#f8fafc] px-3.5 py-3 text-[14px] font-normal tracking-normal text-[#1e293b] outline-none transition focus:border-[#94a3b8] focus:bg-white focus:ring-4 focus:ring-[#e2e8f0]/60">
+                <select value={enquiryForm.color} onChange={(e) => handleEnquiryFormChange("color", e.target.value)} className="mt-3 w-full rounded-2xl border border-[#e2e8f0] bg-[#f8fafc] px-4 py-[15px] text-[15px] font-normal tracking-normal text-[#1e293b] shadow-[0_1px_2px_rgba(15,23,42,0.04)] outline-none transition focus:border-[#94a3b8] focus:bg-white focus:ring-4 focus:ring-[#e2e8f0]/60">
                   <option>D–F</option>
                   <option>G–H</option>
                   <option>I+</option>
                   <option>Any</option>
                 </select>
               </label>
-              <label className="text-left text-[11px] font-medium tracking-[0.1em] text-[#475569]">
+              <label className="text-left text-[11px] font-semibold tracking-[0.11em] text-[#475569]">
                 <span className="ml-1">Clarity</span>
-                <select value={enquiryForm.clarity} onChange={(e) => handleEnquiryFormChange("clarity", e.target.value)} className="mt-2.5 w-full rounded-xl border border-[#e2e8f0] bg-[#f8fafc] px-3.5 py-3 text-[14px] font-normal tracking-normal text-[#1e293b] outline-none transition focus:border-[#94a3b8] focus:bg-white focus:ring-4 focus:ring-[#e2e8f0]/60">
+                <select value={enquiryForm.clarity} onChange={(e) => handleEnquiryFormChange("clarity", e.target.value)} className="mt-3 w-full rounded-2xl border border-[#e2e8f0] bg-[#f8fafc] px-4 py-[15px] text-[15px] font-normal tracking-normal text-[#1e293b] shadow-[0_1px_2px_rgba(15,23,42,0.04)] outline-none transition focus:border-[#94a3b8] focus:bg-white focus:ring-4 focus:ring-[#e2e8f0]/60">
                   <option>IF/VVS</option>
                   <option>VS</option>
                   <option>SI</option>
                   <option>Any</option>
                 </select>
               </label>
-              <label className="text-left text-[11px] font-medium tracking-[0.1em] text-[#475569]">
+              <label className="text-left text-[11px] font-semibold tracking-[0.11em] text-[#475569]">
                 <span className="ml-1">Certificate</span>
-                <select value={enquiryForm.certificate} onChange={(e) => handleEnquiryFormChange("certificate", e.target.value)} className="mt-2.5 w-full rounded-xl border border-[#e2e8f0] bg-[#f8fafc] px-3.5 py-3 text-[14px] font-normal tracking-normal text-[#1e293b] outline-none transition focus:border-[#94a3b8] focus:bg-white focus:ring-4 focus:ring-[#e2e8f0]/60">
+                <select value={enquiryForm.certificate} onChange={(e) => handleEnquiryFormChange("certificate", e.target.value)} className="mt-3 w-full rounded-2xl border border-[#e2e8f0] bg-[#f8fafc] px-4 py-[15px] text-[15px] font-normal tracking-normal text-[#1e293b] shadow-[0_1px_2px_rgba(15,23,42,0.04)] outline-none transition focus:border-[#94a3b8] focus:bg-white focus:ring-4 focus:ring-[#e2e8f0]/60">
                   <option>GIA</option>
                   <option>IGI</option>
                   <option>Any</option>
                 </select>
               </label>
-              <label className="text-left text-[11px] font-medium tracking-[0.1em] text-[#475569] md:col-span-2">
+              <label className="text-left text-[11px] font-semibold tracking-[0.11em] text-[#475569] md:col-span-2">
                 <span className="ml-1">Name</span>
-                <input value={enquiryForm.name} onChange={(e) => handleEnquiryFormChange("name", e.target.value)} placeholder="Your full name" className="mt-2.5 w-full rounded-xl border border-[#e2e8f0] bg-[#f8fafc] px-3.5 py-3 text-[14px] font-normal tracking-normal text-[#1e293b] outline-none transition placeholder:text-[#94a3b8] focus:border-[#94a3b8] focus:bg-white focus:ring-4 focus:ring-[#e2e8f0]/60" />
+                <input value={enquiryForm.name} onChange={(e) => handleEnquiryFormChange("name", e.target.value)} placeholder="Your full name" className="mt-3 w-full rounded-2xl border border-[#e2e8f0] bg-[#f8fafc] px-4 py-[15px] text-[15px] font-normal tracking-normal text-[#1e293b] shadow-[0_1px_2px_rgba(15,23,42,0.04)] outline-none transition placeholder:text-[#94a3b8] focus:border-[#94a3b8] focus:bg-white focus:ring-4 focus:ring-[#e2e8f0]/60" />
               </label>
             </div>
 
@@ -1557,11 +1563,11 @@ Please share available options.`;
                 e.preventDefault();
                 submitEnquiryToWhatsApp();
               }}
-              className="mt-8 w-full rounded-full bg-[#0f172a] px-6 py-[15px] text-[12px] font-semibold tracking-[0.14em] text-white shadow-[0_12px_28px_rgba(15,23,42,0.14)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#1a2a4a] hover:shadow-[0_16px_32px_rgba(15,23,42,0.18)] active:translate-y-0"
+              className="mt-10 w-full rounded-full bg-[#0f172a] px-6 py-[16px] text-[12.5px] font-semibold tracking-[0.14em] text-white shadow-[0_14px_30px_rgba(15,23,42,0.16)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#1a2a4a] hover:shadow-[0_18px_36px_rgba(15,23,42,0.2)] active:translate-y-0"
             >
               SEND ENQUIRY ON WHATSAPP
             </button>
-            <p className="mt-3 text-center text-[12px] leading-[1.6] text-[#94a3b8]">Replies within hours · No spam · Direct to our BDB desk</p>
+            <p className="mt-3.5 text-center text-[12px] leading-[1.6] text-[#94a3b8]">Replies within hours · No spam · Direct to our BDB desk</p>
           </div>
         </div>
       </motion.section>
